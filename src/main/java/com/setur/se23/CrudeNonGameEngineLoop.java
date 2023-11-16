@@ -90,7 +90,8 @@ public class CrudeNonGameEngineLoop extends AnimationTimer {
 
         // just manually rendering the bird
         // note: this should be abstract into a render component of sorts.
-        Renderer.getInstance().render(material, _xPos, _yPos);
+        
+        //Renderer.getInstance().render(material, _xPos, _yPos);
 
         Renderer.getInstance().swapBuffers();
     }
