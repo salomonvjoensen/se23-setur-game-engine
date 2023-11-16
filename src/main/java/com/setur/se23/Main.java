@@ -1,6 +1,7 @@
 package com.setur.se23;
 
 import com.setur.se23.dependency.render.canvas.CanvasRenderer;
+import com.setur.se23.engine.loop.FX_FrameUpdate;
 import com.setur.se23.engine.render.Renderer;
 import com.setur.se23.engine.render.common.ViewPort;
 import javafx.application.Application;
@@ -14,14 +15,17 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
 
-        stage.setWidth(800.0f);
-        stage.setHeight(800.0f);
-        stage.setTitle("Game Engine Boilerplate!");
+        Globals.mainStage = stage;
 
-        initializeRenderer(stage);
-        CrudeNonGameEngineLoop loop = new CrudeNonGameEngineLoop(stage);
+        Globals.mainStage.setWidth(800.0f);
+        Globals.mainStage.setHeight(800.0f);
+        Globals.mainStage.setTitle("Game Engine Boilerplate!");
+
+        initializeRenderer(Globals.mainStage);
+        FX_FrameUpdate loop = new FX_FrameUpdate();
         loop.start();
     }
+
 
     private void initializeRenderer(Stage stage) {
         var canvasRenderer = new CanvasRenderer(stage);
