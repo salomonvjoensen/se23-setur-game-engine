@@ -22,8 +22,8 @@ public class Main extends Application {
         Globals.mainStage.setTitle("Game Engine Boilerplate!");
 
         initializeRenderer(Globals.mainStage);
-        FX_FrameUpdate loop = new FX_FrameUpdate();
-        loop.start();
+        FX_FrameUpdate frameUpdate = new FX_FrameUpdate();
+        frameUpdate.start();
     }
 
 
