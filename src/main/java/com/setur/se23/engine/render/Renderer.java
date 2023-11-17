@@ -1,7 +1,5 @@
 package com.setur.se23.engine.render;
 
-import java.util.ArrayList;
-
 import com.setur.se23.engine.render.common.Texture2D;
 import com.setur.se23.engine.render.common.ViewPort;
 
@@ -42,11 +40,9 @@ public class Renderer {
         return instance;
     }
 
-    public void render(ArrayList<BufferItem> bufferItems) {
+    public void render(BufferItem bufferItem) {
 
-        for (BufferItem item : bufferItems) {
-            _pipeline.render(item.material(), item.x(), item.y());
-        }
+        _pipeline.render(bufferItem.material(), bufferItem.x(), bufferItem.y());
     }
 
     /**
