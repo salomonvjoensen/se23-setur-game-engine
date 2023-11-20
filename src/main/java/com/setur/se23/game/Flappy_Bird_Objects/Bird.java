@@ -8,20 +8,32 @@ import com.setur.se23.engine.render.common.Texture2D;
 
 public class Bird extends DynamicEntity {
 
-    public Bird(double xPos, double yPos, double speed) {
+    private double fallAccel = 1.25;
+    private double fallSpeed = 10;
+
+    public Bird(double xPos, double yPos) {
         super(new Material(
                     new Texture2D(Core.getResorcePath("sprites/flappy-bird.png"), 40, 30),
                     new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)), 
                 xPos, 
                 yPos, 
-                speed);
+                0);
+    }
+
+    public void setFallSpeed(double fallSpeed) {
+        this.fallSpeed = fallSpeed;
     }
 
     @Override
     public void update(double deltaTime) {
-        setXDir(1);
-        setX(getX() + getXDir() * getSpeed() * deltaTime);
-        setY(getY() + getYDir() * getSpeed() * deltaTime);
+        fallSpeed *= fallAccel;
+
+        if (fallSpeed > 1500) {
+            fallSpeed = 1200;
+        }
+
+        setYDir(getYDir() + fallSpeed * deltaTime);
+        setY(getY() + getYDir() * deltaTime);
     }
     
     
