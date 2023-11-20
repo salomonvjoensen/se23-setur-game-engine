@@ -14,6 +14,10 @@ public abstract class Entity {
         this.material = material;
         this.xPos = xPos;
         this.yPos = yPos;
+
+        BufferItem bufferItem = new BufferItem(material, xPos, yPos);
+
+        Renderer.getInstance().allocateTexture(bufferItem.material().texture());
     }
 
     public Material getMaterial() {
@@ -41,10 +45,7 @@ public abstract class Entity {
     }
 
     public void renderEntity() {
-
         BufferItem bufferItem = new BufferItem(material, xPos, yPos);
-
-        Renderer.getInstance().allocateTexture(bufferItem.material().texture());
         
         Renderer.getInstance().render(bufferItem);
     }
