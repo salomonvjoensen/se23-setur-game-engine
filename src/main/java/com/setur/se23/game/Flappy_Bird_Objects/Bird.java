@@ -28,7 +28,7 @@ public class Bird extends DynamicEntity {
     public void update(double deltaTime) {
         fallSpeed *= fallAccel;
 
-        if (fallSpeed > 1500) {
+        if (fallSpeed > 1200) {
             fallSpeed = 1200;
         }
 
