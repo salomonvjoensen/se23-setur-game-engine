@@ -6,23 +6,16 @@ import javafx.scene.input.KeyCode;
 
 public class Input {
 
-    public Input() {
+    public static void addInputs(Runnable jump) {
         Globals.mainStage.getScene().setOnKeyPressed(event -> {
             KeyCode code = event.getCode();
-            if (code == KeyCode.A) {
-                //_xDir = -1;
-                //_yDir = 0;
-            } else if (code == KeyCode.D) {
-                //_xDir = 1;
-                //_yDir = 0;
-            }
-
-            if (code == KeyCode.W) {
-                //_yDir = -1;
-                //_xDir = 0;
-            } else if (code == KeyCode.S) {
-                //_yDir = 1;
-                //_xDir = 0;
+            switch (code) {
+                case SPACE, W, UP:
+                    jump.run();
+                    break;
+            
+                default:
+                    break;
             }
         });
     }
