@@ -56,11 +56,11 @@ public abstract class Entity {
 
     public abstract void update(double deltaTime);
 
-    public double getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public double getHeight() {
+    public int getHeight() {
         return height;
     }
 }

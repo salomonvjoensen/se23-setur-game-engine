@@ -8,16 +8,26 @@ import com.setur.se23.engine.render.common.Texture2D;
 
 public class Pipe extends Entity {
 
-    private double speed = 90;
+    private double speed = 200;
 
-    public Pipe(double xPos, double yPos, int width, int height) {
-        super(new Material(
-                    new Texture2D(Core.getResorcePath("sprites/pipe-green.png"), width, height),
-                    new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)), 
+    public Pipe(double xPos, double yPos, int width, int height, boolean reverse) {
+        super(reverseMaterial(reverse, width, height), 
                 xPos,
                 yPos,
                 width,
                 height);
+    }
+
+    private static Material reverseMaterial(boolean reverse, int width, int height) {
+        if (reverse) {
+            return new Material(
+                new Texture2D(Core.getResorcePath("sprites/reverse-pipe-green.png"), width, height),
+                new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f));
+        } else {
+            return new Material(
+                new Texture2D(Core.getResorcePath("sprites/pipe-green.png"), width, height),
+                new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f));
+        }
     }
 
     @Override
