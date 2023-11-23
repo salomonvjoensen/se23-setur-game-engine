@@ -1,28 +1,28 @@
 package com.setur.se23.engine.input;
 
 import com.setur.se23.Globals;
+import com.setur.se23.game.GameEvents;
 
 import javafx.scene.input.KeyCode;
 
 public class Input {
 
-    public Input() {
+    private GameEvents events;
+
+    public Input(GameEvents events) {
+        this.events = events;
+    }
+
+    public void addInputs() {
         Globals.mainStage.getScene().setOnKeyPressed(event -> {
             KeyCode code = event.getCode();
-            if (code == KeyCode.A) {
-                //_xDir = -1;
-                //_yDir = 0;
-            } else if (code == KeyCode.D) {
-                //_xDir = 1;
-                //_yDir = 0;
-            }
-
-            if (code == KeyCode.W) {
-                //_yDir = -1;
-                //_xDir = 0;
-            } else if (code == KeyCode.S) {
-                //_yDir = 1;
-                //_xDir = 0;
+            switch (code) {
+                case SPACE, W, UP:
+                    events.event("Jump");
+                    break;
+            
+                default:
+                    break;
             }
         });
     }

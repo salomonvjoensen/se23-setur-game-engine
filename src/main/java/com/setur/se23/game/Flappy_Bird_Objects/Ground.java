@@ -6,19 +6,21 @@ import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.MaterialColour;
 import com.setur.se23.engine.render.common.Texture2D;
 
-public class Background extends Entity {
+public class Ground extends Entity {
 
-    public Background(double xPos, double yPos) {
+    public Ground(double xPos, double yPos, int width, int height) {
         super(new Material(
-                    new Texture2D(Core.getResorcePath("sprites/background-day.png"), 800, 800),
+                    new Texture2D(Core.getResorcePath("sprites/base.png"), width, height),
                     new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)), 
                 xPos, 
                 yPos,
-                800,
-                800);
+                width,
+                height);
     }
 
     @Override
-    public void update(double deltaTime) {}
+    public void update(double deltaTime) {
+        
+    }
     
 }
