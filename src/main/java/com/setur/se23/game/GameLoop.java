@@ -19,6 +19,8 @@ public class GameLoop {
     private Ground ground;
     private Bird player;
 
+    private Input inputSystem;
+
     public GameLoop() {
         background = new Background(0, 0);
         
@@ -31,17 +33,14 @@ public class GameLoop {
         pipes.add(new Pipe(1200, 450, 80, -270 * 2));
         pipes.add(new Pipe(1200, 650, 80, 270 * 2));
 
-        ground = new Ground(0, Core.getStageHeight() - 100);
+        ground = new Ground(0, Core.getStageHeight() - 100, (int) Core.getStageWidth(), 0);
         
-        player = new Bird(50, 50);
+        player = new Bird(50, 50, 50, 40);
 
-        addEventsToInputs();
-    }
+        inputSystem = new Input(new GameEvents(player));
 
-    private void addEventsToInputs() {
-        GameEvents events = new GameEvents();
+        inputSystem.addInputs();
 
-        Input.addInputs(() -> events.event("Jump", player));
     }
 
     public void update(double deltaTime) {
