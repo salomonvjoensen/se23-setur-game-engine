@@ -33,7 +33,7 @@ public class GameLoop {
         pipes.add(new Pipe(1200, 450, 80, -270 * 2));
         pipes.add(new Pipe(1200, 650, 80, 270 * 2));
 
-        ground = new Ground(0, Core.getStageHeight() - 100, (int) Core.getStageWidth(), 0);
+        ground = new Ground(0, Core.getStageHeight() - 100, (int) Core.getStageWidth(), 100);
         
         player = new Bird(50, 50, 50, 40);
 
