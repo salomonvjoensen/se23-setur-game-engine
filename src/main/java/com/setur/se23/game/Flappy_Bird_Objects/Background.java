@@ -13,7 +13,9 @@ public class Background extends Entity {
                     new Texture2D(Core.getResorcePath("sprites/background-day.png"), 800, 800),
                     new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)), 
                 xPos, 
-                yPos);
+                yPos,
+                800,
+                800);
     }
 
     @Override

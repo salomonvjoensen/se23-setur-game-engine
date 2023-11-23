@@ -8,12 +8,14 @@ import com.setur.se23.engine.render.common.Texture2D;
 
 public class Ground extends Entity {
 
-    public Ground(double xPos, double yPos) {
+    public Ground(double xPos, double yPos, int width, int height) {
         super(new Material(
-                    new Texture2D(Core.getResorcePath("sprites/base.png"), (int) Core.getStageWidth(), 100),
+                    new Texture2D(Core.getResorcePath("sprites/base.png"), width, height),
                     new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)), 
                 xPos, 
-                yPos);
+                yPos,
+                width,
+                height);
     }
 
     @Override

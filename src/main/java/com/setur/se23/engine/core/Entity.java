@@ -9,11 +9,15 @@ public abstract class Entity {
     private Material material;
     private double xPos;
     private double yPos;
+    private int width;
+    private int height;
     
-    public Entity(Material material, double xPos, double yPos) {
+    public Entity(Material material, double xPos, double yPos, int width, int height) {
         this.material = material;
         this.xPos = xPos;
         this.yPos = yPos;
+        this.width = width;
+        this.height = height;
 
         BufferItem bufferItem = new BufferItem(material, xPos, yPos);
 
@@ -51,4 +55,12 @@ public abstract class Entity {
     }
 
     public abstract void update(double deltaTime);
+
+    public double getWidth() {
+        return width;
+    }
+
+    public double getHeight() {
+        return height;
+    }
 }
