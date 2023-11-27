@@ -41,6 +41,14 @@ public class Bird extends Entity {
 
         velocityY += fallSpeed * deltaTime;
         setY(getY() + velocityY * deltaTime);
+
+        if (getY() < 0) {
+            setY(0);
+        }
+
+        if (getY() > 650) {
+            setY(650);
+        }
     }
     
     

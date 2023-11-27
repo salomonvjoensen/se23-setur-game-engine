@@ -1,7 +1,7 @@
 package com.setur.se23.engine.loop;
 
 import com.setur.se23.Globals;
-import com.setur.se23.game.GameLoop;
+import com.setur.se23.game.FlappyBird;
 
 import javafx.animation.AnimationTimer;
 
@@ -9,7 +9,7 @@ public class FX_FrameUpdate extends AnimationTimer {
 
     private long previousTime = 0;
 
-    private GameLoop loop = new GameLoop();
+    private FlappyBird game = new FlappyBird();
     
     @Override
     public void handle(long currentTime) {
@@ -22,7 +22,7 @@ public class FX_FrameUpdate extends AnimationTimer {
         double deltaTimeS = deltaTimeNs / 1_000_000_000.0;
 
         // Call your update method to update the game state based on deltaTime
-        loop.update(deltaTimeS);
+        game.update(deltaTimeS);
 
         previousTime = currentTime;
         Globals.currentTime = currentTime;

@@ -15,7 +15,7 @@ public class GameEvents {
     public void event(String event) {
         switch (event) {
             case "Jump":
-                if (0.5 < (Core.getCurrentTime() - previousTime) / 1_000_000_000.0) {
+                if (0.3 < (Core.getCurrentTime() - previousTime) / 1_000_000_000.0) {
                     player.setVelocityY(-200);
                     player.setFallSpeed(10);
                     previousTime = Core.getCurrentTime();

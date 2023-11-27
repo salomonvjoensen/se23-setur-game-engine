@@ -9,6 +9,7 @@ import com.setur.se23.engine.render.common.Texture2D;
 public class Pipe extends Entity {
 
     private double speed = 200;
+    private boolean reverse;
 
     public Pipe(double xPos, double yPos, int width, int height, boolean reverse) {
         super(reverseMaterial(reverse, width, height), 
@@ -16,6 +17,7 @@ public class Pipe extends Entity {
                 yPos,
                 width,
                 height);
+        this.reverse = reverse;
     }
 
     private static Material reverseMaterial(boolean reverse, int width, int height) {
@@ -33,6 +35,18 @@ public class Pipe extends Entity {
     @Override
     public void update(double deltaTime) {
         setX(getX() - 1 * speed * deltaTime);
+
+        if (getX() < -100) {
+            if (reverse) {
+            
+                setX(getX() + 1200);
+
+                setY(-500 + Core.randomInt(1, 9) * 50);
+            } else {
+                setX(getX() + 1200);
+
+                setY(Core.previousRandomInt * 50 + 250);
+            }
+        }
     }
-    
 }
