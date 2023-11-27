@@ -39,6 +39,7 @@ public class GameLoop {
         ground = new Ground(0, Core.getStageHeight() - 100, (int) Core.getStageWidth(), 100);
         
         player = new Bird(50, 50, 50, 40);
+        player.setAngle(90);
 
         inputSystem = new Input(new GameEvents(player));
 

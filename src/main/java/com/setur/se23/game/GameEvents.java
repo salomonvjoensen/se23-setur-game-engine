@@ -10,6 +10,7 @@ public class GameEvents {
 
     public GameEvents(Bird player) {
         this.player = player;
+        player.setAngle(90);
     }
     
     public void event(String event) {
@@ -19,6 +20,7 @@ public class GameEvents {
                     player.setVelocityY(-200);
                     player.setFallSpeed(10);
                     previousTime = Core.getCurrentTime();
+                    player.setAngle(player.getAngle() + 10);
                 }
                 break;
         

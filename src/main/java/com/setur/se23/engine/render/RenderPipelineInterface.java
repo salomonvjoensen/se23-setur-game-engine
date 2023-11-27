@@ -17,5 +17,5 @@ public interface RenderPipelineInterface {
 
     void swapBuffers();
 
-    void render(Material material, double x, double y);
+    void render(Material material, double x, double y, double angle);
 }

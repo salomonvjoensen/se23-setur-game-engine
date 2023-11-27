@@ -8,8 +8,10 @@ import com.setur.se23.engine.render.common.ViewPort;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -75,15 +77,26 @@ public class CanvasRenderer implements RenderPipelineInterface {
 
             Image img = _textureMap.get(texture.path());
 
+            context.save();
+
+            rotate(context, item.angle(), item.x() + texture.width() / 2, item.y() + texture.height() / 2);
+
             context.drawImage(img, item.x(), item.y(), texture.width(), texture.height());
+
+            context.restore();
         }
 
         // clears the buffer to make it ready for the next render pass.
         _buffer.clear();
     }
 
+    private void rotate(GraphicsContext context, double angle, double pivotX, double pivotY) {
+        Rotate r = new Rotate(angle, pivotX, pivotY);
+        context.setTransform(r.getMxx(), r.getMyx(), r.getMxy(), r.getMyy(), r.getTx(), r.getTy());
+    }
+
     @Override
-    public void render(Material material, double x, double y) {
-        _buffer.add(new BufferItem(material, x, y));
+    public void render(Material material, double x, double y, double angle) {
+        _buffer.add(new BufferItem(material, x, y, angle));
     }
 }

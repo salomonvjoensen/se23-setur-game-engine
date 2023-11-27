@@ -11,6 +11,7 @@ public abstract class Entity {
     private double yPos;
     private int width;
     private int height;
+    private double angle = 0;
     
     public Entity(Material material, double xPos, double yPos, int width, int height) {
         this.material = material;
@@ -19,7 +20,7 @@ public abstract class Entity {
         this.width = width;
         this.height = height;
 
-        BufferItem bufferItem = new BufferItem(material, xPos, yPos);
+        BufferItem bufferItem = new BufferItem(material, xPos, yPos, angle);
 
         Renderer.getInstance().allocateTexture(bufferItem.material().texture());
     }
@@ -48,8 +49,16 @@ public abstract class Entity {
         this.yPos = yPos;
     }
 
+    public double getAngle() {
+        return angle;
+    }
+
+    public void setAngle(double angle) {
+        this.angle = angle;
+    }
+
     public void renderEntity() {
-        BufferItem bufferItem = new BufferItem(material, xPos, yPos);
+        BufferItem bufferItem = new BufferItem(material, xPos, yPos, angle);
         
         Renderer.getInstance().render(bufferItem);
     }
