@@ -3,10 +3,14 @@ package com.setur.se23.engine.core;
 import java.util.Random;
 
 import com.setur.se23.Globals;
+import com.setur.se23.engine.debug.Debug;
+import com.setur.se23.engine.debug.VS_Debug;
 
 import javafx.stage.Stage;
 
 public class Core {
+
+    public static Debug debug = new VS_Debug();
 
     public static Random random = new Random();
     

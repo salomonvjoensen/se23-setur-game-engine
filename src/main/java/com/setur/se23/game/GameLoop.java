@@ -2,7 +2,7 @@ package com.setur.se23.game;
 
 import java.util.ArrayList;
 
-import com.setur.se23.engine.CollisionDetection.CollisionDetection;
+import com.setur.se23.engine.Collision.CollisionDetection;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.input.Input;
@@ -48,7 +48,7 @@ public class GameLoop {
 
     public void update(double deltaTime) {
 
-        loopPipes(deltaTime);
+        updatePipes(deltaTime);
 
         player.update(deltaTime);
 
@@ -59,13 +59,15 @@ public class GameLoop {
         }
 
         if (gameOver) {
-            System.out.println(gameOver);
+            //Core.debug.warning("Game over");
         }
 
         render();
+
+        Core.debug.checkFPS();
     }
 
-    private void loopPipes(double deltaTime) {
+    private void updatePipes(double deltaTime) {
         int random = 0;
 
         for (Entity pipe : pipes) {
