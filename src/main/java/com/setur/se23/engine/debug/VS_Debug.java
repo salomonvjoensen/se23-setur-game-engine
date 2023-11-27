@@ -27,7 +27,7 @@ public class VS_Debug extends Debug {
         FPS += 1;
 
         if (1 <= (Core.getCurrentTime() - previousTime) / 1_000_000_000) {
-            clearConsole();
+            //clearConsole();
 
             info("FPS:" + FPS);
 

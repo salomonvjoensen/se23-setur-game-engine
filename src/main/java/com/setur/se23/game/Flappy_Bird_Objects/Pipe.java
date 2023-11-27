@@ -1,12 +1,13 @@
 package com.setur.se23.game.Flappy_Bird_Objects;
 
+import com.setur.se23.engine.Collision.Collidable;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.MaterialColour;
 import com.setur.se23.engine.render.common.Texture2D;
 
-public class Pipe extends Entity {
+public class Pipe extends Entity implements Collidable {
 
     private double speed = 200;
     private boolean reverse;
@@ -48,5 +49,16 @@ public class Pipe extends Entity {
                 setY(Core.previousRandomInt * 50 + 250);
             }
         }
+    }
+
+    @Override
+    public void collide() {
+        Core.debug.info("pipe: collision");
+    }
+
+    @Override
+    public void collisionEvent() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'CollisionEvent'");
     }
 }
