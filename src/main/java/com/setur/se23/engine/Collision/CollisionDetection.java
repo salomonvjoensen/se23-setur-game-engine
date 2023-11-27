@@ -1,4 +1,4 @@
-package com.setur.se23.engine.CollisionDetection;
+package com.setur.se23.engine.Collision;
 
 import com.setur.se23.engine.core.Entity;
 
