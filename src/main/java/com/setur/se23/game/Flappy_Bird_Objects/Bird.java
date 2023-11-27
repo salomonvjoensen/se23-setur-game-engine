@@ -1,12 +1,13 @@
 package com.setur.se23.game.Flappy_Bird_Objects;
 
+import com.setur.se23.engine.Collision.Collidable;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.MaterialColour;
 import com.setur.se23.engine.render.common.Texture2D;
 
-public class Bird extends Entity {
+public class Bird extends Entity implements Collidable {
 
     private double fallAccel = 1.25;
     private double fallSpeed = 10;
@@ -49,6 +50,17 @@ public class Bird extends Entity {
         if (getY() > 650) {
             setY(650);
         }
+    }
+
+    @Override
+    public void collide() {
+        Core.debug.info("bird: collision");
+    }
+
+    @Override
+    public void collisionEvent() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'CollisionEvent'");
     }
     
     
