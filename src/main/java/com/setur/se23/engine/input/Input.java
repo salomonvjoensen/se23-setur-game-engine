@@ -20,6 +20,24 @@ public class Input {
                 case SPACE, W, UP:
                     events.event("Jump");
                     break;
+                case P:
+                    events.event("FPS_Counter");
+                    break;
+                case R:
+                    events.event("Restart");
+                    break;
+            
+                default:
+                    break;
+            }
+        });
+
+        Globals.mainStage.getScene().setOnKeyReleased(event -> {
+            KeyCode code = event.getCode();
+            switch (code) {
+                case SPACE, W, UP:
+                    events.event("Jump_Ready");
+                    break;
             
                 default:
                     break;

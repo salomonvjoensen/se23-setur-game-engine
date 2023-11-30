@@ -1,16 +1,12 @@
 package com.setur.se23.engine.debug;
 
-public class Debug {
+public abstract class Debug {
     
-    public static void warning(String string) {
-        System.out.println("\033[33m Warning: " + string + "\033[0m");
-    }
+    public abstract void warning(String string);
 
-    public static void error(String string) {
-        System.out.println("\033[31m Error: " + string + "\033[0m");
-    }
+    public abstract void error(String string);
 
-    public static void info(String string) {
-        System.out.println(" Info: " + string);
-    }
+    public abstract void info(String string);
+
+    public abstract void checkFPS();
 }

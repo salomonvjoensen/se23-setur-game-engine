@@ -3,15 +3,29 @@ package com.setur.se23.engine.core;
 import java.util.Random;
 
 import com.setur.se23.Globals;
+import com.setur.se23.engine.debug.Debug;
+import com.setur.se23.engine.debug.VS_Debug;
 
 import javafx.stage.Stage;
 
 public class Core {
 
+    public static Debug debug = new VS_Debug();
+
     public static Random random = new Random();
+
+    public static int previousRandomInt = 0;
+
+    public static double previousRandomDouble = 0;
+
+    public static boolean FPS_Counter;
     
     public static String getResorcePath(String resource) {
         return "file:src/main/resources/" + resource;
+    }
+
+    public static String getSprite(String sprite) {
+        return "file:src/main/resources/sprites/" + sprite;
     }
 
     public static double getStageWidth() {
@@ -39,7 +53,8 @@ public class Core {
      * @return a randomly chosen int between the origin and upperBound
      */
     public static int randomInt(int origin, int upperBound) {
-        return random.nextInt(origin, upperBound);
+        previousRandomInt = random.nextInt(origin, upperBound);
+        return previousRandomInt;
     }
 
     /**
@@ -51,6 +66,7 @@ public class Core {
      * @return a randomly chosen double between the origin and upperBound
      */
     public static double randomDouble(int origin, int upperBound) {
-        return random.nextDouble(origin, upperBound);
+        previousRandomDouble = random.nextDouble(origin, upperBound);
+        return previousRandomDouble;
     }
 }
