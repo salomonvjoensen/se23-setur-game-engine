@@ -6,14 +6,14 @@ import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.Texture2D;
 
 public abstract class Entity {
-    private Material material;
-    private double xPos;
-    private double yPos;
-    private int width;
-    private int height;
-    private double angle;
-    private double scaleX;
-    private double scaleY;
+    protected Material material;
+    protected double xPos;
+    protected double yPos;
+    protected int width;
+    protected int height;
+    protected double angle;
+    protected double scaleX;
+    protected double scaleY;
     
     public Entity(Material material, double xPos, double yPos, int width, int height, double angle, double scaleX, double scaleY) {
         this.material = material;
