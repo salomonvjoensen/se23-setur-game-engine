@@ -3,33 +3,36 @@ package com.setur.se23.game.Flappy_Bird_Objects;
 import com.setur.se23.engine.Collision.Collidable;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
+import com.setur.se23.engine.loop.Loop;
 import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.MaterialColour;
 import com.setur.se23.engine.render.common.Texture2D;
 
 public class Bird extends Entity implements Collidable {
 
+    private long previousTime = 0;
+
     private double fallAccel = 1.25;
     private double fallSpeed = 10;
 
     private double velocityY;
 
+    private boolean alive = true;
+    private boolean grounded = false;
+
     public Bird(double xPos, double yPos, int width, int height) {
         super(new Material(
-                    new Texture2D(Core.getResorcePath("sprites/flappy-bird.png"), width, height),
+                    new Texture2D(Core.getSprite("flappy-bird.png"), width, height),
                     new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)), 
-                xPos, 
-                yPos,
-                width,
-                height);
+                xPos, yPos, width, height, 0);
     }
 
-    public void setFallSpeed(double fallSpeed) {
-        this.fallSpeed = fallSpeed;
-    }
-
-    public void setVelocityY(double velocityY) {
-        this.velocityY = velocityY;
+    public void jump() {
+        if (alive && 0.3 < (Core.getCurrentTime() - previousTime) / 1_000_000_000.0) {
+            velocityY = -200;
+            fallSpeed = 10;
+            previousTime = Core.getCurrentTime();
+        }
     }
 
     @Override
@@ -47,21 +50,31 @@ public class Bird extends Entity implements Collidable {
             setY(0);
         }
 
-        if (getY() > 650) {
-            setY(650);
+        if (grounded) {
+            setY(660);
         }
     }
 
     @Override
-    public void collide() {
-        Core.debug.info("bird: collision");
+    public void collisionEvent(Entity collisionEntity) {
+
+        if (collisionEntity instanceof Pipe) {
+            alive = false;
+        }
+
+        if (collisionEntity instanceof Ground) {
+            alive = false;
+            grounded = true;
+
+            stopPipes();
+        }
     }
 
-    @Override
-    public void collisionEvent() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'CollisionEvent'");
+    private void stopPipes() {
+        for (Entity entity : Loop.entities) {
+            if (entity instanceof Pipe) {
+                ((Pipe) entity).speed = 0;
+            }
+        }
     }
-    
-    
 }

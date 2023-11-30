@@ -15,14 +15,10 @@ public class FlappyBird {
 
     private Input inputSystem;
 
-    private Loop gameLoop = new Loop();
+    public Loop gameLoop = new Loop();
 
     public FlappyBird() {
-        gameLoop.sendEntities(createFlappyBirdObjects(), true);
-    }
-
-    public void update(double deltaTimeS) {
-        gameLoop.update(deltaTimeS);
+        gameLoop.sendEntities(createFlappyBirdObjects());
     }
 
     private ArrayList<Entity> createFlappyBirdObjects() {

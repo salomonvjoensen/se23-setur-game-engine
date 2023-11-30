@@ -20,6 +20,9 @@ public class Input {
                 case SPACE, W, UP:
                     events.event("Jump");
                     break;
+                case P:
+                    events.event("FPS_Counter");
+                    break;
             
                 default:
                     break;

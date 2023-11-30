@@ -9,26 +9,23 @@ import com.setur.se23.engine.render.common.Texture2D;
 
 public class Pipe extends Entity implements Collidable {
 
-    private double speed = 200;
+    public double speed = 100;
     private boolean reverse;
 
     public Pipe(double xPos, double yPos, int width, int height, boolean reverse) {
         super(reverseMaterial(reverse, width, height), 
-                xPos,
-                yPos,
-                width,
-                height);
+            xPos, yPos, width, height, 0);
         this.reverse = reverse;
     }
 
     private static Material reverseMaterial(boolean reverse, int width, int height) {
         if (reverse) {
             return new Material(
-                new Texture2D(Core.getResorcePath("sprites/reverse-pipe-green.png"), width, height),
+                new Texture2D(Core.getSprite("reverse-pipe-green.png"), width, height),
                 new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f));
         } else {
             return new Material(
-                new Texture2D(Core.getResorcePath("sprites/pipe-green.png"), width, height),
+                new Texture2D(Core.getSprite("pipe-green.png"), width, height),
                 new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f));
         }
     }
@@ -52,13 +49,5 @@ public class Pipe extends Entity implements Collidable {
     }
 
     @Override
-    public void collide() {
-        Core.debug.info("pipe: collision");
-    }
-
-    @Override
-    public void collisionEvent() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'CollisionEvent'");
-    }
+    public void collisionEvent(Entity collisionEntity) {}
 }

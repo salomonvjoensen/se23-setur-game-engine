@@ -5,25 +5,25 @@ import com.setur.se23.game.Flappy_Bird_Objects.Bird;
 
 public class GameEvents {
 
-    private long previousTime = 0;
     private Bird player;
 
     public GameEvents(Bird player) {
         this.player = player;
-        player.setAngle(90);
+        //player.setAngle(90);
     }
     
     public void event(String event) {
         switch (event) {
             case "Jump":
-                if (0.3 < (Core.getCurrentTime() - previousTime) / 1_000_000_000.0) {
-                    player.setVelocityY(-200);
-                    player.setFallSpeed(10);
-                    previousTime = Core.getCurrentTime();
-                    player.setAngle(player.getAngle() + 10);
-                }
+                player.jump();
                 break;
-        
+            case "FPS_Counter":
+                if (Core.FPS_Counter) {
+                    Core.FPS_Counter = false;
+                } else {
+                    Core.FPS_Counter = true;
+                }
+                
             default:
                 break;
         }
