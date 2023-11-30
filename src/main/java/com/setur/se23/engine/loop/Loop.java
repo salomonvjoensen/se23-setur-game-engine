@@ -21,6 +21,8 @@ public class Loop extends FX_FrameUpdate {
 
     private void assignCollidebles() {
 
+        collidableEntities.clear();
+
         for (Entity entity : entities) {
             if (entity instanceof Collidable) {
                 collidableEntities.add(entity);

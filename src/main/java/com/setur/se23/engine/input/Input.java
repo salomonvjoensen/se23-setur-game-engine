@@ -23,6 +23,9 @@ public class Input {
                 case P:
                     events.event("FPS_Counter");
                     break;
+                case R:
+                    events.event("Restart");
+                    break;
             
                 default:
                     break;

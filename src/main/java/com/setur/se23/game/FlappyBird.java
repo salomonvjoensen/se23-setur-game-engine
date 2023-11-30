@@ -18,6 +18,10 @@ public class FlappyBird {
     public Loop gameLoop = new Loop();
 
     public FlappyBird() {
+        sendGameObjects();
+    }
+
+    private void sendGameObjects() {
         gameLoop.sendEntities(createFlappyBirdObjects());
     }
 
@@ -42,13 +46,17 @@ public class FlappyBird {
 
         createInputs(player);
 
+        player.jumpReady = true;
+        player.grounded = false;
+        player.alive = true;
+
         entities.add(player);
 
         return entities;
     }
 
     private void createInputs(Bird player) {
-        inputSystem = new Input(new GameEvents(player));
+        inputSystem = new Input(new GameEvents(player, () -> sendGameObjects()));
 
         inputSystem.addInputs();
     }

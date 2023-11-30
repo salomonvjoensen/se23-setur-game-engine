@@ -15,8 +15,8 @@ public class Bird extends Entity implements Collidable {
 
     private double velocityY;
 
-    private boolean alive = true;
-    private boolean grounded = false;
+    public boolean alive = true;
+    public boolean grounded = false;
     public boolean jumpReady = true;
 
     public Bird(double xPos, double yPos, int width, int height) {

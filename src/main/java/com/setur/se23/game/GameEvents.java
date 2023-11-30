@@ -6,11 +6,13 @@ import com.setur.se23.game.Flappy_Bird_Objects.Bird;
 public class GameEvents {
 
     private Bird player;
+    private Runnable restart;
 
-    public GameEvents(Bird player) {
+    public GameEvents(Bird player, Runnable restart) {
         this.player = player;
+        this.restart = restart;
     }
-    
+
     public void event(String event) {
         switch (event) {
             case "Jump":
@@ -25,6 +27,9 @@ public class GameEvents {
                 } else {
                     Core.FPS_Counter = true;
                 }
+            case "Restart":
+                restart.run();
+                break;
                 
             default:
                 break;
