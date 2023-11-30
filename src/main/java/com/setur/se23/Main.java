@@ -1,7 +1,6 @@
 package com.setur.se23;
 
 import com.setur.se23.dependency.render.canvas.CanvasRenderer;
-import com.setur.se23.engine.loop.FX_FrameUpdate;
 import com.setur.se23.engine.render.Renderer;
 import com.setur.se23.engine.render.common.ViewPort;
 import com.setur.se23.game.FlappyBird;
