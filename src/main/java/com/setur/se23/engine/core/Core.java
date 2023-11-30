@@ -17,9 +17,15 @@ public class Core {
     public static int previousRandomInt = 0;
 
     public static double previousRandomDouble = 0;
+
+    public static boolean FPS_Counter;
     
     public static String getResorcePath(String resource) {
         return "file:src/main/resources/" + resource;
+    }
+
+    public static String getSprite(String sprite) {
+        return "file:src/main/resources/sprites/" + sprite;
     }
 
     public static double getStageWidth() {

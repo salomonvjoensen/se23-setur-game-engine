@@ -8,17 +8,13 @@ import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.render.Renderer;
 
-public class Loop {
+public class Loop extends FX_FrameUpdate {
 
     public static ArrayList<Entity> entities = new ArrayList<Entity>();
+    public static ArrayList<Entity> collidableEntities = new ArrayList<Entity>();
 
-    public ArrayList<Entity> collidableEntities = new ArrayList<Entity>();
-
-    private boolean FPS;
-
-    public void sendEntities(ArrayList<Entity> entityList, boolean checkFPS) {
+    public void sendEntities(ArrayList<Entity> entityList) {
         entities = entityList;
-        this.FPS = checkFPS;
 
         assignCollidebles();
     }
@@ -39,18 +35,19 @@ public class Loop {
         }
 
 
-        for (Entity entity : collidableEntities) {
-            
-            
-            ((Collidable) entity).collide();
-            
-        }
+        for (Entity firstEntity : collidableEntities) {
 
+            for (Entity secondEntity : collidableEntities) {
+                if (firstEntity.equals(secondEntity) == false && CollisionDetection.checkForCollision(firstEntity, secondEntity)) {
+                    ((Collidable) firstEntity).collisionEvent(secondEntity);
+                }
+            }
+        }
 
 
         render();
 
-        if (FPS) {
+        if (Core.FPS_Counter) {
             Core.debug.checkFPS();
         }
     }
