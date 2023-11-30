@@ -23,7 +23,7 @@ public class Bird extends Entity implements Collidable {
         super(new Material(
                     new Texture2D(Core.getSprite("flappy-bird.png"), width, height),
                     new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)), 
-                xPos, yPos, width, height, 0);
+                xPos, yPos, width, height, 0, 1, 1);
     }
 
     public void jump() {

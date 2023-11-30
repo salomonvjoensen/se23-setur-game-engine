@@ -81,7 +81,7 @@ public class CanvasRenderer implements RenderPipelineInterface {
 
             rotate(context, item.angle(), item.x() + texture.width() / 2, item.y() + texture.height() / 2);
 
-            context.drawImage(img, item.x(), item.y(), texture.width(), texture.height());
+            context.drawImage(img, item.x(), item.y(), texture.width() * item.scaleX(), texture.height() * item.scaleY());
 
             context.restore();
         }
@@ -96,7 +96,7 @@ public class CanvasRenderer implements RenderPipelineInterface {
     }
 
     @Override
-    public void render(Material material, double x, double y, double angle) {
-        _buffer.add(new BufferItem(material, x, y, angle));
+    public void render(Material material, double x, double y, double angle, double scaleX, double scaleY) {
+        _buffer.add(new BufferItem(material, x, y, angle, scaleX, scaleY));
     }
 }

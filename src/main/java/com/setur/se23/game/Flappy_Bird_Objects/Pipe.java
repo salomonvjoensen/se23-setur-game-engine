@@ -12,9 +12,9 @@ public class Pipe extends Entity implements Collidable {
     public double speed = 75;
     private boolean reverse;
 
-    public Pipe(double xPos, double yPos, int width, int height, boolean reverse) {
+    public Pipe(double xPos, double yPos, int width, int height, double scaleX, double scaleY, boolean reverse) {
         super(reverseMaterial(reverse, width, height), 
-            xPos, yPos, width, height, 0);
+            xPos, yPos, width, height, 0, scaleX, scaleY);
         this.reverse = reverse;
     }
 

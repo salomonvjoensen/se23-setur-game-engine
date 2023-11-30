@@ -27,14 +27,14 @@ public class FlappyBird {
         
         entities.add(new Background(0, 0));
         
-        entities.add(new Pipe(300, -250, 80, 270 * 2, true));
-        entities.add(new Pipe(300, 500, 80, 270 * 2, false));
-        entities.add(new Pipe(600, -450, 80, 270 * 2, true));
-        entities.add(new Pipe(600, 300, 80, 270 * 2, false));
-        entities.add(new Pipe(900, -350, 80, 270 * 2, true));
-        entities.add(new Pipe(900, 400, 80, 270 * 2, false));
-        entities.add(new Pipe(1200, -100, 80, 270 * 2, true));
-        entities.add(new Pipe(1200, 650, 80, 270 * 2, false));
+        entities.add(new Pipe(300, -250, 52, 320, 1.5, 1.68, true));
+        entities.add(new Pipe(300, 500, 52, 320, 1.5, 1.68, false));
+        entities.add(new Pipe(600, -450, 52, 320, 1.5, 1.68, true));
+        entities.add(new Pipe(600, 300, 52, 320, 1.5, 1.68, false));
+        entities.add(new Pipe(900, -350, 52, 320, 1.5, 1.68, true));
+        entities.add(new Pipe(900, 400, 52, 320, 1.5, 1.68, false));
+        entities.add(new Pipe(1200, -100, 52, 320, 1.5, 1.68, true));
+        entities.add(new Pipe(1200, 650, 52, 320, 1.5, 1.68, false));
 
         entities.add(new Ground(0, Core.getStageHeight() - 100, (int) Core.getStageWidth(), 100));
         

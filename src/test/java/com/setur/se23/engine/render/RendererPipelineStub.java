@@ -22,7 +22,7 @@ public class RendererPipelineStub implements RenderPipelineInterface {
     }
 
     @Override
-    public void render(Material material, double x, double y, double angle) {
+    public void render(Material material, double x, double y, double angle, double scaleX, double scaleY) {
 
     }
 }

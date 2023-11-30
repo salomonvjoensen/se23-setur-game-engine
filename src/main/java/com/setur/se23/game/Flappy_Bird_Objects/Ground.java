@@ -13,7 +13,7 @@ public class Ground extends Entity implements Collidable {
         super(new Material(
                     new Texture2D(Core.getSprite("base.png"), width, height),
                     new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)), 
-                xPos, yPos, width, height, 0);
+                xPos, yPos, width, height, 0, 1, 1);
     }
 
     @Override

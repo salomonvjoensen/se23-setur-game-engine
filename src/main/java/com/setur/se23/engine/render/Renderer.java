@@ -42,7 +42,7 @@ public class Renderer {
 
     public void render(BufferItem bufferItem) {
 
-        _pipeline.render(bufferItem.material(), bufferItem.x(), bufferItem.y(), bufferItem.angle());
+        _pipeline.render(bufferItem.material(), bufferItem.x(), bufferItem.y(), bufferItem.angle(), bufferItem.scaleX(), bufferItem.scaleY());
     }
 
     /**
