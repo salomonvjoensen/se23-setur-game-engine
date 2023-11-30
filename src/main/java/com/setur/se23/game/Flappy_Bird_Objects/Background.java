@@ -10,12 +10,9 @@ public class Background extends Entity {
 
     public Background(double xPos, double yPos) {
         super(new Material(
-                    new Texture2D(Core.getResorcePath("sprites/background-day.png"), 800, 800),
+                    new Texture2D(Core.getSprite("background-day.png"), 800, 800),
                     new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)), 
-                xPos, 
-                yPos,
-                800,
-                800);
+                xPos, yPos, 800, 800, 0);
     }
 
     @Override
