@@ -11,14 +11,15 @@ public abstract class Entity {
     private double yPos;
     private int width;
     private int height;
-    private double angle = 0;
+    private double angle;
     
-    public Entity(Material material, double xPos, double yPos, int width, int height) {
+    public Entity(Material material, double xPos, double yPos, int width, int height, double angle) {
         this.material = material;
         this.xPos = xPos;
         this.yPos = yPos;
         this.width = width;
         this.height = height;
+        this.angle = angle;
 
         BufferItem bufferItem = new BufferItem(material, xPos, yPos, angle);
 
