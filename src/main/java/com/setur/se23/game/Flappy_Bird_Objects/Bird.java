@@ -10,8 +10,6 @@ import com.setur.se23.engine.render.common.Texture2D;
 
 public class Bird extends Entity implements Collidable {
 
-    private long previousTime = 0;
-
     private double fallAccel = 1.25;
     private double fallSpeed = 10;
 
@@ -19,6 +17,7 @@ public class Bird extends Entity implements Collidable {
 
     private boolean alive = true;
     private boolean grounded = false;
+    public boolean jumpReady = true;
 
     public Bird(double xPos, double yPos, int width, int height) {
         super(new Material(
@@ -28,30 +27,34 @@ public class Bird extends Entity implements Collidable {
     }
 
     public void jump() {
-        if (alive && 0.3 < (Core.getCurrentTime() - previousTime) / 1_000_000_000.0) {
+        if (alive && jumpReady) {
             velocityY = -200;
             fallSpeed = 10;
-            previousTime = Core.getCurrentTime();
+            jumpReady = false;
         }
     }
 
     @Override
     public void update(double deltaTime) {
-        fallSpeed *= fallAccel;
-
-        if (fallSpeed > 1200) {
-            fallSpeed = 1200;
-        }
-
-        velocityY += fallSpeed * deltaTime;
-        setY(getY() + velocityY * deltaTime);
-
-        if (getY() < 0) {
-            setY(0);
-        }
 
         if (grounded) {
             setY(660);
+        } else {
+
+            fallSpeed *= fallAccel;
+
+            if (fallSpeed > 1200) {
+                fallSpeed = 1200;
+            }
+
+            setAngle(velocityY / 20);
+
+            velocityY += fallSpeed * deltaTime;
+            setY(getY() + velocityY * deltaTime);
+
+            if (getY() < 0) {
+                setY(0);
+            }
         }
     }
 

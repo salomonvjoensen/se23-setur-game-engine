@@ -28,5 +28,17 @@ public class Input {
                     break;
             }
         });
+
+        Globals.mainStage.getScene().setOnKeyReleased(event -> {
+            KeyCode code = event.getCode();
+            switch (code) {
+                case SPACE, W, UP:
+                    events.event("Jump_Ready");
+                    break;
+            
+                default:
+                    break;
+            }
+        });
     }
 }

@@ -9,13 +9,15 @@ public class GameEvents {
 
     public GameEvents(Bird player) {
         this.player = player;
-        //player.setAngle(90);
     }
     
     public void event(String event) {
         switch (event) {
             case "Jump":
                 player.jump();
+                break;
+            case "Jump_Ready":
+                player.jumpReady = true;
                 break;
             case "FPS_Counter":
                 if (Core.FPS_Counter) {
