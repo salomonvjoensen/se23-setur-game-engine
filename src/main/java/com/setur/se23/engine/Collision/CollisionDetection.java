@@ -44,7 +44,7 @@ public class CollisionDetection {
         double distance = Math.sqrt(Math.pow(a.getCenterX() - b.getCenterX(), 2) + 
                                     Math.pow(a.getCenterY() - b.getCenterY(), 2));
 
-        return distance < b.getColliderRadius() * 2;
+        return distance < a.getColliderRadius() + b.getColliderRadius();
     }
 
     private static boolean squareCircleCollide(SquareCollider a, CircleCollider b) {
