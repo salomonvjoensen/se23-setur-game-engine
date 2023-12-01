@@ -17,7 +17,7 @@ public class Bird extends Entity implements Collidable {
     private double velocityY;
 
     private boolean alive = true;
-    private boolean airborn = false;
+    private boolean airborn = true;
 
     public boolean jumpReady = true;
 
@@ -78,11 +78,6 @@ public class Bird extends Entity implements Collidable {
 
         if (collisionEntity instanceof Pipe) {
             alive = false;
-
-
-            airborn = false;
-
-            stopPipes();
         }
 
         if (collisionEntity instanceof Ground) {

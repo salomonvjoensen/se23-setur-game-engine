@@ -49,7 +49,7 @@ public class FlappyBird {
         createInputs(player, test);
 
         entities.add(player);
-        entities.add(test);
+        //entities.add(test);
 
         return entities;
     }
