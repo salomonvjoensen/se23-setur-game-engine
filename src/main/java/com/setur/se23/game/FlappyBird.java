@@ -46,10 +46,6 @@ public class FlappyBird {
 
         createInputs(player);
 
-        player.jumpReady = true;
-        player.grounded = false;
-        player.alive = true;
-
         entities.add(player);
 
         return entities;

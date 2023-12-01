@@ -27,6 +27,7 @@ public class GameEvents {
                 } else {
                     Core.FPS_Counter = true;
                 }
+                break;
             case "Restart":
                 restart.run();
                 break;
