@@ -35,4 +35,9 @@ public class VS_Debug extends Debug {
             previousTime = Core.getCurrentTime();
         }
     }
+
+    public void clearConsole() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
 }
