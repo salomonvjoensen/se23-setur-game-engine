@@ -19,7 +19,7 @@ public class Ground extends Entity implements Collidable {
                     new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)), 
                 xPos, yPos, width, height, 0, 1, 1);
 
-        setCollider(new SquareCollider(getWidth(), getHeight()));
+        setCollider(new SquareCollider(this, getWidth(), getHeight()));
     }
 
     @Override

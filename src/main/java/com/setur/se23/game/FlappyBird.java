@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
+import com.setur.se23.engine.debug.CollisionTestObject;
 import com.setur.se23.engine.input.Input;
 import com.setur.se23.engine.loop.Loop;
 import com.setur.se23.game.Flappy_Bird_Objects.Background;
@@ -43,16 +44,18 @@ public class FlappyBird {
         entities.add(new Ground(0, Core.getStageHeight() - 100, (int) Core.getStageWidth(), 100));
         
         Bird player = new Bird(50, 50, 50, 40);
+        CollisionTestObject test = new CollisionTestObject(50, 200, 50, 40);
 
-        createInputs(player);
+        createInputs(player, test);
 
         entities.add(player);
+        entities.add(test);
 
         return entities;
     }
 
-    private void createInputs(Bird player) {
-        inputSystem = new Input(new GameEvents(player, () -> sendGameObjects()));
+    private void createInputs(Bird player, CollisionTestObject test) {
+        inputSystem = new Input(new GameEvents(player, test, () -> sendGameObjects()));
 
         inputSystem.addInputs();
     }

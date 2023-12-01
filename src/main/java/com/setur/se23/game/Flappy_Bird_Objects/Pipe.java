@@ -11,7 +11,7 @@ import com.setur.se23.engine.render.common.Texture2D;
 
 public class Pipe extends Entity implements Collidable {
 
-    public double speed = 75;
+    public double speed = 0;
     private boolean reverse;
 
     public Collider collider;
@@ -24,7 +24,7 @@ public class Pipe extends Entity implements Collidable {
 
         this.reverse = reverse;
 
-        setCollider(new SquareCollider(getWidth(), getHeight()));
+        setCollider(new SquareCollider(this, getWidth(), getHeight()));
     }
 
     private static double reversePipe(boolean reverse) {

@@ -41,7 +41,7 @@ public class GameLoop {
         player = new Bird(50, 50, 50, 40);
         player.setAngle(90);
 
-        inputSystem = new Input(new GameEvents(player, () -> update(0)));
+        inputSystem = new Input(new GameEvents(player, null, () -> update(0)));
 
         inputSystem.addInputs();
 

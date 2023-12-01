@@ -10,29 +10,16 @@ import com.setur.se23.engine.render.common.Texture2D;
 
 public class SquareCollider extends Collider {
 
-    private Material material;
     private int width;
     private int height;
 
-    public SquareCollider(int width, int height) {
-        this.material = new Material(
-                            new Texture2D(Core.getResorcePath("gizmo/red_square.png"), width, height), 
-                            new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f));
+    public SquareCollider(Entity attachedEntity, int width, int height) {
+        super(new Material(
+                    new Texture2D(Core.getResorcePath("gizmo/red_square.png"), width, height), 
+                    new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)),
+              attachedEntity);
         this.width = width;
         this.height = height;
-
-        double gizmoX = (width / 2) - (getColliderWidth() / 2);
-        double gizmoY = (height / 2) - (getColliderHeight() / 2);
-        
-        BufferItem bufferItem = new BufferItem(material, gizmoX, gizmoY, 0, 1, 1);
-
-        Renderer.getInstance().allocateTexture(bufferItem.material().texture());
-    }
-
-    public boolean isInArea(Entity a, Entity b) {
-
-
-        return false;
     }
 
     public void setColliderWidth(int width) {
@@ -51,13 +38,18 @@ public class SquareCollider extends Collider {
         return height;
     }
 
-    @Override
-    public void RenderGizmo(double entityX, double entityY, int entityWidth, int entityHeight) {
+    public double getX() {
+        return attachedEntity.getX() + (attachedEntity.getWidth() / 2) - (getColliderWidth() / 2);
+    }
 
-        double gizmoX = entityX + (entityWidth / 2) - (getColliderWidth() / 2);
-        double gizmoY = entityY + (entityHeight / 2) - (getColliderHeight() / 2);
-        
-        BufferItem bufferItem = new BufferItem(material, gizmoX, gizmoY, 0, 1, 1);
+    public double getY() {
+        return attachedEntity.getY() + (attachedEntity.getHeight() / 2) - (getColliderHeight() / 2);
+    }
+
+    @Override
+    public void RenderGizmo() {
+
+        BufferItem bufferItem = new BufferItem(getMaterial(), getX(), getY(), 0, 1, 1);
         
         Renderer.getInstance().render(bufferItem);
     }

@@ -1,8 +1,8 @@
 package com.setur.se23.game.Flappy_Bird_Objects;
 
+import com.setur.se23.engine.Collision.CircleCollider;
 import com.setur.se23.engine.Collision.Collidable;
 import com.setur.se23.engine.Collision.Collider;
-import com.setur.se23.engine.Collision.SquareCollider;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.loop.Loop;
@@ -17,7 +17,7 @@ public class Bird extends Entity implements Collidable {
     private double velocityY;
 
     private boolean alive = true;
-    private boolean airborn = true;
+    private boolean airborn = false;
 
     public boolean jumpReady = true;
 
@@ -30,7 +30,7 @@ public class Bird extends Entity implements Collidable {
                     new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)), 
                 xPos, yPos, width, height, 0, 1, 1);
 
-        setCollider(new SquareCollider(width, height));
+        setCollider(new CircleCollider(this, getHeight() / 2));
     }
 
     public void jump() {
@@ -78,6 +78,11 @@ public class Bird extends Entity implements Collidable {
 
         if (collisionEntity instanceof Pipe) {
             alive = false;
+
+
+            airborn = false;
+
+            stopPipes();
         }
 
         if (collisionEntity instanceof Ground) {

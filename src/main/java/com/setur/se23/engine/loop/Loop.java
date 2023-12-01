@@ -62,7 +62,7 @@ public class Loop extends FX_FrameUpdate {
 
         for (Entity entity : collidableEntities) {
             if (Core.renderGizmos) {
-                ((Collidable) entity).getCollider().RenderGizmo(entity.getX(), entity.getY(), entity.getWidth(), entity.getHeight());
+                ((Collidable) entity).getCollider().RenderGizmo();
             }
         }
         

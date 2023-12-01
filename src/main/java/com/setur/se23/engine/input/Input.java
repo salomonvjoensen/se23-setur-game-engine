@@ -17,7 +17,7 @@ public class Input {
         Globals.mainStage.getScene().setOnKeyPressed(event -> {
             KeyCode code = event.getCode();
             switch (code) {
-                case SPACE, W, UP:
+                case SPACE, UP:
                     events.event("Jump");
                     break;
                 case P:
@@ -29,6 +29,19 @@ public class Input {
                 case R:
                     events.event("Restart");
                     break;
+                    
+                case W:
+                    events.event("W");
+                    break;
+                case A:
+                    events.event("A");
+                    break;
+                case S:
+                    events.event("S");
+                    break;
+                case D:
+                    events.event("D");
+                    break;
             
                 default:
                     break;
@@ -38,8 +51,20 @@ public class Input {
         Globals.mainStage.getScene().setOnKeyReleased(event -> {
             KeyCode code = event.getCode();
             switch (code) {
-                case SPACE, W, UP:
+                case SPACE, UP:
                     events.event("Jump_Ready");
+                    break;
+                case W:
+                    events.event("W_r");
+                    break;
+                case A:
+                    events.event("A_r");
+                    break;
+                case S:
+                    events.event("S_r");
+                    break;
+                case D:
+                    events.event("D_r");
                     break;
             
                 default:
