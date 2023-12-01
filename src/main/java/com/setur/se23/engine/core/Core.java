@@ -19,6 +19,8 @@ public class Core {
     public static double previousRandomDouble = 0;
 
     public static boolean FPS_Counter;
+
+    public static boolean renderGizmos;
     
     public static String getResorcePath(String resource) {
         return "file:src/main/resources/" + resource;

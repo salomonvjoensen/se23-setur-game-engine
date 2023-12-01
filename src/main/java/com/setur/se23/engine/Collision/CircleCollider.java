@@ -12,6 +12,6 @@ public class CircleCollider extends Collider {
     }
 
     @Override
-    public void RenderGizmo() {
+    public void RenderGizmo(double entityX, double entityY, int entityWidth, int entityHeight) {
     }
 }

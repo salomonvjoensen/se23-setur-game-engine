@@ -21,7 +21,10 @@ public class Input {
                     events.event("Jump");
                     break;
                 case P:
-                    events.event("FPS_Counter");
+                    events.event("toggle_FPS_Counter");
+                    break;
+                case O:
+                    events.event("toggle_Gizmos");
                     break;
                 case R:
                     events.event("Restart");

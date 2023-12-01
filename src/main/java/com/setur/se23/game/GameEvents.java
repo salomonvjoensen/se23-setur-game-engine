@@ -21,11 +21,18 @@ public class GameEvents {
             case "Jump_Ready":
                 player.jumpReady = true;
                 break;
-            case "FPS_Counter":
+            case "toggle_FPS_Counter":
                 if (Core.FPS_Counter) {
                     Core.FPS_Counter = false;
                 } else {
                     Core.FPS_Counter = true;
+                }
+                break;
+            case "toggle_Gizmos":
+                if (Core.renderGizmos) {
+                    Core.renderGizmos = false;
+                } else {
+                    Core.renderGizmos = true;
                 }
                 break;
             case "Restart":
