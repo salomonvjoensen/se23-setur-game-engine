@@ -14,10 +14,6 @@ public class Core {
 
     public static Random random = new Random();
 
-    public static int previousRandomInt = 0;
-
-    public static double previousRandomDouble = 0;
-
     public static boolean FPS_Counter;
 
     public static boolean renderGizmos;
@@ -55,8 +51,7 @@ public class Core {
      * @return a randomly chosen int between the origin and upperBound
      */
     public static int randomInt(int origin, int upperBound) {
-        previousRandomInt = random.nextInt(origin, upperBound);
-        return previousRandomInt;
+        return random.nextInt(origin, upperBound);
     }
 
     /**
@@ -67,8 +62,7 @@ public class Core {
      * @param upperBound the upper bound (exclusive) for the returned value
      * @return a randomly chosen double between the origin and upperBound
      */
-    public static double randomDouble(int origin, int upperBound) {
-        previousRandomDouble = random.nextDouble(origin, upperBound);
-        return previousRandomDouble;
+    public static double randomDouble(double origin, double upperBound) {
+        return random.nextDouble(origin, upperBound);
     }
 }
