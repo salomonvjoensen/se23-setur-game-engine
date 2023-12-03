@@ -12,9 +12,11 @@ public class Loop extends FX_FrameUpdate {
 
     public static ArrayList<Entity> entities = new ArrayList<Entity>();
     public static ArrayList<Entity> collidableEntities = new ArrayList<Entity>();
+    public static ArrayList<Runnable> gameFunctions = new ArrayList<Runnable>();
 
-    public void sendEntities(ArrayList<Entity> entityList) {
+    public void sendScene(ArrayList<Entity> entityList, ArrayList<Runnable> functionList) {
         entities = entityList;
+        gameFunctions = functionList;
 
         assignCollidebles();
     }
@@ -30,7 +32,7 @@ public class Loop extends FX_FrameUpdate {
         }
     }
 
-    public void update(double deltaTime) {
+    public void logicLoop(double deltaTime) {
 
         for (Entity entity : entities) {
             entity.update(deltaTime);
@@ -40,30 +42,35 @@ public class Loop extends FX_FrameUpdate {
         for (Entity firstEntity : collidableEntities) {
 
             for (Entity secondEntity : collidableEntities) {
+
                 if (firstEntity.equals(secondEntity) == false && CollisionDetection.checkForCollision(firstEntity, secondEntity)) {
                     ((Collidable) firstEntity).collisionEvent(secondEntity);
                 }
             }
         }
 
-
-        render();
-
-        if (Core.FPS_Counter) {
-            Core.debug.checkFPS();
+        for (Runnable function : gameFunctions) {
+            function.run();
         }
+
+
+        renderLoop();
     }
 
-    private void render() {
+    private void renderLoop() {
 
         for (Entity entity : entities) {
             entity.renderEntity();
         }
 
-        for (Entity entity : collidableEntities) {
-            if (Core.renderGizmos) {
+        if (Core.renderGizmos) {
+            for (Entity entity : collidableEntities) {
                 ((Collidable) entity).getCollider().RenderGizmo();
             }
+        }
+
+        if (Core.FPS_Counter) {
+            Core.debug.checkFPS();
         }
         
         Renderer.getInstance().swapBuffers();
