@@ -23,40 +23,74 @@ public class FlappyBird {
     }
 
     private void sendGameObjects() {
-        gameLoop.sendEntities(createFlappyBirdObjects());
+        gameLoop.sendScene(createFlappyBirdObjects(), getFunctions());
     }
 
     private ArrayList<Entity> createFlappyBirdObjects() {
 
+        // entities are rendered in list order
+        // i.e. last in list is rendered over the others
+
         ArrayList<Entity> entities = new ArrayList<Entity>();
         
-        entities.add(new Background(0, 0));
-        
-        entities.add(new Pipe(300, -250, 52, 320, 1.5, 1.68, true));
-        entities.add(new Pipe(300, 500, 52, 320, 1.5, 1.68, false));
-        entities.add(new Pipe(600, -450, 52, 320, 1.5, 1.68, true));
-        entities.add(new Pipe(600, 300, 52, 320, 1.5, 1.68, false));
-        entities.add(new Pipe(900, -350, 52, 320, 1.5, 1.68, true));
-        entities.add(new Pipe(900, 400, 52, 320, 1.5, 1.68, false));
-        entities.add(new Pipe(1200, -100, 52, 320, 1.5, 1.68, true));
-        entities.add(new Pipe(1200, 650, 52, 320, 1.5, 1.68, false));
+        entities.add(new Background());
 
-        entities.add(new Ground(0, Core.getStageHeight() - 100, (int) Core.getStageWidth(), 100));
-        
-        Bird player = new Bird(50, 50, 50, 40);
-        CollisionTestObject test = new CollisionTestObject(50, 200, 50, 40);
+        addPipes(entities, 4);
 
-        createInputs(player, test);
+        entities.add(new Ground());
+        
+        Bird player = new Bird(50, 50);
+        CollisionTestObject testObject = new CollisionTestObject(50, 200);
+
+        createInputs(player, testObject);
 
         entities.add(player);
-        //entities.add(test);
+        //entities.add(testObject);
 
         return entities;
+    }
+
+    private void addPipes(ArrayList<Entity> entities, int pairAmount) {
+
+        int spacing = 300;
+
+        double random = Core.randomDouble(1, 8);
+
+        for (int i = 0; i < pairAmount; i++) {
+
+            entities.add(new Pipe(true,  spacing,  (random * 50 - 500)));
+            entities.add(new Pipe(false, spacing,  (random * 50 + 250)));
+
+            spacing += 300;
+            random = Core.randomDouble(1, 8);
+        }
     }
 
     private void createInputs(Bird player, CollisionTestObject test) {
         inputSystem = new Input(new GameEvents(player, test, () -> sendGameObjects()));
 
         inputSystem.addInputs();
+    }
+
+
+
+    private ArrayList<Runnable> getFunctions() {
+        ArrayList<Runnable> runnables = new ArrayList<Runnable>();
+
+        runnables.add(() -> movePipes());
+
+        return runnables;
+    }
+
+    private void movePipes() {
+
+        double random = Core.randomDouble(1, 8);
+
+        for (Entity entity : Loop.entities) {
+
+            if (entity instanceof Pipe) {
+                Pipe.movePipe((Pipe) entity, random);
+            }
+        }
     }
 }

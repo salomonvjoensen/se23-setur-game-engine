@@ -12,15 +12,20 @@ import com.setur.se23.engine.render.common.Texture2D;
 public class Pipe extends Entity implements Collidable {
 
     public double speed = 75;
-    private boolean reverse;
+    public boolean reverse;
 
     public Collider collider;
 
-    public Pipe(double xPos, double yPos, int width, int height, double scaleX, double scaleY, boolean reverse) {
+
+    public Pipe(boolean reverse, double xPos, double yPos) {
         super(new Material(
-                new Texture2D(Core.getSprite("pipe-green.png"), width, height),
-                new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)), 
-            xPos, yPos, width, height, reversePipe(reverse), scaleX, scaleY);
+                    new Texture2D(Core.getSprite("pipe-green.png"), 52, 320),
+                    new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)), 
+              xPos, 
+              yPos, 
+              reversePipe(reverse), 
+              1.5, 
+              1.68);
 
         this.reverse = reverse;
 
@@ -38,17 +43,18 @@ public class Pipe extends Entity implements Collidable {
     @Override
     public void update(double deltaTime) {
         setX(getX() - 1 * speed * deltaTime);
+    }
 
-        if (getX() < -100) {
-            if (reverse) {
-            
-                setX(getX() + 1200);
+    public static void movePipe(Pipe pipe, double random) {
 
-                setY(-500 + Core.randomInt(1, 9) * 50);
+        if (pipe.getX() < -100) {
+
+            if (pipe.reverse) {
+                pipe.setX(pipe.getX() + 1200);
+                pipe.setY(random * 50 - 500);
             } else {
-                setX(getX() + 1200);
-
-                setY(Core.previousRandomInt * 50 + 250);
+                pipe.setX(pipe.getX() + 1200);
+                pipe.setY(random * 50 + 250);
             }
         }
     }
