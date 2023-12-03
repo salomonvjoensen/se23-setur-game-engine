@@ -9,18 +9,14 @@ public abstract class Entity {
     protected Material material;
     protected double xPos;
     protected double yPos;
-    protected int width;
-    protected int height;
     protected double angle;
     protected double scaleX;
     protected double scaleY;
     
-    public Entity(Material material, double xPos, double yPos, int width, int height, double angle, double scaleX, double scaleY) {
+    public Entity(Material material, double xPos, double yPos, double angle, double scaleX, double scaleY) {
         this.material = material;
         this.xPos = xPos;
         this.yPos = yPos;
-        this.width = width;
-        this.height = height;
         this.angle = angle;
         this.scaleX = scaleX;
         this.scaleY = scaleY;
@@ -62,9 +58,17 @@ public abstract class Entity {
         this.angle = angle;
     }
 
-    public void UniformScale(double scale) {
-        setScaleX(getScaleX() * scale);
-        setScaleY(getScaleY() * scale);
+    public void UniformScale(double scalingFactor) {
+        setScaleX(getScaleX() * scalingFactor);
+        setScaleY(getScaleY() * scalingFactor);
+    }
+
+    public void ScaleX(double scalingFactor) {
+        setScaleX(getScaleX() * scalingFactor);
+    }
+
+    public void ScaleY(double scalingFactor) {
+        setScaleY(getScaleY() * scalingFactor);
     }
 
     public void setScaleX(double scaleX) {
@@ -83,12 +87,28 @@ public abstract class Entity {
         return scaleY;
     }
 
+    public int getTextureWidth() {
+        return getTexture().width();
+    }
+
+    public int getTextureHeight() {
+        return getTexture().height();
+    }
+
     public int getWidth() {
-        return (int)(width * scaleX);
+        return (int)(getTextureWidth() * scaleX);
     }
 
     public int getHeight() {
-        return (int)(height * scaleY);
+        return (int)(getTextureHeight() * scaleY);
+    }
+
+    public void setWidth(int width) {
+        setScaleX(width / getTextureWidth());
+    }
+
+    public void setHeight(int height) {
+        setScaleX(height / getTextureHeight());
     }
 
     public void renderEntity() {
