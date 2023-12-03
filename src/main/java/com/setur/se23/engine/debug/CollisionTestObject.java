@@ -26,11 +26,15 @@ public class CollisionTestObject extends Entity implements Collidable {
     public Collider collider;
 
 
-    public CollisionTestObject(double xPos, double yPos, int width, int height) {
+    public CollisionTestObject(double xPos, double yPos) {
         super(new Material(
-                    new Texture2D(Core.getSprite("flappy-bird.png"), width, height),
+                    new Texture2D(Core.getSprite("flappy-bird.png"), 280, 200),
                     new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)), 
-                xPos, yPos, width, height, 0, 1, 1);
+                xPos, 
+                yPos, 
+                0,
+                0.5,
+                0.5);
 
         setCollider(new CircleCollider(this, getHeight() / 2));
     }

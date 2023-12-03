@@ -25,20 +25,20 @@ public class GameLoop {
     private Input inputSystem;
 
     public GameLoop() {
-        background = new Background(0, 0);
+        background = new Background();
         
-        pipes.add(new Pipe(300, -250, 80, 270 * 2, 1, 1, true));
-        pipes.add(new Pipe(300, 500, 80, 270 * 2, 1, 1, false));
-        pipes.add(new Pipe(600, -450, 80, 270 * 2, 1, 1, true));
-        pipes.add(new Pipe(600, 300, 80, 270 * 2, 1, 1, false));
-        pipes.add(new Pipe(900, -350, 80, 270 * 2, 1, 1, true));
-        pipes.add(new Pipe(900, 400, 80, 270 * 2, 1, 1, false));
-        pipes.add(new Pipe(1200, -100, 80, 270 * 2, 1, 1, true));
-        pipes.add(new Pipe(1200, 650, 80, 270 * 2, 1, 1, false));
+        pipes.add(new Pipe(true, 300, -250));
+        pipes.add(new Pipe(false, 300, 500));
+        pipes.add(new Pipe(true, 600, -450));
+        pipes.add(new Pipe(false, 600, 300));
+        pipes.add(new Pipe(true, 900, -350));
+        pipes.add(new Pipe(false, 900, 400));
+        pipes.add(new Pipe(true, 1200, -100));
+        pipes.add(new Pipe(false, 1200, 650));
 
-        ground = new Ground(0, Core.getStageHeight() - 100, (int) Core.getStageWidth(), 100);
+        ground = new Ground();
         
-        player = new Bird(50, 50, 50, 40);
+        player = new Bird(50, 50);
         player.setAngle(90);
 
         inputSystem = new Input(new GameEvents(player, null, () -> update(0)));

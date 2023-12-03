@@ -24,18 +24,22 @@ public class Bird extends Entity implements Collidable {
     public Collider collider;
 
 
-    public Bird(double xPos, double yPos, int width, int height) {
+    public Bird(double xPos, double yPos) {
         super(new Material(
-                    new Texture2D(Core.getSprite("flappy-bird.png"), width, height),
+                    new Texture2D(Core.getSprite("flappy-bird.png"), 280, 200),
                     new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)), 
-                xPos, yPos, width, height, 0, 1, 1);
+              xPos, 
+              yPos, 
+              0, 
+              0.2, 
+              0.2);
 
         setCollider(new CircleCollider(this, getHeight() / 2));
     }
 
     public void jump() {
         if (alive && jumpReady) {
-            velocityY = -300;
+            velocityY = -200;
             fallSpeed = 10;
             jumpReady = false;
         }

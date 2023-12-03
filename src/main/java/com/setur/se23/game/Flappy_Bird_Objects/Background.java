@@ -8,11 +8,15 @@ import com.setur.se23.engine.render.common.Texture2D;
 
 public class Background extends Entity {
 
-    public Background(double xPos, double yPos) {
+    public Background() {
         super(new Material(
                     new Texture2D(Core.getSprite("background-day.png"), 800, 800),
                     new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)), 
-                xPos, yPos, 800, 800, 0, 1, 1);
+              0, 
+              0,
+              0, 
+              1, 
+              1);
     }
 
     @Override
