@@ -1,7 +1,7 @@
 package com.setur.se23.engine.input;
 
 import com.setur.se23.Globals;
-import com.setur.se23.game.GameEvents;
+import com.setur.se23.snake.GameEvents;
 
 import javafx.scene.input.KeyCode;
 
