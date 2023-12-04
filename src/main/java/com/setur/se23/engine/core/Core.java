@@ -2,7 +2,6 @@ package com.setur.se23.engine.core;
 
 import java.util.Random;
 
-import com.setur.se23.Globals;
 import com.setur.se23.engine.debug.Debug;
 import com.setur.se23.engine.debug.VS_Debug;
 
@@ -10,13 +9,13 @@ import javafx.stage.Stage;
 
 public class Core {
 
+    public static Stage mainStage;
+
+    public static long currentTime;
+
     public static Debug debug = new VS_Debug();
 
     public static Random random = new Random();
-
-    public static int previousRandomInt = 0;
-
-    public static double previousRandomDouble = 0;
 
     public static boolean FPS_Counter;
 
@@ -31,19 +30,35 @@ public class Core {
     }
 
     public static double getStageWidth() {
-        return Globals.mainStage.getWidth();
+        return mainStage.getWidth();
     }
 
     public static double getStageHeight() {
-        return Globals.mainStage.getHeight();
+        return mainStage.getHeight();
     }
 
     public static long getCurrentTime() {
-        return Globals.currentTime;
+        return currentTime;
     }
 
     public static Stage getStage() {
-        return Globals.mainStage;
+        return mainStage;
+    }
+
+    public static void toggleFPS_Counter() {
+        if (FPS_Counter) {
+            FPS_Counter = false;
+        } else {
+            FPS_Counter = true;
+        }
+    }
+
+    public static void toggleRenderGizmos() {
+        if (renderGizmos) {
+            renderGizmos = false;
+        } else {
+            renderGizmos = true;
+        }
     }
 
     /**
@@ -55,8 +70,7 @@ public class Core {
      * @return a randomly chosen int between the origin and upperBound
      */
     public static int randomInt(int origin, int upperBound) {
-        previousRandomInt = random.nextInt(origin, upperBound);
-        return previousRandomInt;
+        return random.nextInt(origin, upperBound);
     }
 
     /**
@@ -67,8 +81,7 @@ public class Core {
      * @param upperBound the upper bound (exclusive) for the returned value
      * @return a randomly chosen double between the origin and upperBound
      */
-    public static double randomDouble(int origin, int upperBound) {
-        previousRandomDouble = random.nextDouble(origin, upperBound);
-        return previousRandomDouble;
+    public static double randomDouble(double origin, double upperBound) {
+        return random.nextDouble(origin, upperBound);
     }
 }
