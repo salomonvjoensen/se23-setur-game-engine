@@ -11,7 +11,7 @@ import com.setur.se23.engine.render.common.Texture2D;
 
 public class Pipe extends Entity implements Collidable {
 
-    public double speed = 75;
+    public double speed = 90;
     public boolean reverse;
 
     public Collider collider;
