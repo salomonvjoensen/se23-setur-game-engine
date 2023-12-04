@@ -8,10 +8,10 @@ public class CollisionDetection {
      * @param b a second entity
      * @return return true if a collides with b using collision detection
      */
-    public static boolean checkForCollision(Entity firstEntity, Entity secondEntity) {
+    public static boolean checkForCollision(Entity entity1, Entity entity2) {
 
-        Collider a = ((Collidable) firstEntity).getCollider();
-        Collider b = ((Collidable) secondEntity).getCollider();
+        Collider a = ((Collidable) entity1).getCollider();
+        Collider b = ((Collidable) entity2).getCollider();
 
         if (a instanceof SquareCollider && b instanceof SquareCollider) {
             return squaresCollide((SquareCollider) a, (SquareCollider) b);
@@ -39,26 +39,36 @@ public class CollisionDetection {
                b.getY() + b.getColliderHeight() > a.getY();
     }
 
-    private static boolean circlesCollide(CircleCollider a, CircleCollider b) {
+    private static boolean circlesCollide(CircleCollider circle1, CircleCollider circle2) {
 
-        double distance = Math.sqrt(Math.pow(a.getCenterX() - b.getCenterX(), 2) + 
-                                    Math.pow(a.getCenterY() - b.getCenterY(), 2));
+        double distanceX = circle1.getCenterX() - circle2.getCenterX();
+        double distanceY = circle1.getCenterY() - circle2.getCenterY();
 
-        return distance < a.getColliderRadius() + b.getColliderRadius();
+        double distance = Math.sqrt((distanceX * distanceX) + 
+                                    (distanceY * distanceY));
+
+        return distance < (circle1.getRadius() + circle2.getRadius());
     }
 
-    private static boolean squareCircleCollide(SquareCollider a, CircleCollider b) {
+    private static boolean squareCircleCollide(SquareCollider square, CircleCollider circle) {
 
-        double closestX = closestCoords(a.getX(), a.getX() + a.getColliderWidth(), b.getCenterX());
-        double closestY = closestCoords(a.getY(), a.getY() + a.getColliderHeight(), b.getCenterY());
+        double leftX  = square.getX();
+        double rightX = square.getX() + square.getColliderWidth();
+        double closestX = closestCoord(leftX, rightX, circle.getCenterX());
 
-        double distance = Math.sqrt(Math.pow(b.getCenterX() - closestX, 2) + 
-                                    Math.pow(b.getCenterY() - closestY, 2));
+        double leftY  = square.getY();
+        double rightY = square.getY() + square.getColliderHeight();
+        double closestY = closestCoord(leftY, rightY, circle.getCenterY());
 
-        return distance < b.getColliderRadius();
+        double distanceX = (circle.getCenterX() - closestX);
+        double distanceY = (circle.getCenterY() - closestY);
+        double distance = Math.sqrt((distanceX * distanceX) +
+                                    (distanceY * distanceY));
+
+        return distance < circle.getRadius();
     }
 
-    private static double closestCoords(double min, double max, double circleCenter) {
+    private static double closestCoord(double min, double max, double circleCenter) {
         return Math.max(min, Math.min(max, circleCenter));
     }
 }

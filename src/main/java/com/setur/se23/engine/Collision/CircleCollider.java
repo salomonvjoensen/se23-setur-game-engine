@@ -20,20 +20,20 @@ public class CircleCollider extends Collider {
         this.radius = radius;
     }
 
-    public void setColliderRadius(int radius) {
+    public void setRadius(int radius) {
         this.radius = radius;
     }
 
-    public double getColliderRadius() {
+    public double getRadius() {
         return radius;
     }
 
     public double getX() {
-        return attachedEntity.getX() + (attachedEntity.getWidth() / 2) - getColliderRadius();
+        return attachedEntity.getX() + (attachedEntity.getWidth() / 2) - getRadius();
     }
 
     public double getY() {
-        return attachedEntity.getY() + (attachedEntity.getHeight() / 2) - getColliderRadius();
+        return attachedEntity.getY() + (attachedEntity.getHeight() / 2) - getRadius();
     }
 
     public double getCenterX() {
