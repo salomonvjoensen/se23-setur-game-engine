@@ -11,6 +11,7 @@ import com.setur.se23.engine.render.common.Texture2D;
 public class CircleCollider extends Collider {
 
     private int radius;
+    private double scale;
 
     public CircleCollider(Entity attachedEntity, int radius) {
         super(new Material(
@@ -18,6 +19,7 @@ public class CircleCollider extends Collider {
                     new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)),
               attachedEntity);
         this.radius = radius;
+        this.scale = 1;
     }
 
     public void setRadius(int radius) {
@@ -25,7 +27,7 @@ public class CircleCollider extends Collider {
     }
 
     public double getRadius() {
-        return radius;
+        return radius * scale;
     }
 
     public double getX() {
@@ -45,9 +47,14 @@ public class CircleCollider extends Collider {
     }
 
     @Override
+    public void uniformScale(double scalingFactor) {
+        scale *= scalingFactor;
+    }
+
+    @Override
     public void RenderGizmo() {
 
-        BufferItem bufferItem = new BufferItem(getMaterial(), getX(), getY(), 0, 1, 1);
+        BufferItem bufferItem = new BufferItem(getMaterial(), getX(), getY(), 0, scale, scale);
         
         Renderer.getInstance().render(bufferItem);
     }

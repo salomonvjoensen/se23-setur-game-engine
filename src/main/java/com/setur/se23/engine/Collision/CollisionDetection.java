@@ -33,10 +33,10 @@ public class CollisionDetection {
     }
 
     private static boolean squaresCollide(SquareCollider a, SquareCollider b) {
-        return a.getX() + a.getColliderWidth()  > b.getX() &&
-               b.getX() + b.getColliderWidth()  > a.getX() &&
-               a.getY() + a.getColliderHeight() > b.getY() &&
-               b.getY() + b.getColliderHeight() > a.getY();
+        return a.getX() + a.getWidth()  > b.getX() &&
+               b.getX() + b.getWidth()  > a.getX() &&
+               a.getY() + a.getHeight() > b.getY() &&
+               b.getY() + b.getHeight() > a.getY();
     }
 
     private static boolean circlesCollide(CircleCollider circle1, CircleCollider circle2) {
@@ -53,11 +53,11 @@ public class CollisionDetection {
     private static boolean squareCircleCollide(SquareCollider square, CircleCollider circle) {
 
         double leftX  = square.getX();
-        double rightX = square.getX() + square.getColliderWidth();
+        double rightX = square.getX() + square.getWidth();
         double closestX = closestCoord(leftX, rightX, circle.getCenterX());
 
         double leftY  = square.getY();
-        double rightY = square.getY() + square.getColliderHeight();
+        double rightY = square.getY() + square.getHeight();
         double closestY = closestCoord(leftY, rightY, circle.getCenterY());
 
         double distanceX = (circle.getCenterX() - closestX);
