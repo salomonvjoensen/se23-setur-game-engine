@@ -27,8 +27,7 @@ public class VS_Debug extends Debug {
         FPS += 1;
 
         if (1 <= (Core.getCurrentTime() - previousTime) / 1_000_000_000) {
-            //clearConsole();
-
+            
             info("FPS:" + FPS);
 
             FPS = 0;
@@ -37,17 +36,8 @@ public class VS_Debug extends Debug {
         }
     }
 
-    /**
-     * Clears the console, based on OS.
-     */
-    private void clearConsole() {
-        try {
-            if (System.getProperty("os.name").contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO()
-                    .start().waitFor();
-            } else {
-                Runtime.getRuntime().exec("clear");
-            }
-        } catch (Exception ex) {}
-    } 
+    public void clearConsole() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
 }

@@ -79,9 +79,15 @@ public class CanvasRenderer implements RenderPipelineInterface {
 
             context.save();
 
-            rotate(context, item.angle(), item.x() + texture.width() / 2, item.y() + texture.height() / 2);
+            double pivotX = item.x() + (texture.width() * item.scaleX()) / 2;
+            double pivotY = item.y() + (texture.height() * item.scaleY()) / 2;
 
-            context.drawImage(img, item.x(), item.y(), texture.width() * item.scaleX(), texture.height() * item.scaleY());
+            rotate(context, item.angle(), pivotX, pivotY);
+
+            double width = texture.width() * item.scaleX();
+            double height = texture.height() * item.scaleY();
+
+            context.drawImage(img, item.x(), item.y(), width, height);
 
             context.restore();
         }

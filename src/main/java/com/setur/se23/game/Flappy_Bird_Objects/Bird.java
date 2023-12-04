@@ -1,6 +1,8 @@
 package com.setur.se23.game.Flappy_Bird_Objects;
 
+import com.setur.se23.engine.Collision.CircleCollider;
 import com.setur.se23.engine.Collision.Collidable;
+import com.setur.se23.engine.Collision.Collider;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.loop.Loop;
@@ -12,23 +14,28 @@ public class Bird extends Entity implements Collidable {
 
     private double fallAccel = 1.25;
     private double fallSpeed = 10;
-
     private double velocityY;
 
-    public boolean alive = true;
-    public boolean grounded = false;
+    private boolean alive = true;
+    private boolean airborn = true;
+
     public boolean jumpReady = true;
+
+    public Collider collider;
+
 
     public Bird(double xPos, double yPos, int width, int height) {
         super(new Material(
                     new Texture2D(Core.getSprite("flappy-bird.png"), width, height),
                     new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)), 
                 xPos, yPos, width, height, 0, 1, 1);
+
+        setCollider(new CircleCollider(this, getHeight() / 2));
     }
 
     public void jump() {
         if (alive && jumpReady) {
-            velocityY = -200;
+            velocityY = -300;
             fallSpeed = 10;
             jumpReady = false;
         }
@@ -37,9 +44,7 @@ public class Bird extends Entity implements Collidable {
     @Override
     public void update(double deltaTime) {
 
-        if (grounded) {
-            setY(660);
-        } else {
+        if (airborn) {
 
             fallSpeed *= fallAccel;
 
@@ -59,6 +64,16 @@ public class Bird extends Entity implements Collidable {
     }
 
     @Override
+    public void setCollider(Collider collider) {
+        this.collider = collider;
+    }
+
+    @Override
+    public Collider getCollider() {
+        return collider;
+    }
+
+    @Override
     public void collisionEvent(Entity collisionEntity) {
 
         if (collisionEntity instanceof Pipe) {
@@ -67,7 +82,7 @@ public class Bird extends Entity implements Collidable {
 
         if (collisionEntity instanceof Ground) {
             alive = false;
-            grounded = true;
+            airborn = false;
 
             stopPipes();
         }

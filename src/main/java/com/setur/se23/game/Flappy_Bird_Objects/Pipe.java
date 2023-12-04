@@ -1,6 +1,8 @@
 package com.setur.se23.game.Flappy_Bird_Objects;
 
 import com.setur.se23.engine.Collision.Collidable;
+import com.setur.se23.engine.Collision.Collider;
+import com.setur.se23.engine.Collision.SquareCollider;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.render.common.Material;
@@ -12,21 +14,24 @@ public class Pipe extends Entity implements Collidable {
     public double speed = 75;
     private boolean reverse;
 
+    public Collider collider;
+
     public Pipe(double xPos, double yPos, int width, int height, double scaleX, double scaleY, boolean reverse) {
-        super(reverseMaterial(reverse, width, height), 
-            xPos, yPos, width, height, 0, scaleX, scaleY);
+        super(new Material(
+                new Texture2D(Core.getSprite("pipe-green.png"), width, height),
+                new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)), 
+            xPos, yPos, width, height, reversePipe(reverse), scaleX, scaleY);
+
         this.reverse = reverse;
+
+        setCollider(new SquareCollider(this, getWidth(), getHeight()));
     }
 
-    private static Material reverseMaterial(boolean reverse, int width, int height) {
+    private static double reversePipe(boolean reverse) {
         if (reverse) {
-            return new Material(
-                new Texture2D(Core.getSprite("reverse-pipe-green.png"), width, height),
-                new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f));
+            return 180;
         } else {
-            return new Material(
-                new Texture2D(Core.getSprite("pipe-green.png"), width, height),
-                new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f));
+            return 0;
         }
     }
 
@@ -46,6 +51,16 @@ public class Pipe extends Entity implements Collidable {
                 setY(Core.previousRandomInt * 50 + 250);
             }
         }
+    }
+
+    @Override
+    public void setCollider(Collider collider) {
+        this.collider = collider;
+    }
+
+    @Override
+    public Collider getCollider() {
+        return collider;
     }
 
     @Override
