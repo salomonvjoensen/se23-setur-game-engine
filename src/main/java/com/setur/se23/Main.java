@@ -1,10 +1,10 @@
 package com.setur.se23;
 
+import com.setur.se23.FlappyBird.FlappyBird;
 import com.setur.se23.dependency.render.canvas.CanvasRenderer;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.render.Renderer;
 import com.setur.se23.engine.render.common.ViewPort;
-import com.setur.se23.game.FlappyBird;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

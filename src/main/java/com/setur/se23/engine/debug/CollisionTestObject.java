@@ -1,5 +1,8 @@
 package com.setur.se23.engine.debug;
 
+import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Bird;
+import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Ground;
+import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Pipe;
 import com.setur.se23.engine.Collision.CircleCollider;
 import com.setur.se23.engine.Collision.Collidable;
 import com.setur.se23.engine.Collision.Collider;
@@ -9,9 +12,6 @@ import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.MaterialColour;
 import com.setur.se23.engine.render.common.Texture2D;
-import com.setur.se23.game.Flappy_Bird_Objects.Bird;
-import com.setur.se23.game.Flappy_Bird_Objects.Ground;
-import com.setur.se23.game.Flappy_Bird_Objects.Pipe;
 
 public class CollisionTestObject extends Entity implements DynamicEntity, Collidable {
 

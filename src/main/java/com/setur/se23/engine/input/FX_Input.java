@@ -1,15 +1,14 @@
 package com.setur.se23.engine.input;
 
 import com.setur.se23.engine.core.Core;
-import com.setur.se23.game.GameEvents;
 
 import javafx.scene.input.KeyCode;
 
 public class FX_Input implements Input {
 
-    private GameEvents events;
+    private InputEvents events;
 
-    public FX_Input(GameEvents events) {
+    public FX_Input(InputEvents events) {
         this.events = events;
     }
 
