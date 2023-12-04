@@ -1,6 +1,7 @@
 package com.setur.se23;
 
 import com.setur.se23.dependency.render.canvas.CanvasRenderer;
+import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.render.Renderer;
 import com.setur.se23.engine.render.common.ViewPort;
 import com.setur.se23.game.FlappyBird;
@@ -16,13 +17,13 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
 
-        Globals.mainStage = stage;
+        Core.mainStage = stage;
 
-        Globals.mainStage.setWidth(800.0f);
-        Globals.mainStage.setHeight(800.0f);
-        Globals.mainStage.setTitle("Game Engine Boilerplate!");
+        Core.mainStage.setWidth(800.0f);
+        Core.mainStage.setHeight(800.0f);
+        Core.mainStage.setTitle("Game Engine Boilerplate!");
 
-        initializeRenderer(Globals.mainStage);
+        initializeRenderer(Core.mainStage);
         FlappyBird flappyBird = new FlappyBird();
         flappyBird.gameLoop.start();
     }

@@ -1,6 +1,6 @@
 package com.setur.se23.engine.loop;
 
-import com.setur.se23.Globals;
+import com.setur.se23.engine.core.Core;
 
 import javafx.animation.AnimationTimer;
 
@@ -24,6 +24,6 @@ public abstract class FX_FrameUpdate extends AnimationTimer {
         logicLoop(deltaTimeS);
 
         previousTime = currentTime;
-        Globals.currentTime = currentTime;
+        Core.currentTime = currentTime;
     }
 }
