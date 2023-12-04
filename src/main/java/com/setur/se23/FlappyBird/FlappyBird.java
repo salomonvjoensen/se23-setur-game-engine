@@ -24,7 +24,7 @@ public class FlappyBird {
     }
 
     private void sendGameObjects() {
-        gameLoop.sendScene(createFlappyBirdObjects(), getFunctions());
+        gameLoop.sendScene(createFlappyBirdObjects(), getRunnables());
     }
 
     private ArrayList<Entity> createFlappyBirdObjects() {
@@ -75,10 +75,10 @@ public class FlappyBird {
 
 
 
-    private ArrayList<Runnable> getFunctions() {
+    private ArrayList<Runnable> getRunnables() {
         ArrayList<Runnable> runnables = new ArrayList<Runnable>();
 
-        runnables.add(() -> Pipe.movePipes());
+        runnables.add(() -> Pipe.loopAroundPipes());
 
         return runnables;
     }

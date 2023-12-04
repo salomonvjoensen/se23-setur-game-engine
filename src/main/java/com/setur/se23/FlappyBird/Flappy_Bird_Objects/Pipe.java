@@ -62,19 +62,19 @@ public class Pipe extends Entity implements DynamicEntity, Collidable {
 
 
 
-    public static void movePipes() {
+    public static void loopAroundPipes() {
 
         double random = Core.randomDouble(1, 8);
 
         for (Entity entity : Loop.entities) {
 
             if (entity instanceof Pipe) {
-                Pipe.movePipe((Pipe) entity, random);
+                Pipe.loopAroundPipe((Pipe) entity, random);
             }
         }
     }
 
-    private static void movePipe(Pipe pipe, double random) {
+    private static void loopAroundPipe(Pipe pipe, double random) {
 
         if (pipe.getX() < -100) {
 
