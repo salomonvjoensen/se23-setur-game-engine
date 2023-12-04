@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.debug.CollisionTestObject;
+import com.setur.se23.engine.input.FX_Input;
 import com.setur.se23.engine.input.Input;
 import com.setur.se23.engine.loop.Loop;
 import com.setur.se23.game.Flappy_Bird_Objects.Background;
@@ -67,7 +68,7 @@ public class FlappyBird {
     }
 
     private void createInputs(Bird player, CollisionTestObject test) {
-        inputSystem = new Input(new GameEvents(player, test, () -> sendGameObjects()));
+        inputSystem = new FX_Input(new GameEvents(player, test, () -> sendGameObjects()));
 
         inputSystem.addInputs();
     }
@@ -77,20 +78,8 @@ public class FlappyBird {
     private ArrayList<Runnable> getFunctions() {
         ArrayList<Runnable> runnables = new ArrayList<Runnable>();
 
-        runnables.add(() -> movePipes());
+        runnables.add(() -> Pipe.movePipes());
 
         return runnables;
-    }
-
-    private void movePipes() {
-
-        double random = Core.randomDouble(1, 8);
-
-        for (Entity entity : Loop.entities) {
-
-            if (entity instanceof Pipe) {
-                Pipe.movePipe((Pipe) entity, random);
-            }
-        }
     }
 }

@@ -5,6 +5,7 @@ import com.setur.se23.engine.Collision.Collider;
 import com.setur.se23.engine.Collision.SquareCollider;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
+import com.setur.se23.engine.loop.Loop;
 import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.MaterialColour;
 import com.setur.se23.engine.render.common.Texture2D;
@@ -45,20 +46,6 @@ public class Pipe extends Entity implements Collidable {
         setX(getX() - 1 * speed * deltaTime);
     }
 
-    public static void movePipe(Pipe pipe, double random) {
-
-        if (pipe.getX() < -100) {
-
-            if (pipe.reverse) {
-                pipe.setX(pipe.getX() + 1200);
-                pipe.setY(random * 50 - 500);
-            } else {
-                pipe.setX(pipe.getX() + 1200);
-                pipe.setY(random * 50 + 250);
-            }
-        }
-    }
-
     @Override
     public void setCollider(Collider collider) {
         this.collider = collider;
@@ -71,4 +58,32 @@ public class Pipe extends Entity implements Collidable {
 
     @Override
     public void collisionEvent(Entity collisionEntity) {}
+
+
+
+    public static void movePipes() {
+
+        double random = Core.randomDouble(1, 8);
+
+        for (Entity entity : Loop.entities) {
+
+            if (entity instanceof Pipe) {
+                Pipe.movePipe((Pipe) entity, random);
+            }
+        }
+    }
+
+    private static void movePipe(Pipe pipe, double random) {
+
+        if (pipe.getX() < -100) {
+
+            if (pipe.reverse) {
+                pipe.setX(pipe.getX() + 1200);
+                pipe.setY(random * 50 - 500);
+            } else {
+                pipe.setX(pipe.getX() + 1200);
+                pipe.setY(random * 50 + 250);
+            }
+        }
+    }
 }
