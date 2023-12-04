@@ -58,16 +58,16 @@ public abstract class Entity {
         this.angle = angle;
     }
 
-    public void UniformScale(double scalingFactor) {
+    public void uniformScale(double scalingFactor) {
         setScaleX(getScaleX() * scalingFactor);
         setScaleY(getScaleY() * scalingFactor);
     }
 
-    public void ScaleX(double scalingFactor) {
+    public void scaleX(double scalingFactor) {
         setScaleX(getScaleX() * scalingFactor);
     }
 
-    public void ScaleY(double scalingFactor) {
+    public void scaleY(double scalingFactor) {
         setScaleY(getScaleY() * scalingFactor);
     }
 
