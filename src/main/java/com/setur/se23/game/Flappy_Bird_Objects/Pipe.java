@@ -4,13 +4,14 @@ import com.setur.se23.engine.Collision.Collidable;
 import com.setur.se23.engine.Collision.Collider;
 import com.setur.se23.engine.Collision.SquareCollider;
 import com.setur.se23.engine.core.Core;
+import com.setur.se23.engine.core.DynamicEntity;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.loop.Loop;
 import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.MaterialColour;
 import com.setur.se23.engine.render.common.Texture2D;
 
-public class Pipe extends Entity implements Collidable {
+public class Pipe extends Entity implements DynamicEntity, Collidable {
 
     public double speed = 90;
     public boolean reverse;

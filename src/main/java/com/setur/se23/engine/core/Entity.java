@@ -116,6 +116,4 @@ public abstract class Entity {
         
         Renderer.getInstance().render(bufferItem);
     }
-
-    public abstract void update(double deltaTime);
 }

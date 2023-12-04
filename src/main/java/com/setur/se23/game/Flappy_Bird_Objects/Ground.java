@@ -27,9 +27,6 @@ public class Ground extends Entity implements Collidable {
     }
 
     @Override
-    public void update(double deltaTime) {}
-
-    @Override
     public void setCollider(Collider collider) {
         this.collider = collider;
     }

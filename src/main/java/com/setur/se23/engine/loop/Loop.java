@@ -5,23 +5,38 @@ import java.util.ArrayList;
 import com.setur.se23.engine.Collision.Collidable;
 import com.setur.se23.engine.Collision.CollisionDetection;
 import com.setur.se23.engine.core.Core;
+import com.setur.se23.engine.core.DynamicEntity;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.render.Renderer;
 
 public class Loop extends FX_FrameUpdate {
 
     public static ArrayList<Entity> entities = new ArrayList<Entity>();
+    public static ArrayList<Entity> dynamicEntities = new ArrayList<Entity>();
     public static ArrayList<Entity> collidableEntities = new ArrayList<Entity>();
+
     public static ArrayList<Runnable> gameFunctions = new ArrayList<Runnable>();
 
     public void sendScene(ArrayList<Entity> entityList, ArrayList<Runnable> functionList) {
         entities = entityList;
         gameFunctions = functionList;
 
-        assignCollidebles();
+        assignDynamics();
+        assignCollidables();
     }
 
-    private void assignCollidebles() {
+    private void assignDynamics() {
+
+        dynamicEntities.clear();
+
+        for (Entity entity : entities) {
+            if (entity instanceof DynamicEntity) {
+                dynamicEntities.add(entity);
+            }
+        }
+    }
+
+    private void assignCollidables() {
 
         collidableEntities.clear();
 
@@ -34,8 +49,8 @@ public class Loop extends FX_FrameUpdate {
 
     public void logicLoop(double deltaTime) {
 
-        for (Entity entity : entities) {
-            entity.update(deltaTime);
+        for (Entity entity : dynamicEntities) {
+            ((DynamicEntity) entity).update(deltaTime);
         }
 
 

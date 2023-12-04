@@ -17,9 +17,5 @@ public class Background extends Entity {
               0, 
               1, 
               1);
-    }
-
-    @Override
-    public void update(double deltaTime) {}
-    
+    }    
 }
