@@ -7,7 +7,7 @@ import com.setur.se23.engine.render.common.Material;
 
 public abstract class Collider {
 
-    private Material material;
+    protected Material material;
     protected Entity attachedEntity;
 
     public Collider(Material material, Entity attachedEntity) {
@@ -22,6 +22,8 @@ public abstract class Collider {
     public Material getMaterial() {
         return material;
     }
+
+    public abstract void uniformScale(double scalingFactor);
 
     public abstract void RenderGizmo();
 }

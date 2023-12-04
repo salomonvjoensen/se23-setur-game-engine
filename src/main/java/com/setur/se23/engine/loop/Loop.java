@@ -5,21 +5,38 @@ import java.util.ArrayList;
 import com.setur.se23.engine.Collision.Collidable;
 import com.setur.se23.engine.Collision.CollisionDetection;
 import com.setur.se23.engine.core.Core;
+import com.setur.se23.engine.core.DynamicEntity;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.render.Renderer;
 
 public class Loop extends FX_FrameUpdate {
 
     public static ArrayList<Entity> entities = new ArrayList<Entity>();
+    public static ArrayList<Entity> dynamicEntities = new ArrayList<Entity>();
     public static ArrayList<Entity> collidableEntities = new ArrayList<Entity>();
 
-    public void sendEntities(ArrayList<Entity> entityList) {
-        entities = entityList;
+    public static ArrayList<Runnable> gameFunctions = new ArrayList<Runnable>();
 
-        assignCollidebles();
+    public void sendScene(ArrayList<Entity> entityList, ArrayList<Runnable> functionList) {
+        entities = entityList;
+        gameFunctions = functionList;
+
+        assignDynamics();
+        assignCollidables();
     }
 
-    private void assignCollidebles() {
+    private void assignDynamics() {
+
+        dynamicEntities.clear();
+
+        for (Entity entity : entities) {
+            if (entity instanceof DynamicEntity) {
+                dynamicEntities.add(entity);
+            }
+        }
+    }
+
+    private void assignCollidables() {
 
         collidableEntities.clear();
 
@@ -30,40 +47,45 @@ public class Loop extends FX_FrameUpdate {
         }
     }
 
-    public void update(double deltaTime) {
+    public void logicLoop(double deltaTime) {
 
-        for (Entity entity : entities) {
-            entity.update(deltaTime);
+        for (Entity entity : dynamicEntities) {
+            ((DynamicEntity) entity).update(deltaTime);
         }
 
 
         for (Entity firstEntity : collidableEntities) {
 
             for (Entity secondEntity : collidableEntities) {
+
                 if (firstEntity.equals(secondEntity) == false && CollisionDetection.checkForCollision(firstEntity, secondEntity)) {
                     ((Collidable) firstEntity).collisionEvent(secondEntity);
                 }
             }
         }
 
-
-        render();
-
-        if (Core.FPS_Counter) {
-            Core.debug.checkFPS();
+        for (Runnable function : gameFunctions) {
+            function.run();
         }
+
+
+        renderLoop();
     }
 
-    private void render() {
+    private void renderLoop() {
 
         for (Entity entity : entities) {
             entity.renderEntity();
         }
 
-        for (Entity entity : collidableEntities) {
-            if (Core.renderGizmos) {
+        if (Core.renderGizmos) {
+            for (Entity entity : collidableEntities) {
                 ((Collidable) entity).getCollider().RenderGizmo();
             }
+        }
+
+        if (Core.FPS_Counter) {
+            Core.debug.checkFPS();
         }
         
         Renderer.getInstance().swapBuffers();

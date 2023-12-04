@@ -1,12 +1,12 @@
 package com.setur.se23.engine.loop;
 
-import com.setur.se23.Globals;
+import com.setur.se23.engine.core.Core;
 
 import javafx.animation.AnimationTimer;
 
 public abstract class FX_FrameUpdate extends AnimationTimer {
 
-    public abstract void update(double deltaTimeS);
+    public abstract void logicLoop(double deltaTimeS);
 
     private long previousTime = 0;
     
@@ -21,9 +21,9 @@ public abstract class FX_FrameUpdate extends AnimationTimer {
         double deltaTimeS = deltaTimeNs / 1_000_000_000.0;
 
         // Call your update method to update the game state based on deltaTime
-        update(deltaTimeS);
+        logicLoop(deltaTimeS);
 
         previousTime = currentTime;
-        Globals.currentTime = currentTime;
+        Core.currentTime = currentTime;
     }
 }
