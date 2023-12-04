@@ -56,9 +56,9 @@ public class CollisionDetection {
         double rightX = square.getX() + square.getWidth();
         double closestX = closestCoord(leftX, rightX, circle.getCenterX());
 
-        double leftY  = square.getY();
-        double rightY = square.getY() + square.getHeight();
-        double closestY = closestCoord(leftY, rightY, circle.getCenterY());
+        double upperY = square.getY();
+        double lowerY = square.getY() + square.getHeight();
+        double closestY = closestCoord(upperY, lowerY, circle.getCenterY());
 
         double distanceX = (circle.getCenterX() - closestX);
         double distanceY = (circle.getCenterY() - closestY);
