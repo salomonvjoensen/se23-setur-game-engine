@@ -13,17 +13,18 @@ public class Ground extends Entity implements Collidable {
 
     public Collider collider;
 
-    public Ground(double xPos, double yPos, int width, int height) {
+    public Ground() {
         super(new Material(
-                    new Texture2D(Core.getSprite("base.png"), width, height),
+                    new Texture2D(Core.getSprite("base.png"), (int) Core.getStageWidth(), 100),
                     new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)), 
-                xPos, yPos, width, height, 0, 1, 1);
+              0, 
+              Core.getStageHeight() - 100, 
+              0, 
+              1, 
+              1);
 
         setCollider(new SquareCollider(this, getWidth(), getHeight()));
     }
-
-    @Override
-    public void update(double deltaTime) {}
 
     @Override
     public void setCollider(Collider collider) {

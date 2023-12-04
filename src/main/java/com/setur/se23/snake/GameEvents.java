@@ -1,10 +1,11 @@
 package com.setur.se23.snake;
 
+import com.setur.se23.snake.Flappy_Bird_Objects.Bird;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.debug.CollisionTestObject;
-import com.setur.se23.snake.Flappy_Bird_Objects.Bird;
+import com.setur.se23.engine.input.InputEvents;
 
-public class GameEvents {
+public class GameEvents implements InputEvents {
 
     private Bird player;
     private Runnable restart;
@@ -25,18 +26,10 @@ public class GameEvents {
                 player.jumpReady = true;
                 break;
             case "toggle_FPS_Counter":
-                if (Core.FPS_Counter) {
-                    Core.FPS_Counter = false;
-                } else {
-                    Core.FPS_Counter = true;
-                }
+                Core.toggleFPS_Counter();
                 break;
             case "toggle_Gizmos":
-                if (Core.renderGizmos) {
-                    Core.renderGizmos = false;
-                } else {
-                    Core.renderGizmos = true;
-                }
+                Core.toggleRenderGizmos();
                 break;
             case "Restart":
                 restart.run();
