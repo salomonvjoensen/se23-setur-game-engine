@@ -8,7 +8,8 @@ import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Ground;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Pipe;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
-import com.setur.se23.engine.input.FX_input;
+import com.setur.se23.engine.input.FX_Input;
+import com.setur.se23.engine.input.InputEvents;
 import com.setur.se23.engine.input.InputType;
 import com.setur.se23.engine.loop.Loop;
 
@@ -68,9 +69,9 @@ public class FlappyBird {
 
     private void createInputs(Bird player) {
 
-        GameEvents gameEvents = new GameEvents(player, () -> sendGameObjects());
+        InputEvents gameEvents = new GameEvents(player, () -> sendGameObjects());
 
-        FX_input inputSystem = new FX_input(gameEvents);
+        FX_Input inputSystem = new FX_Input(gameEvents);
 
         //on key press
         inputSystem.addInput(InputType.onPress, KeyCode.SPACE, "Jump");

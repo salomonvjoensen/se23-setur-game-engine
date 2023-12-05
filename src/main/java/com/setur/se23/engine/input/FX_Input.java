@@ -7,13 +7,13 @@ import com.setur.se23.engine.core.Core;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-public class FX_input implements Input {
+public class FX_Input implements Input {
 
     private InputEvents events;
 
     private ArrayList<Object[]> inputMap = new ArrayList<Object[]>();
 
-    public FX_input(InputEvents events) {
+    public FX_Input(InputEvents events) {
         this.events = events;
     }
 
