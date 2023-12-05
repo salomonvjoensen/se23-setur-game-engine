@@ -3,7 +3,7 @@ package com.setur.se23.GameTemplate;
 import java.util.ArrayList;
 
 import com.setur.se23.engine.core.Entity;
-import com.setur.se23.engine.input.FX_Input;
+import com.setur.se23.engine.input.FX_input;
 import com.setur.se23.engine.input.Input;
 import com.setur.se23.engine.loop.Loop;
 
@@ -36,9 +36,9 @@ public class GameTemplate {
     }
 
     private void createInputs() {
-        inputSystem = new FX_Input(new GameEventsTemplate());
+        inputSystem = new FX_input(new GameEventsTemplate());
 
-        inputSystem.addInputs();
+        inputSystem.setInputs();
     }
 
     private ArrayList<Runnable> getFunctions() {

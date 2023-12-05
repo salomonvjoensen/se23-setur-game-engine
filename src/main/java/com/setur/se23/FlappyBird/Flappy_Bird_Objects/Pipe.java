@@ -13,6 +13,8 @@ import com.setur.se23.engine.render.common.Texture2D;
 
 public class Pipe extends Entity implements DynamicEntity, Collidable {
 
+    public static boolean started = false;
+
     public double speed = 90;
     public boolean reverse;
 
@@ -44,7 +46,9 @@ public class Pipe extends Entity implements DynamicEntity, Collidable {
 
     @Override
     public void update(double deltaTime) {
-        setX(getX() - 1 * speed * deltaTime);
+        if (started) {
+            setX(getX() - 1 * speed * deltaTime);
+        }
     }
 
     @Override
