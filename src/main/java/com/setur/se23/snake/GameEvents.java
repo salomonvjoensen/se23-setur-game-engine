@@ -1,17 +1,17 @@
 package com.setur.se23.snake;
 
-import com.setur.se23.snake.Flappy_Bird_Objects.Bird;
+import com.setur.se23.snake.Snake_Objects.SnakeHead;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.debug.CollisionTestObject;
 import com.setur.se23.engine.input.InputEvents;
 
 public class GameEvents implements InputEvents {
 
-    private Bird player;
+    private SnakeHead player;
     private Runnable restart;
     private CollisionTestObject test;
 
-    public GameEvents(Bird player, CollisionTestObject test, Runnable restart) {
+    public GameEvents(SnakeHead player, CollisionTestObject test, Runnable restart) {
         this.player = player;
         this.restart = restart;
         this.test = test;
@@ -19,12 +19,6 @@ public class GameEvents implements InputEvents {
 
     public void event(String event) {
         switch (event) {
-            case "Jump":
-                player.jump();
-                break;
-            case "Jump_Ready":
-                player.jumpReady = true;
-                break;
             case "toggle_FPS_Counter":
                 Core.toggleFPS_Counter();
                 break;
@@ -34,7 +28,6 @@ public class GameEvents implements InputEvents {
             case "Restart":
                 restart.run();
                 break;
-
             case "W":
                 test.movingUp(true);
                 break;
