@@ -2,19 +2,16 @@ package com.setur.se23.snake;
 
 import com.setur.se23.snake.Snake_Objects.SnakeHead;
 import com.setur.se23.engine.core.Core;
-import com.setur.se23.engine.debug.CollisionTestObject;
 import com.setur.se23.engine.input.InputEvents;
 
 public class GameEvents implements InputEvents {
 
     private SnakeHead player;
     private Runnable restart;
-    private CollisionTestObject test;
 
-    public GameEvents(SnakeHead player, CollisionTestObject test, Runnable restart) {
+    public GameEvents(SnakeHead player, Runnable restart) {
         this.player = player;
         this.restart = restart;
-        this.test = test;
     }
 
     public void event(String event) {
@@ -29,28 +26,32 @@ public class GameEvents implements InputEvents {
                 restart.run();
                 break;
             case "W":
-                test.movingUp(true);
+                player.movingUp(true);
+                System.out.println("move up");
                 break;
             case "A":
-                test.movingLeft(true);
+                player.movingLeft(true);
+                System.out.println("move left");
                 break;
             case "S":
-                test.movingDown(true);
+                player.movingDown(true);
+                System.out.println("move down");
                 break;
             case "D":
-                test.movingRight(true);
+                player.movingRight(true);
+                System.out.println("move right");
                 break;
             case "W_r":
-                test.movingUp(false);
+                player.movingUp(false);
                 break;
             case "A_r":
-                test.movingLeft(false);
+                player.movingLeft(false);
                 break;
             case "S_r":
-                test.movingDown(false);
+                player.movingDown(false);
                 break;
             case "D_r":
-                test.movingRight(false);
+                player.movingRight(false);
                 break;
                 
             default:
