@@ -25,33 +25,34 @@ public class GameEvents implements InputEvents {
             case "Restart":
                 restart.run();
                 break;
-            case "W":
+            case "Up":
                 player.movingUp(true);
                 System.out.println("move up");
                 break;
-            case "A":
+            case "Left":
                 player.movingLeft(true);
                 System.out.println("move left");
                 break;
-            case "S":
+            case "Down":
                 player.movingDown(true);
                 System.out.println("move down");
                 break;
-            case "D":
+            case "Right":
                 player.movingRight(true);
                 System.out.println("move right");
                 break;
-            case "W_r":
+            case "Up_Ready":
                 player.movingUp(false);
                 break;
-            case "A_r":
+            case "Left_Ready":
                 player.movingLeft(false);
                 break;
-            case "S_r":
+            case "Down_Ready":
                 player.movingDown(false);
                 break;
-            case "D_r":
+            case "Right_Ready":
                 player.movingRight(false);
+                System.out.println("move right release");
                 break;
                 
             default:

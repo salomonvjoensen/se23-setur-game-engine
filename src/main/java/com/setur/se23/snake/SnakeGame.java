@@ -6,11 +6,15 @@ import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.input.FX_Input;
 import com.setur.se23.engine.input.Input;
+import com.setur.se23.engine.input.InputEvents;
+import com.setur.se23.engine.input.InputType;
 import com.setur.se23.engine.loop.Loop;
 import com.setur.se23.snake.Snake_Objects.Background;
 import com.setur.se23.snake.Snake_Objects.SnakeBody;
 import com.setur.se23.snake.Snake_Objects.SnakeHead;
 import com.setur.se23.snake.Snake_Objects.SnakeTail;
+
+import javafx.scene.input.KeyCode;
 
 public class SnakeGame {
     
@@ -112,10 +116,28 @@ public class SnakeGame {
         return entities;
     }
 
-        private void createInputs(SnakeHead player) {
-        inputSystem = new FX_Input(new GameEvents(player, () -> sendGameObjects()));
+    private void createInputs(SnakeHead player) {
+        InputEvents gameEvents = new GameEvents(player, () -> sendGameObjects());
 
-        inputSystem.addInputs();
+        FX_Input inputSystem = new FX_Input(gameEvents);
+
+        inputSystem.addInput(InputType.onPress, KeyCode.P, "toggle_FPS_Counter");
+        inputSystem.addInput(InputType.onPress, KeyCode.O, "toggle_Gizmos");
+        inputSystem.addInput(InputType.onPress, KeyCode.R, "Restart");
+
+        // Onkey press.
+        inputSystem.addInput(InputType.onPress, KeyCode.W, "Up");
+        inputSystem.addInput(InputType.onPress, KeyCode.S, "Down");
+        inputSystem.addInput(InputType.onPress, KeyCode.A, "Left");
+        inputSystem.addInput(InputType.onPress, KeyCode.D, "Right");
+
+        // Onkey release.
+        inputSystem.addInput(InputType.onRelease, KeyCode.W, "Up_Ready");
+        inputSystem.addInput(InputType.onRelease, KeyCode.S, "Down_Ready");
+        inputSystem.addInput(InputType.onRelease, KeyCode.A, "Left_Ready");
+        inputSystem.addInput(InputType.onRelease, KeyCode.D, "Right_Ready");
+
+        inputSystem.setInputs();
     }
 
     private ArrayList<Runnable> getFunctions() {
