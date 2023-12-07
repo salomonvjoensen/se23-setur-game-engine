@@ -4,7 +4,7 @@ import com.setur.se23.dependency.render.canvas.CanvasRenderer;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.render.Renderer;
 import com.setur.se23.engine.render.common.ViewPort;
-import com.setur.se23.snake.FlappyBird;
+import com.setur.se23.snake.SnakeGame;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -24,8 +24,8 @@ public class Snake extends Application {
         Core.mainStage.setTitle("Snake!");
 
         initializeRenderer(Core.mainStage);
-        FlappyBird flappyBird = new FlappyBird();
-        flappyBird.gameLoop.start();
+        SnakeGame snakeGame = new SnakeGame();
+        snakeGame.gameLoop.start();
 
 
     }
