@@ -20,8 +20,11 @@ public class SnakeGame {
     private SnakeHead snakeHead;
     private SnakeBody snakeBody;
     private SnakeTail snakeTail;
-    private Background background;
 
+    // can be -1, 0 or 1.
+    private int directionX = 1; // Initally moving right.
+    private int directionY = 0; // Initially no up/down movement.
+    
     private boolean appleEaten = false;
 
     public Loop gameLoop = new Loop();
@@ -67,15 +70,22 @@ public class SnakeGame {
         }
     }
 
+    
     private int[] calculateNewHeadPosition() {
-        // Logic to calculate the new head position based on current direction
+        int currentX = (int)snakeHead.getX()/16;
+        int currentY = (int)snakeHead.getY()/16;
+
+        int newHeadX = currentX + directionX;
+        int newHeadY = currentY + directionY;
+
         return new int[]{newHeadX, newHeadY};
     }
-    
+
     private void updateSnakeBodyPositions(int[] newHeadPosition) {
         // Shift each body part to the position of the part in front of it
         // Set the new position for the head
         snakeHead.setPosition(newHeadPosition[0], newHeadPosition[1]);
+        snakeTail.setPosition(newHeadPosition[0], newHeadPosition[1]);
         // Similar logic for other body parts
     }
     
@@ -97,11 +107,21 @@ public class SnakeGame {
         entities.add(snakeBody);
         entities.add(snakeTail);
 
+        createInputs(snakeHead);
+
         return entities;
+    }
+
+        private void createInputs(SnakeHead player) {
+        inputSystem = new FX_Input(new GameEvents(player, () -> sendGameObjects()));
+
+        inputSystem.addInputs();
     }
 
     private ArrayList<Runnable> getFunctions() {
         ArrayList<Runnable> runnables = new ArrayList<Runnable>();
+
+        moveSnake();
 
         return runnables;
     }
