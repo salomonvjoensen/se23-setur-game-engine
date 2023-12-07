@@ -26,10 +26,7 @@ public class Snake extends Application {
         initializeRenderer(Core.mainStage);
         SnakeGame snakeGame = new SnakeGame();
         snakeGame.gameLoop.start();
-
-
     }
-
 
     private void initializeRenderer(Stage stage) {
         var canvasRenderer = new CanvasRenderer(stage);
