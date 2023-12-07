@@ -13,6 +13,8 @@ import com.setur.se23.engine.render.common.Texture2D;
 
 public class Pipe extends Entity implements DynamicEntity, Collidable {
 
+    public static boolean started = false;
+
     public double speed = 90;
     public boolean reverse;
 
@@ -44,7 +46,9 @@ public class Pipe extends Entity implements DynamicEntity, Collidable {
 
     @Override
     public void update(double deltaTime) {
-        setX(getX() - 1 * speed * deltaTime);
+        if (started) {
+            setX(getX() - 1 * speed * deltaTime);
+        }
     }
 
     @Override
@@ -62,19 +66,19 @@ public class Pipe extends Entity implements DynamicEntity, Collidable {
 
 
 
-    public static void movePipes() {
+    public static void loopAroundPipes() {
 
         double random = Core.randomDouble(1, 8);
 
         for (Entity entity : Loop.entities) {
 
             if (entity instanceof Pipe) {
-                Pipe.movePipe((Pipe) entity, random);
+                Pipe.loopAroundPipe((Pipe) entity, random);
             }
         }
     }
 
-    private static void movePipe(Pipe pipe, double random) {
+    private static void loopAroundPipe(Pipe pipe, double random) {
 
         if (pipe.getX() < -100) {
 

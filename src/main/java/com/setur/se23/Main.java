@@ -1,6 +1,6 @@
 package com.setur.se23;
 
-import com.setur.se23.FlappyBird.FlappyBird;
+import com.setur.se23.SceneManager.SceneManager;
 import com.setur.se23.dependency.render.canvas.CanvasRenderer;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.render.Renderer;
@@ -23,9 +23,11 @@ public class Main extends Application {
         Core.mainStage.setHeight(800.0f);
         Core.mainStage.setTitle("Game Engine Boilerplate!");
 
+        //SceneManager.manage();
+
         initializeRenderer(Core.mainStage);
-        FlappyBird flappyBird = new FlappyBird();
-        flappyBird.gameLoop.start();
+        
+        SceneManager.load();
     }
 
 
