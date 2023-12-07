@@ -8,7 +8,7 @@ import com.setur.se23.engine.render.common.Texture2D;
 
 public class Background extends Entity{
 
-    public Background(Material material, double xPos, double yPos, double angle, double scaleX, double scaleY) {
+    public Background() {
         super(new Material(
                     new Texture2D(Core.getSprite("green-800-x-800.png"), 800, 800),
                     new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)), 
