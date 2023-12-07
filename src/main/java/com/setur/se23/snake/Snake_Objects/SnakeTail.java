@@ -10,12 +10,15 @@ public class SnakeTail extends Entity {
 
 public SnakeTail(double xPos, double yPos, double angle) {
         super(new Material(
-                    new Texture2D(Core.getSprite("snake-tail.png"), 110, 90),
+                    new Texture2D(Core.getSprite("snake-tail.png"), 160, 160),
                     new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)), 
               xPos, 
               yPos, 
               angle,
               0.1, 
               0.1);
-    }  
+    }
+
+public void setPosition(int i, int j) {
+}  
 }
