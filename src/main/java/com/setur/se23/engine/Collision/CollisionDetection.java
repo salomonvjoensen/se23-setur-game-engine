@@ -10,33 +10,33 @@ public class CollisionDetection {
      */
     public static boolean checkForCollision(Entity entity1, Entity entity2) {
 
-        Collider a = ((Collidable) entity1).getCollider();
-        Collider b = ((Collidable) entity2).getCollider();
+        Collider collider1 = ((Collidable) entity1).getCollider();
+        Collider collider2 = ((Collidable) entity2).getCollider();
 
-        if (a instanceof SquareCollider && b instanceof SquareCollider) {
-            return squaresCollide((SquareCollider) a, (SquareCollider) b);
+        if (collider1 instanceof SquareCollider && collider2 instanceof SquareCollider) {
+            return squaresCollide((SquareCollider) collider1, (SquareCollider) collider2);
         }
 
-        if (a instanceof CircleCollider && b instanceof CircleCollider) {
-            return circlesCollide((CircleCollider) a, (CircleCollider) b);
+        if (collider1 instanceof CircleCollider && collider2 instanceof CircleCollider) {
+            return circlesCollide((CircleCollider) collider1, (CircleCollider) collider2);
         }
 
-        if (a instanceof SquareCollider && b instanceof CircleCollider) {
-            return squareCircleCollide((SquareCollider) a, (CircleCollider) b);
+        if (collider1 instanceof SquareCollider && collider2 instanceof CircleCollider) {
+            return squareCircleCollide((SquareCollider) collider1, (CircleCollider) collider2);
         }
 
-        if (a instanceof CircleCollider && b instanceof SquareCollider) {
-            return squareCircleCollide((SquareCollider) b, (CircleCollider) a);
+        if (collider1 instanceof CircleCollider && collider2 instanceof SquareCollider) {
+            return squareCircleCollide((SquareCollider) collider2, (CircleCollider) collider1);
         }
 
         return false;
     }
 
-    private static boolean squaresCollide(SquareCollider a, SquareCollider b) {
-        return a.getX() + a.getWidth()  > b.getX() &&
-               b.getX() + b.getWidth()  > a.getX() &&
-               a.getY() + a.getHeight() > b.getY() &&
-               b.getY() + b.getHeight() > a.getY();
+    private static boolean squaresCollide(SquareCollider square1, SquareCollider square2) {
+        return square1.getX() + square1.getWidth()  > square2.getX() &&
+               square2.getX() + square2.getWidth()  > square1.getX() &&
+               square1.getY() + square1.getHeight() > square2.getY() &&
+               square2.getY() + square2.getHeight() > square1.getY();
     }
 
     private static boolean circlesCollide(CircleCollider circle1, CircleCollider circle2) {

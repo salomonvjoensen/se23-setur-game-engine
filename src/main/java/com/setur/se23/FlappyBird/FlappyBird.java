@@ -8,14 +8,14 @@ import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Ground;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Pipe;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
-import com.setur.se23.engine.debug.CollisionTestObject;
 import com.setur.se23.engine.input.FX_Input;
-import com.setur.se23.engine.input.Input;
+import com.setur.se23.engine.input.InputEvents;
+import com.setur.se23.engine.input.InputType;
 import com.setur.se23.engine.loop.Loop;
 
-public class FlappyBird {
+import javafx.scene.input.KeyCode;
 
-    private Input inputSystem;
+public class FlappyBird {
 
     public Loop gameLoop = new Loop();
 
@@ -24,7 +24,9 @@ public class FlappyBird {
     }
 
     private void sendGameObjects() {
-        gameLoop.sendScene(createFlappyBirdObjects(), getFunctions());
+        Pipe.started = false;
+
+        gameLoop.sendScene(createFlappyBirdObjects(), getRunnables());
     }
 
     private ArrayList<Entity> createFlappyBirdObjects() {
@@ -40,20 +42,18 @@ public class FlappyBird {
 
         entities.add(new Ground());
         
-        Bird player = new Bird(50, 50);
-        CollisionTestObject testObject = new CollisionTestObject(50, 200);
+        Bird player = new Bird(200, 300);
 
-        createInputs(player, testObject);
+        createInputs(player);
 
         entities.add(player);
-        //entities.add(testObject);
 
         return entities;
     }
 
     private void addPipes(ArrayList<Entity> entities, int pairAmount) {
 
-        int spacing = 300;
+        int spacing = 500;
 
         double random = Core.randomDouble(1, 8);
 
@@ -67,18 +67,30 @@ public class FlappyBird {
         }
     }
 
-    private void createInputs(Bird player, CollisionTestObject test) {
-        inputSystem = new FX_Input(new GameEvents(player, test, () -> sendGameObjects()));
+    private void createInputs(Bird player) {
 
-        inputSystem.addInputs();
+        InputEvents gameEvents = new GameEvents(player, () -> sendGameObjects());
+
+        FX_Input inputSystem = new FX_Input(gameEvents);
+
+        //on key press
+        inputSystem.addInput(InputType.onPress, KeyCode.SPACE, "Jump");
+        inputSystem.addInput(InputType.onPress, KeyCode.UP, "Jump");
+        inputSystem.addInput(InputType.onPress, KeyCode.P, "toggle_FPS_Counter");
+        inputSystem.addInput(InputType.onPress, KeyCode.O, "toggle_Gizmos");
+        inputSystem.addInput(InputType.onPress, KeyCode.R, "Restart");
+
+        //on key release
+        inputSystem.addInput(InputType.onRelease, KeyCode.SPACE, "Jump_Ready");
+        inputSystem.addInput(InputType.onRelease, KeyCode.UP, "Jump_Ready");
+
+        inputSystem.setInputs();
     }
 
-
-
-    private ArrayList<Runnable> getFunctions() {
+    private ArrayList<Runnable> getRunnables() {
         ArrayList<Runnable> runnables = new ArrayList<Runnable>();
 
-        runnables.add(() -> Pipe.movePipes());
+        runnables.add(() -> Pipe.loopAroundPipes());
 
         return runnables;
     }
