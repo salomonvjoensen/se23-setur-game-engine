@@ -3,6 +3,7 @@ package com.setur.se23.GameTemplate;
 import java.util.ArrayList;
 
 import com.setur.se23.engine.core.Entity;
+import com.setur.se23.engine.debug.CollisionTestObject;
 import com.setur.se23.engine.input.FX_Input;
 import com.setur.se23.engine.input.Input;
 import com.setur.se23.engine.loop.Loop;
@@ -28,7 +29,9 @@ public class GameTemplate {
 
         ArrayList<Entity> entities = new ArrayList<Entity>();
         
+        CollisionTestObject test = new CollisionTestObject(100, 100);
 
+        entities.add(test);
 
         createInputs();
 

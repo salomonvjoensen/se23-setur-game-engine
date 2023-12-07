@@ -15,7 +15,7 @@ public class CircleCollider extends Collider {
 
     public CircleCollider(Entity attachedEntity, int radius) {
         super(new Material(
-                    new Texture2D(Core.getResorcePath("gizmo/red_circle.png"), radius * 2, radius * 2), 
+                    new Texture2D(null, radius * 2, radius * 2), 
                     new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)),
               attachedEntity);
         this.radius = radius;

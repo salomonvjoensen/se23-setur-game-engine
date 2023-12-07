@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,7 +27,7 @@ public class CanvasRenderer implements RenderPipelineInterface {
     // the other is being rendered, and vice versa
     private final List<BufferItem> _buffer = new ArrayList<>();
 
-    private final HashMap<String, Image> _textureMap = new HashMap<>();
+    private final HashMap<byte[], Image> _textureMap = new HashMap<>();
 
     private Canvas _canvas;
 
@@ -57,7 +58,7 @@ public class CanvasRenderer implements RenderPipelineInterface {
 
     @Override
     public void allocateTexture(Texture2D texture) {
-        _textureMap.put(texture.path(), new Image(texture.path()));
+        _textureMap.put(texture.image(), new Image(new ByteArrayInputStream(texture.image())));
     }
 
     @Override
@@ -75,7 +76,7 @@ public class CanvasRenderer implements RenderPipelineInterface {
             // note: this color should be used to tint the image
             Color color = CanvasConverter.ToFxColor(materialColour);
 
-            Image img = _textureMap.get(texture.path());
+            Image img = _textureMap.get(texture.image());
 
             context.save();
 

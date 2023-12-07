@@ -15,7 +15,7 @@ public class Ground extends Entity implements Collidable {
 
     public Ground() {
         super(new Material(
-                    new Texture2D(Core.getSprite("base.png"), (int) Core.getStageWidth(), 100),
+                    new Texture2D(null, (int) Core.getStageWidth(), 100),
                     new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)), 
               0, 
               Core.getStageHeight() - 100, 
