@@ -7,7 +7,7 @@ import com.setur.se23.GameTemplate.GameTemplate;
 
 public class SceneManager {
 
-    private static String scene = "3";
+    private static String scene = "1";
     
     public static void manage() {
 

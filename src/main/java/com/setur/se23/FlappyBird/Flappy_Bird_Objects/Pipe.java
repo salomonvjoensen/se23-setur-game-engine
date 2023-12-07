@@ -23,7 +23,7 @@ public class Pipe extends Entity implements DynamicEntity, Collidable {
 
     public Pipe(boolean reverse, double xPos, double yPos) {
         super(new Material(
-                    new Texture2D(null, 52, 320),
+                    new Texture2D(Core.getSprite("pipe-green.png"), 52, 320),
                     new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)), 
               xPos, 
               yPos, 

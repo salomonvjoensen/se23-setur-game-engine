@@ -17,7 +17,7 @@ public class SquareCollider extends Collider {
 
     public SquareCollider(Entity attachedEntity, int width, int height) {
         super(new Material(
-                    new Texture2D(null, width, height), 
+                    new Texture2D(Core.getResorcePath("gizmo/red_square.png"), width, height), 
                     new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)),
               attachedEntity);
         this.width = width;

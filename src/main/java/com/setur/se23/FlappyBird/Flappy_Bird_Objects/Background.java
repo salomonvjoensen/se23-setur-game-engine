@@ -10,7 +10,7 @@ public class Background extends Entity {
 
     public Background() {
         super(new Material(
-                    new Texture2D(null, 800, 800),
+                    new Texture2D(Core.getSprite("background-day.png"), 800, 800),
                     new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)), 
               0, 
               0,

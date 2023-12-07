@@ -28,7 +28,7 @@ public class Bird extends Entity implements DynamicEntity, Collidable {
 
     public Bird(double xPos, double yPos) {
         super(new Material(
-                    new Texture2D(null, 280, 200),
+                    new Texture2D(Core.getSprite("flappy-bird.png"), 280, 200),
                     new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)), 
               xPos, 
               yPos, 

@@ -2,6 +2,7 @@ package com.setur.se23.engine.loop;
 
 import java.util.ArrayList;
 
+import com.setur.se23.dependency.render.canvas.CanvasRenderer;
 import com.setur.se23.engine.Collision.Collidable;
 import com.setur.se23.engine.Collision.CollisionDetection;
 import com.setur.se23.engine.core.Core;
@@ -87,6 +88,8 @@ public class Loop extends FX_FrameUpdate {
         if (Core.FPS_Counter) {
             Core.debug.checkFPS();
         }
+
+        CanvasRenderer.renderGUI("1", 100, 100);
         
         Renderer.getInstance().swapBuffers();
     }

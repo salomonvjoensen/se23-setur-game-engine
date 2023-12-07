@@ -6,7 +6,6 @@ import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Pipe;
 import com.setur.se23.engine.Collision.CircleCollider;
 import com.setur.se23.engine.Collision.Collidable;
 import com.setur.se23.engine.Collision.Collider;
-import com.setur.se23.engine.GUI.GUI;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.DynamicEntity;
 import com.setur.se23.engine.core.Entity;
@@ -30,7 +29,7 @@ public class CollisionTestObject extends Entity implements DynamicEntity, Collid
 
     public CollisionTestObject(double xPos, double yPos) {
         super(new Material(
-                    new Texture2D(GUI.convertImageToByteArray(Core.getResorcePath("sprites/flappy-bird.png")), 280, 200),
+                    new Texture2D(Core.getSprite("flappy-bird.png"), 280, 200),
                     new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)), 
                 xPos, 
                 yPos, 
