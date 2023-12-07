@@ -14,5 +14,19 @@ public class SnakeGame {
 
     public Loop gameLoop = new Loop();
 
+    public SnakeGame() {
+        sendGameObjects();
+    }
 
+    private void sendGameObjects() {
+        gameLoop.sendScene(createSnakeGameObjects(), getFunctions());
+    }
+
+    private ArrayList<Entity> createSnakeGameObjects() {
+        return null;
+    }
+
+    private ArrayList<Runnable> getFunctions() {
+        return null;
+    }
 }
