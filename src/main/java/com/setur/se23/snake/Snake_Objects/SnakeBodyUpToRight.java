@@ -6,11 +6,11 @@ import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.MaterialColour;
 import com.setur.se23.engine.render.common.Texture2D;
 
-public class SnakeBody extends Entity {
+public class SnakeBodyUpToRight extends Entity {
 
-public SnakeBody(double xPos, double yPos, double angle) {
+public SnakeBodyUpToRight(double xPos, double yPos, double angle) {
         super(new Material(
-                    new Texture2D(Core.getSprite("snake-body.png"), 160, 160),
+                    new Texture2D(Core.getSprite("Snake-body-up-right.png"), 160, 160),
                     new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)), 
               xPos, 
               yPos, 
