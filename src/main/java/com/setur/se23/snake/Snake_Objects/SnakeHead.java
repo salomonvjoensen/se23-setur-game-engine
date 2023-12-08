@@ -1,15 +1,20 @@
 package com.setur.se23.snake.Snake_Objects;
 
+import com.setur.se23.engine.Collision.Collider;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.MaterialColour;
 import com.setur.se23.engine.render.common.Texture2D;
+import com.setur.se23.snake.GridUtils;
 
-public class SnakeHead extends Entity {
+public class SnakeHead extends SnakeEntity{
 
     private int directionX;
     private int directionY;
+    private boolean isAlive = true;
+
+    public Collider collider;
 
     public SnakeHead(double xPos, double yPos, double angle) {
             super(new Material(
@@ -21,11 +26,7 @@ public class SnakeHead extends Entity {
                 0.1, 
                 0.1);
         }
-
-    public void setPosition(int i, int j) {
-
-    }
-
+    
     public void movingUp(boolean moving) {
         if (moving) {
             directionX = 0;
@@ -60,5 +61,11 @@ public class SnakeHead extends Entity {
 
     public int getDirectionY() {
         return directionY;
+    }
+
+    @Override
+    public void collisionEvent(Entity collisionEntity) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'collisionEvent'");
     }
 }
