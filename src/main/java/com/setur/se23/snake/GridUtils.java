@@ -8,5 +8,15 @@ public class GridUtils {
         double stageY = gridY * CELL_SIZE;
         return new double[]{stageX, stageY};
     }
+
+    public static double gridToStageCoordinateX(int gridX) {
+        double stageX = gridX * CELL_SIZE;
+        return stageX;
+    }
+    
+    public static double gridToStageCoordinateY(int gridY) {
+        double stageY = gridY * CELL_SIZE;
+        return stageY;
+    }
 }
 
