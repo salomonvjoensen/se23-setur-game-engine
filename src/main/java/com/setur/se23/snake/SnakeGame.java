@@ -3,24 +3,32 @@ package com.setur.se23.snake;
 import java.util.ArrayList;
 
 import com.setur.se23.engine.core.Core;
-import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.input.FX_Input;
+import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.input.Input;
 import com.setur.se23.engine.input.InputEvents;
 import com.setur.se23.engine.input.InputType;
 import com.setur.se23.engine.loop.Loop;
+import com.setur.se23.snake.Snake_Objects.Apple;
 import com.setur.se23.snake.Snake_Objects.Background;
 import com.setur.se23.snake.Snake_Objects.SnakeBody;
+import com.setur.se23.snake.Snake_Objects.SnakeEntity;
 import com.setur.se23.snake.Snake_Objects.SnakeHead;
 import com.setur.se23.snake.Snake_Objects.SnakeTail;
 
 import javafx.scene.input.KeyCode;
 
 public class SnakeGame {
+
+    private long lastMoveTime = System.currentTimeMillis();
+    private static final long MOVE_INTERVAL = 200; // 200ms
     
     private Input inputSystem;
 
     private Grid grid;
+    ArrayList<SnakeEntity> snakeEntities;
+    private Background background;
+    private Apple apple;
     private SnakeHead snakeHead;
     private SnakeBody snakeBody;
     private SnakeTail snakeTail;
@@ -34,9 +42,20 @@ public class SnakeGame {
     public Loop gameLoop = new Loop();
 
     public SnakeGame() {
+        this.background = new Background();
+        this.apple = new Apple(Core.randomInt(0, 50), Core.randomInt(0, 50));
         this.grid = new Grid();
-        initializeSnake();
+        this.snakeEntities = new ArrayList<>();
+
+        initializeSnake();        
+
         sendGameObjects();
+
+    }
+
+    private void sendGameObjects() {
+        gameLoop.sendScene(createSnakeGameObjects(), getRunnables());
+
     }
 
     private void initializeSnake() {
@@ -53,6 +72,10 @@ public class SnakeGame {
         snakeBody = new SnakeBody(bodyStageCoordinates[0], bodyStageCoordinates[1], 0);
         snakeTail = new SnakeTail(tailStageCoordinates[0], tailStageCoordinates[1], 0);
 
+        snakeEntities.add(snakeTail);
+        snakeEntities.add(snakeBody);
+        snakeEntities.add(snakeHead);
+
         // Update grid status
         grid.setCell(headPosition[0], headPosition[1], true);
         grid.setCell(bodyPosition[0], bodyPosition[1], true);
@@ -60,21 +83,49 @@ public class SnakeGame {
     }
 
     public void moveSnake() {
-        // Determine new head position based on direction
         int[] newHeadPosition = calculateNewHeadPosition();
     
         // Check for collisions or apple consumption at the new head position
+        // ...
     
-        // Move the snake
-        updateSnakeBodyPositions(newHeadPosition);
+        // Create a new head at the new position
+        SnakeHead newHead = new SnakeHead(
+            GridUtils.gridToStageCoordinateX(newHeadPosition[0]), 
+            GridUtils.gridToStageCoordinateY(newHeadPosition[1]),
+            calculateHeadAngle());
+        snakeEntities.add(newHead);
+
+        System.out.println("x: " + newHead.getX() + "  y: " + newHead.getY());
+        // Replace the old head with a body part
+        snakeBody = new SnakeBody(snakeHead.getX(), snakeHead.getY(), snakeHead.getAngle());
+        snakeEntities.add(snakeBody);
+
+        updateSnakePositions();
+    
+        // Update the reference to the head
+        snakeHead = newHead;
     
         // Remove the tail segment if no apple was eaten
         if (!appleEaten) {
             removeTailSegment();
         }
+
+        refreshRenderingEntities();
     }
 
-    
+    private void refreshRenderingEntities() {
+        ArrayList<Entity> entities = new ArrayList<Entity>();
+
+        entities.add(background);
+        entities.add(apple);
+
+        for (SnakeEntity entity : snakeEntities) {
+            entities.add(entity);
+        }
+
+        gameLoop.sendScene(entities, getRunnables());
+    }
+
     private int[] calculateNewHeadPosition() {
         int currentX = (int)snakeHead.getX()/16;
         int currentY = (int)snakeHead.getY()/16;
@@ -85,21 +136,28 @@ public class SnakeGame {
         return new int[]{newHeadX, newHeadY};
     }
 
-    private void updateSnakeBodyPositions(int[] newHeadPosition) {
+    private double calculateHeadAngle() {
+        if (directionX == 1) return 0;    // Right
+        if (directionX == -1) return 180; // Left
+        if (directionY == 1) return 90;   // Down
+        if (directionY == -1) return 270; // Up
+        return 0;
+    }
+
+    private void updateSnakePositions() {
         // Shift each body part to the position of the part in front of it
         // Set the new position for the head
-        snakeHead.setPosition(newHeadPosition[0], newHeadPosition[1]);
-        snakeTail.setPosition(newHeadPosition[0], newHeadPosition[1]);
+
+        for (SnakeEntity entity : snakeEntities) {
+            entity.setPosition(entity.getX(), entity.getY(), entity.getAngle());
+        }
+        // snakeTail.setPosition(newX, newY);
         // Similar logic for other body parts
     }
     
     private void removeTailSegment() {
         // Remove the last segment of the snake's body
         // Update the grid and snake body array accordingly
-    }
-
-    private void sendGameObjects() {
-        gameLoop.sendScene(createSnakeGameObjects(), getFunctions());
     }
 
     private ArrayList<Entity> createSnakeGameObjects() {
@@ -110,6 +168,8 @@ public class SnakeGame {
         entities.add(snakeHead);
         entities.add(snakeBody);
         entities.add(snakeTail);
+
+        // entities.add(snakeEntities);
 
         createInputs(snakeHead);
 
@@ -140,10 +200,16 @@ public class SnakeGame {
         inputSystem.setInputs();
     }
 
-    private ArrayList<Runnable> getFunctions() {
+    private ArrayList<Runnable> getRunnables() {
         ArrayList<Runnable> runnables = new ArrayList<Runnable>();
 
-        moveSnake();
+        runnables.add(() -> {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - lastMoveTime >= MOVE_INTERVAL) {
+                moveSnake();
+                lastMoveTime = currentTime;
+            }
+        });
 
         return runnables;
     }
