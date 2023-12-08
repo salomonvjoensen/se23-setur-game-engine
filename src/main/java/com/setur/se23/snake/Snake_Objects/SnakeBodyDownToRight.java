@@ -1,12 +1,11 @@
 package com.setur.se23.snake.Snake_Objects;
 
 import com.setur.se23.engine.core.Core;
-import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.MaterialColour;
 import com.setur.se23.engine.render.common.Texture2D;
 
-public class SnakeBodyDownToRight extends Entity {
+public class SnakeBodyDownToRight extends SnakeEntity {
 
 public SnakeBodyDownToRight(double xPos, double yPos, double angle) {
         super(new Material(
@@ -18,8 +17,5 @@ public SnakeBodyDownToRight(double xPos, double yPos, double angle) {
               0.1, 
               0.1);
     }
-    
-    public void setPosition(int i, int j) {
 
-    }
 }
