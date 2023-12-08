@@ -15,9 +15,8 @@ public abstract class SnakeEntity extends Entity implements Collidable{
     }
     
     public void setPosition(double gridX, double gridY, double angle) {
-        double[] stageCoordinates = GridUtils.gridToStageCoordinates((int)gridX, (int)gridY);
-        this.xPos = stageCoordinates[0];
-        this.yPos = stageCoordinates[1];
+        this.xPos = GridUtils.gridToStageCoordinateX((int)gridX);
+        this.yPos = GridUtils.gridToStageCoordinateY((int)gridY);
         this.angle = angle;
     }
 
