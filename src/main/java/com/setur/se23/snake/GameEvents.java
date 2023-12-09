@@ -27,19 +27,15 @@ public class GameEvents implements InputEvents {
                 break;
             case "Up":
                 player.movingUp(true);
-                System.out.println("move up");
                 break;
             case "Left":
                 player.movingLeft(true);
-                System.out.println("move left");
                 break;
             case "Down":
                 player.movingDown(true);
-                System.out.println("move down");
                 break;
             case "Right":
                 player.movingRight(true);
-                System.out.println("move right");
                 break;
             case "Up_Ready":
                 player.movingUp(false);
@@ -52,7 +48,6 @@ public class GameEvents implements InputEvents {
                 break;
             case "Right_Ready":
                 player.movingRight(false);
-                System.out.println("move right release");
                 break;
                 
             default:
