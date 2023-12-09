@@ -12,6 +12,8 @@ import com.setur.se23.engine.loop.Loop;
 import com.setur.se23.snake.Snake_Objects.Apple;
 import com.setur.se23.snake.Snake_Objects.Background;
 import com.setur.se23.snake.Snake_Objects.SnakeBody;
+import com.setur.se23.snake.Snake_Objects.SnakeBodyDownToRight;
+import com.setur.se23.snake.Snake_Objects.SnakeBodyUpToRight;
 import com.setur.se23.snake.Snake_Objects.SnakeEntity;
 import com.setur.se23.snake.Snake_Objects.SnakeHead;
 import com.setur.se23.snake.Snake_Objects.SnakeTail;
@@ -46,11 +48,9 @@ public class SnakeGame {
 
     public SnakeGame() {
         this.background = new Background();
-        this.apple = new Apple(Core.randomInt(0, 50), Core.randomInt(0, 50));
+        this.apple = new Apple(Core.randomInt(0, 800), Core.randomInt(0, 800));
         this.grid = new Grid();
-        // this.directionX = 1;  // Initally moving right.
-        // this.directionY = 0;  // Initially no up/down movement.
-        this.snakeEntities = new ArrayList<>();
+        this.snakeEntities = new ArrayList<SnakeEntity>();
 
         initializeSnake();        
 
@@ -82,11 +82,11 @@ public class SnakeGame {
         snakeBody3 = new SnakeBody(bodyStageCoordinates3[0], bodyStageCoordinates3[1], 0);
         snakeTail = new SnakeTail(tailStageCoordinates[0], tailStageCoordinates[1], 0);
 
-        snakeEntities.add(snakeTail);
-        snakeEntities.add(snakeBody1);
-        snakeEntities.add(snakeBody2);
-        snakeEntities.add(snakeBody3);
-        snakeEntities.add(snakeHead);
+        snakeEntities.addLast(snakeHead);
+        snakeEntities.addLast(snakeBody1);
+        snakeEntities.addLast(snakeBody2);
+        snakeEntities.addLast(snakeBody3);
+        snakeEntities.addLast(snakeTail);
 
         // Update grid status
         grid.setCell(headPosition[0], headPosition[1], true);
@@ -102,18 +102,70 @@ public class SnakeGame {
     
         // Check for collisions or apple consumption at the new head position
         // ...
-    
-        // Convert the old head into a body part
-        SnakeHead oldHeadAsBody = new SnakeHead(snakeHead.getX(), snakeHead.getY(), snakeHead.getAngle());
-        // snakeEntities.removeLast();
-        snakeEntities.add(oldHeadAsBody);  // Add this new body part to the list
+
+
+        // Convert the old head into a body part, defaults to SnakeBody.
+        SnakeEntity oldHeadAsBody = new SnakeBody(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
+        
+        // Before updating the head's position, check if the direction has changed
+        if (snakeHead.isDirectionChanged()) {
+            // Replace the body part behind the head with the appropriate bendy part
+            // Determine the appropriate bendy part based on direction, --8-- possibilities.
+            if (snakeHead.getPrevDirectionY() == 1 && snakeHead.getDirectionX() == 1) {
+                // moving down to right 
+                oldHeadAsBody = new SnakeBodyDownToRight(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
+                snakeHead.setIsMovingX(true);
+            } else if (snakeHead.getPrevDirectionY() == -1 && snakeHead.getDirectionX() == 1) {
+                // moving up to right
+                oldHeadAsBody = new SnakeBodyUpToRight(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
+                snakeHead.setIsMovingX(true);
+            } else if (snakeHead.getPrevDirectionY() == 1 && snakeHead.getDirectionX() == -1) {
+                // moving down to left
+                oldHeadAsBody = new SnakeBodyUpToRight(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
+                snakeHead.setIsMovingX(true);
+            } else if (snakeHead.getPrevDirectionY() == -1 && snakeHead.getDirectionX() == -1) {
+                // moving up to left
+                oldHeadAsBody = new SnakeBodyDownToRight(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
+                snakeHead.setIsMovingX(true);
+
+            } else if (snakeHead.getPrevDirectionX() == 1 && snakeHead.getDirectionY() == 1) {
+                // moving right to down
+                oldHeadAsBody = new SnakeBodyUpToRight(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
+                snakeHead.setIsMovingY(true);
+            } else if (snakeHead.getPrevDirectionX() == 1 && snakeHead.getDirectionY() == -1) {
+                // moving right to up
+                oldHeadAsBody = new SnakeBodyDownToRight(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
+                snakeHead.setIsMovingY(true);
+            } else if (snakeHead.getPrevDirectionX() == -1 && snakeHead.getDirectionY() == 1) {
+                // moving left to down
+                oldHeadAsBody = new SnakeBodyDownToRight(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
+                snakeHead.setIsMovingY(true);
+            } else if (snakeHead.getPrevDirectionX() == -1 && snakeHead.getDirectionY() == -1) {
+                //  moving left to up
+                oldHeadAsBody = new SnakeBodyUpToRight(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
+                snakeHead.setIsMovingY(true);
+            }
+        } //else {
+            // default
+            //oldHeadAsBody = new SnakeBody(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
+        // }
+
+        snakeEntities.set(0, oldHeadAsBody);  // replace snakehead with bodypart
+
+        snakeEntities.addFirst(snakeHead); // add snakehead as new head.
 
         // Update the position of the head
         snakeHead.setPosition(
             newHeadPosition[0],
             newHeadPosition[1],
             calculateHeadAngle()
-        );
+            );
+        
+        // Update the previous direction of the head
+        snakeHead.updateDirection();
+
+        // Set the cell with the new head to containing snake.
+        grid.setCell(newHeadPosition[0], newHeadPosition[1], true);
 
         // Update the positions of the rest of the snake
         updateSnakePositions();
@@ -121,6 +173,11 @@ public class SnakeGame {
         // Remove the tail segment if no apple was eaten
         if (!appleEaten) {
             removeTailSegment();
+        } else {
+            // Apple was eaten, instead of removing tail, sets AppleEaten to false again
+            appleEaten = false;
+            apple.setX(Core.randomInt(0, 784));
+            apple.setY(Core.randomInt(0, 784));
         }
     }
 
@@ -138,10 +195,6 @@ public class SnakeGame {
     }
 
     private int[] calculateNewHeadPosition() {
-        int currentX = (int)snakeHead.getX()/S_C;
-        int currentY = (int)snakeHead.getY()/S_C;
-
-        System.out.println("currentX: " + currentX + "  currentY: " + currentY + "  dirX: " + snakeHead.getDirectionX() + "  dirY: " + snakeHead.getDirectionY());
 
         int newHeadX = (int)snakeHead.getX()/S_C + snakeHead.getDirectionX();
         int newHeadY = (int)snakeHead.getY()/S_C + snakeHead.getDirectionY();
@@ -166,20 +219,24 @@ public class SnakeGame {
         }
     }
     
+    // Remove the last segment of the snake's body
     private void removeTailSegment() {
-        // Remove the last segment of the snake's body
-        // Update the grid and snake body array accordingly
 
-        snakeEntities.remove(0); // Assuming the tail is always at index 0
-            
-        // Make last SnakeEntity to tail.
-        SnakeEntity replaceBody = snakeEntities.get(0);
+        SnakeEntity oldTail = snakeEntities.getLast();
+        snakeEntities.removeLast(); // Assuming the tail is always the last element
 
-            // If the new tail is a body part, convert it to a tail
-            SnakeTail newTail = new SnakeTail(replaceBody.getX(), replaceBody.getY(), replaceBody.getAngle());
-    
-            // Replace the body part with the new tail in the list
-            snakeEntities.set(0, newTail);
+        // Make second-last SnakeEntity to tail.
+        SnakeEntity replaceBody = snakeEntities.getLast();
+
+        // If the new tail is a body part, convert it to a tail
+        SnakeTail newTail = new SnakeTail(replaceBody.getX(), replaceBody.getY(), replaceBody.getAngle());
+
+        // Replace the body part with the new tail in the list
+        snakeEntities.removeLast();
+        snakeEntities.addLast(newTail);
+
+        grid.setCell((int)oldTail.getX()/S_C, (int)oldTail.getY()/S_C, false);  // Leaves old spot.
+        oldTail = null;
     }
 
     private ArrayList<Entity> createSnakeGameObjects() {
