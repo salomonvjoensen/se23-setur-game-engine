@@ -11,6 +11,10 @@ public class SnakeHead extends SnakeEntity{
 
     private int directionX;
     private int directionY;
+
+    private int prevDirectionX = 1; // Initially moving right
+    private int prevDirectionY = 0;
+
     private boolean isMovingX = true;
     private boolean isMovingY = false;
     private boolean isAlive = true;
@@ -32,38 +36,30 @@ public class SnakeHead extends SnakeEntity{
         }
     
     public void movingUp(boolean moving) {
-        if (moving) {
+        if (moving && isMovingX) {
             directionX = 0;
             directionY = -1; // Upwards movement decreases Y-coordinate
-            isMovingX = false;
-            isMovingY = true;
         }
     }
 
     public void movingLeft(boolean moving) {
-        if (moving) {
+        if (moving && isMovingY) {
             directionX = -1; // Leftwards movement decreases X-coordinate
             directionY = 0;
-            isMovingX = true;
-            isMovingY = false;
         }
     }
 
     public void movingDown(boolean moving) {
-        if (moving) {
+        if (moving && isMovingX) {
             directionX = 0;
             directionY = 1; // Downwards movement increases Y-coordinate
-            isMovingX = false;
-            isMovingY = true;
         }
     }
 
     public void movingRight(boolean moving) {
-        if (moving) {
+        if (moving && isMovingY) {
             directionX = 1; // Rightwards movement increases X-coordinate
             directionY = 0;
-            isMovingX = true;
-            isMovingY = false;
         }
     }
 
@@ -75,12 +71,47 @@ public class SnakeHead extends SnakeEntity{
         return directionY;
     }
 
+    public int getPrevDirectionX() {
+        return prevDirectionX;
+    }
+
+    public int getPrevDirectionY() {
+        return prevDirectionY;
+    }
+
     public void setDirectionX(int direction) {
         directionX = direction;
     }
 
     public void setDirectionY(int direction) {
         directionY = direction;
+    }
+
+    public void updateDirection() {
+        prevDirectionX = directionX;
+        prevDirectionY = directionY;
+    }
+
+    public boolean isDirectionChanged() {
+        return prevDirectionX != directionX || prevDirectionY != directionY;
+    }
+
+    public boolean getIsMovingX() {
+        return isMovingX;
+    }
+
+    public boolean getIsMovingY() {
+        return isMovingY;
+    }
+
+    public void setIsMovingX(boolean movingX) {
+        isMovingX = movingX;
+        isMovingY = !movingX;
+    }
+
+    public void setIsMovingY(boolean movingY) {
+        isMovingY = movingY;
+        isMovingX = !movingY;
     }
 
     @Override
