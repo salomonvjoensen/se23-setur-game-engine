@@ -206,12 +206,30 @@ public class SnakeGame {
     }
 
     private int[] calculateNewHeadPosition() {
-
         int newHeadX = (int)snakeHead.getX()/S_C + snakeHead.getDirectionX();
         int newHeadY = (int)snakeHead.getY()/S_C + snakeHead.getDirectionY();
-
+    
+        // Grid dimensions (assuming a square grid for simplicity)
+        int gridWidth = 800 / S_C;  // So even if window is resized, it will be for stage.
+        int gridHeight = 800 / S_C;
+    
+        // Check for wrapping on the X-axis
+        if (newHeadX >= gridWidth) {
+            newHeadX = 0; // Wrap to the left side
+        } else if (newHeadX < 0) {
+            newHeadX = gridWidth - 1; // Wrap to the right side
+        }
+    
+        // Check for wrapping on the Y-axis
+        if (newHeadY >= gridHeight) {
+            newHeadY = 0; // Wrap to the top
+        } else if (newHeadY < 0) {
+            newHeadY = gridHeight - 1; // Wrap to the bottom
+        }
+    
         return new int[]{newHeadX, newHeadY};
     }
+    
 
     private double calculateHeadAngle() {
         if (snakeHead.getDirectionX() == 1) return 0;    // Right
