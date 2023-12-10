@@ -10,7 +10,7 @@ public class SnakeTail extends SnakeEntity{
 public SnakeTail(double xPos, double yPos, double angle) {
         super(new Material(
                     new Texture2D(Core.getSprite("snake-tail.png"), 160, 160),
-                    new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)), 
+                    new MaterialColour(0.0f, 1.0f, 0.0f, 1.0f)), 
               xPos, 
               yPos, 
               angle,
