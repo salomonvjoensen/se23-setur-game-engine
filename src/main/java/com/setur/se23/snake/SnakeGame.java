@@ -11,6 +11,7 @@ import com.setur.se23.engine.input.InputType;
 import com.setur.se23.engine.loop.Loop;
 import com.setur.se23.snake.Snake_Objects.Apple;
 import com.setur.se23.snake.Snake_Objects.Background;
+import com.setur.se23.snake.Snake_Objects.GameOver;
 import com.setur.se23.snake.Snake_Objects.SnakeBody;
 import com.setur.se23.snake.Snake_Objects.SnakeBodyDownToRight;
 import com.setur.se23.snake.Snake_Objects.SnakeBodyUpToRight;
@@ -23,7 +24,7 @@ import javafx.scene.input.KeyCode;
 public class SnakeGame {
 
     private long lastMoveTime = System.currentTimeMillis();
-    private static final long MOVE_INTERVAL = 500;  // 500ms.
+    private static final long MOVE_INTERVAL = 200;  // 200ms.
     private static final int S_C = 16;  // Size of each cell.
     
     private Input inputSystem;
@@ -37,6 +38,7 @@ public class SnakeGame {
     private SnakeBody snakeBody2;
     private SnakeBody snakeBody3;
     private SnakeTail snakeTail;
+    private GameOver gameOver;
 
     // can be -1, 0 or 1.
     public int directionX;
@@ -48,10 +50,15 @@ public class SnakeGame {
 
     public SnakeGame() {
         this.background = new Background();
-        this.apple = new Apple(Core.randomInt(0, 800), Core.randomInt(0, 800));
+        this.apple = new Apple(Core.randomInt(0, 784), Core.randomInt(0, 784));
         this.grid = new Grid();
+        this.gameOver = new GameOver();
         this.snakeEntities = new ArrayList<SnakeEntity>();
 
+        initSnakeAndObjects();
+    }
+
+    public void initSnakeAndObjects() {
         initializeSnake();        
 
         sendGameObjects();
@@ -63,6 +70,8 @@ public class SnakeGame {
     }
 
     private void initializeSnake() {
+        snakeEntities = new ArrayList<SnakeEntity>();
+
         // Middle of the grid
         int[] headPosition = {26, 24};
         int[] bodyPosition1 = {25, 24};
@@ -98,11 +107,8 @@ public class SnakeGame {
     }
 
     public void moveSnake() {
+        if (snakeHead.isAlive()) {
         int[] newHeadPosition = calculateNewHeadPosition();
-    
-        // Check for collisions or apple consumption at the new head position
-        // ...
-
 
         // Convert the old head into a body part, defaults to SnakeBody.
         SnakeEntity oldHeadAsBody = new SnakeBody(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
@@ -168,16 +174,17 @@ public class SnakeGame {
         grid.setCell(newHeadPosition[0], newHeadPosition[1], true);
 
         // Update the positions of the rest of the snake
-        updateSnakePositions();
+        // updateSnakePositions();
 
         // Remove the tail segment if no apple was eaten
-        if (!appleEaten) {
+        if (!snakeHead.isAppleEaten()) {
             removeTailSegment();
         } else {
             // Apple was eaten, instead of removing tail, sets AppleEaten to false again
-            appleEaten = false;
+            snakeHead.setAppleEaten(false);
             apple.setX(Core.randomInt(0, 784));
             apple.setY(Core.randomInt(0, 784));
+        }
         }
     }
 
@@ -186,9 +193,13 @@ public class SnakeGame {
 
         entities.add(background);
         entities.add(apple);
-
+        
         for (SnakeEntity entity : snakeEntities) {
             entities.add(entity);
+        }
+
+        if (!snakeHead.isAlive()) {
+                entities.add(gameOver);
         }
 
         gameLoop.sendScene(entities, getRunnables());
@@ -242,7 +253,8 @@ public class SnakeGame {
     private ArrayList<Entity> createSnakeGameObjects() {
         ArrayList<Entity> entities = new ArrayList<Entity>();
 
-        entities.add(new Background());
+        entities.add(background);
+        entities.add(apple);
 
         for (SnakeEntity snakeEntity : snakeEntities) {
             entities.add(snakeEntity);
@@ -254,7 +266,7 @@ public class SnakeGame {
     }
 
     private void createInputs(SnakeHead player) {
-        InputEvents gameEvents = new GameEvents(player, () -> sendGameObjects());
+        InputEvents gameEvents = new GameEvents(player, this);
 
         FX_Input inputSystem = new FX_Input(gameEvents);
 
