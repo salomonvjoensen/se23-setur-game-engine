@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.input.FX_Input;
 import com.setur.se23.engine.core.Entity;
-import com.setur.se23.engine.input.Input;
 import com.setur.se23.engine.input.InputEvents;
 import com.setur.se23.engine.input.InputType;
 import com.setur.se23.engine.loop.Loop;
@@ -22,16 +21,17 @@ import com.setur.se23.snake.Snake_Objects.StartGameInfo;
 
 import javafx.scene.input.KeyCode;
 
+/**
+ * The Snake game. Contains all the game logic.
+ */
 public class SnakeGame {
 
     private long lastMoveTime = System.currentTimeMillis();
-    private static final long MOVE_INTERVAL = 200;  // 200ms.
+    private static final long MOVE_INTERVAL = 200;  // 200ms between updates.
     private static final int S_C = 16;  // Size of each cell.
-    
-    private Input inputSystem;
 
     private Grid grid;
-    ArrayList<SnakeEntity> snakeEntities;
+    private ArrayList<SnakeEntity> snakeEntities;
     private Background background;
     private Apple apple;
     private SnakeHead snakeHead;
@@ -50,10 +50,13 @@ public class SnakeGame {
 
     public Loop gameLoop = new Loop();
 
+    /**
+     * Constructor.
+     */
     public SnakeGame() {
         this.background = new Background();
         this.apple = new Apple(Core.randomInt(0, 784), Core.randomInt(0, 784));
-        this.grid = new Grid();
+        this.grid = new Grid(50, 50);
         this.startGameInfo = new StartGameInfo();
         this.gameOver = new GameOver();
         this.snakeEntities = new ArrayList<SnakeEntity>();
@@ -62,6 +65,9 @@ public class SnakeGame {
         initSnakeAndObjects();
     }
 
+    /**
+     * Used in the Constructor and when pressing the 'R' button.
+     */
     public void initSnakeAndObjects() {
         // can be between 4-49 and 0-49
         initializeSnake(24, 24);        
@@ -69,11 +75,20 @@ public class SnakeGame {
         sendGameObjects();
     }
 
+    /**
+     * What is sent to the game loop.
+     */
     private void sendGameObjects() {
         gameLoop.sendScene(createSnakeGameObjects(), getRunnables());
 
     }
 
+    /**
+     * Initialize the snake.
+     * 
+     * @param posX The initial grid X positions of the snake.
+     * @param posY The initial grid Y positions of the snake.
+     */
     private void initializeSnake(int posX, int posY) {
         snakeEntities = new ArrayList<SnakeEntity>();
 
@@ -111,6 +126,9 @@ public class SnakeGame {
 
     }
 
+    /**
+     * Logical movement of the snake.
+     */
     public void moveSnake() {
         if (snakeHead.isAlive() && !isFirstMove) {
         int[] newHeadPosition = calculateNewHeadPosition();
@@ -147,7 +165,7 @@ public class SnakeGame {
 
         snakeEntities.set(0, oldHeadAsBody);  // replace snakehead with bodypart
 
-        snakeEntities.addFirst(snakeHead); // add snakehead as new head.
+        snakeEntities.addFirst(snakeHead);  // add snakehead as new head.
 
         // Update the position of the head
         snakeHead.setPosition(
@@ -162,14 +180,13 @@ public class SnakeGame {
         // Set the cell with the new head to containing snake.
         grid.setCell(newHeadPosition[0], newHeadPosition[1], true);
 
-        // Update the positions of the rest of the snake
-        // updateSnakePositions();
-
         // Remove the tail segment if no apple was eaten
         if (!snakeHead.isAppleEaten()) {
             removeTailSegment();
         } else {
-            // Apple was eaten, instead of removing tail, sets AppleEaten to false again
+            // Apple was eaten, instead of removing tail,
+            // sets AppleEaten to false again
+            // and move the Apple to a new random location.
             snakeHead.setAppleEaten(false);
             apple.setX(Core.randomInt(0, 784));
             apple.setY(Core.randomInt(0, 784));
@@ -177,6 +194,9 @@ public class SnakeGame {
         }
     }
 
+    /**
+     * Method for refreshing all the entities in the scene.
+     */
     private void refreshRenderingEntities() {
         ArrayList<Entity> entities = new ArrayList<Entity>();
 
@@ -187,10 +207,12 @@ public class SnakeGame {
             entities.add(entity);
         }
 
+        // If it is the first move, displays info about movement and how to restart.
         if (isFirstMove) {
             entities.add(startGameInfo);
         }
 
+        // If the snake collides with itself display the Game Over object.
         if (!snakeHead.isAlive()) {
             entities.add(gameOver);
         }
@@ -198,32 +220,38 @@ public class SnakeGame {
         gameLoop.sendScene(entities, getRunnables());
     }
 
+    /**
+     * Method to calculate, depending on movement,
+     * where the new head position should be.
+     * 
+     * @return
+     */
     private int[] calculateNewHeadPosition() {
         int newHeadX = (int)snakeHead.getX()/S_C + snakeHead.getDirectionX();
         int newHeadY = (int)snakeHead.getY()/S_C + snakeHead.getDirectionY();
     
-        // Grid dimensions (assuming a square grid for simplicity)
-        int gridWidth = 800 / S_C;  // So even if window is resized, it will be for stage.
-        int gridHeight = 800 / S_C;
-    
         // Check for wrapping on the X-axis
-        if (newHeadX >= gridWidth) {
+        if (newHeadX >= grid.getX()) {
             newHeadX = 0; // Wrap to the left side
         } else if (newHeadX < 0) {
-            newHeadX = gridWidth - 1; // Wrap to the right side
+            newHeadX = grid.getX() - 1; // Wrap to the right side
         }
     
         // Check for wrapping on the Y-axis
-        if (newHeadY >= gridHeight) {
+        if (newHeadY >= grid.getY()) {
             newHeadY = 0; // Wrap to the top
         } else if (newHeadY < 0) {
-            newHeadY = gridHeight - 1; // Wrap to the bottom
+            newHeadY = grid.getY() - 1; // Wrap to the bottom
         }
     
         return new int[]{newHeadX, newHeadY};
     }
     
-
+    /**
+     * Calculate angle of head, depending on direction.
+     * 
+     * @return Depending on direction, returns the angle of the Head.
+     */
     private double calculateHeadAngle() {
         if (snakeHead.getDirectionX() == 1) return 0;    // Right
         if (snakeHead.getDirectionX() == -1) return 180; // Left
@@ -232,11 +260,18 @@ public class SnakeGame {
         return 0;
     }
 
+    /**
+     * Get method to determine if it is the first move.
+     * 
+     * @param firstMove Boolean for first move.
+     */
     public void isFirstMove(boolean firstMove) {
         isFirstMove = firstMove;
     }
 
-    // Remove the last segment of the snake's body
+    /**
+     * Remove the last segment of the snake's body
+     */
     private void removeTailSegment() {
 
         SnakeEntity oldTail = snakeEntities.getLast();
@@ -256,6 +291,12 @@ public class SnakeGame {
         oldTail = null;
     }
 
+    /**
+     * Method for creating all the objects,
+     * that will be drawn on the scene.
+     * 
+     * @return The entities that will be drawn on the scene.
+     */
     private ArrayList<Entity> createSnakeGameObjects() {
         ArrayList<Entity> entities = new ArrayList<Entity>();
 
@@ -275,6 +316,11 @@ public class SnakeGame {
         return entities;
     }
 
+    /**
+     * Create the inputs for the player.
+     * 
+     * @param player The inputs are valid for the SnakeHead.
+     */
     private void createInputs(SnakeHead player) {
         InputEvents gameEvents = new GameEvents(player, this);
 
@@ -299,6 +345,12 @@ public class SnakeGame {
         inputSystem.setInputs();
     }
 
+    /**
+     * The runnables that are sent to the game loop.
+     * This game uses refreshing calculations as Runnables.
+     * 
+     * @return Runnable of moving snake and refreshing all entities.
+     */
     private ArrayList<Runnable> getRunnables() {
         ArrayList<Runnable> runnables = new ArrayList<Runnable>();
 

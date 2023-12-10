@@ -4,11 +4,20 @@ import com.setur.se23.snake.Snake_Objects.SnakeHead;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.input.InputEvents;
 
+/**
+ * The events in the game determined by keyboard inputs.
+ */
 public class GameEvents implements InputEvents {
 
     private SnakeHead player;
     private SnakeGame game;
 
+    /**
+     * Constructor.
+     * 
+     * @param player The SnakeHead
+     * @param game Reference to the game itself.
+     */
     public GameEvents(SnakeHead player, SnakeGame game) {
         this.player = player;
         this.game = game;

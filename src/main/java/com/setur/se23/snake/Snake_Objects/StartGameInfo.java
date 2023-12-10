@@ -6,8 +6,14 @@ import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.MaterialColour;
 import com.setur.se23.engine.render.common.Texture2D;
 
+/**
+ * The start game info displayed before any input is pressed other than WASD.
+ */
 public class StartGameInfo extends Entity{
 
+    /**
+     * Constructor.
+     */
     public StartGameInfo() {
         super(new Material(
                     new Texture2D(Core.getSprite("start-game-info.png"), 651, 409),

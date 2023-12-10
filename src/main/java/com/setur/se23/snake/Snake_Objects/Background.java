@@ -6,8 +6,14 @@ import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.MaterialColour;
 import com.setur.se23.engine.render.common.Texture2D;
 
+/**
+ * The green background in the Snake game.
+ */
 public class Background extends Entity{
 
+    /**
+     * Constructor.
+     */
     public Background() {
         super(new Material(
                     new Texture2D(Core.getSprite("green-800-x-800.png"), 800, 800),

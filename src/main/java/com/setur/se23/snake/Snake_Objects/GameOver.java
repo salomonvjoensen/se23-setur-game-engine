@@ -6,8 +6,14 @@ import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.MaterialColour;
 import com.setur.se23.engine.render.common.Texture2D;
 
+/**
+ * The game over screen, shown when Snake collides with itself.
+ */
 public class GameOver extends Entity{
 
+    /**
+     * Constructor.
+     */
     public GameOver() {
         super(new Material(
                     new Texture2D(Core.getSprite("gameover.png"), 192, 42),
