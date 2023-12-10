@@ -1,5 +1,6 @@
 package com.setur.se23.snake.Snake_Objects;
 
+import com.setur.se23.engine.Collision.SquareCollider;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.MaterialColour;
