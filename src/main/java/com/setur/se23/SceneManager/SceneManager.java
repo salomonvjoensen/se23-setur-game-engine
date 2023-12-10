@@ -8,7 +8,7 @@ import com.setur.se23.snake.SnakeGame;
 
 public class SceneManager {
 
-    private static String scene = "2";
+    private static String scene = "1";
     
     public static void manage() {
 
