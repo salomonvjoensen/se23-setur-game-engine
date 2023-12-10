@@ -1,6 +1,5 @@
 package com.setur.se23.snake.Snake_Objects;
 
-import com.setur.se23.engine.Collision.Collider;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.render.common.Material;
@@ -18,8 +17,7 @@ public class SnakeHead extends SnakeEntity{
     private boolean isMovingX = true;
     private boolean isMovingY = false;
     private boolean isAlive = true;
-
-    public Collider collider;
+    private boolean appleEaten = false;
 
     public SnakeHead(double xPos, double yPos, double angle) {
             super(new Material(
@@ -113,10 +111,28 @@ public class SnakeHead extends SnakeEntity{
         isMovingY = movingY;
         isMovingX = !movingY;
     }
+    
+    public void setAppleEaten(boolean eating) {
+        appleEaten = eating;
+    }
+    
+    public boolean isAppleEaten() {
+        return appleEaten;
+    }
 
+    public boolean isAlive() {
+        return isAlive;
+    }
+    
     @Override
     public void collisionEvent(Entity collisionEntity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'collisionEvent'");
+        if (collisionEntity instanceof Apple) {
+            appleEaten = true;
+        }
+
+        if (collisionEntity instanceof SnakeEntity) {
+            isAlive = false;
+        }
     }
+
 }
