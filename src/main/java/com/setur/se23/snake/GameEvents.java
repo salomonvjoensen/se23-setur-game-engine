@@ -7,9 +7,9 @@ import com.setur.se23.engine.input.InputEvents;
 public class GameEvents implements InputEvents {
 
     private SnakeHead player;
-    private Runnable restart;
+    private SnakeGame restart;
 
-    public GameEvents(SnakeHead player, Runnable restart) {
+    public GameEvents(SnakeHead player, SnakeGame restart) {
         this.player = player;
         this.restart = restart;
     }
@@ -23,7 +23,7 @@ public class GameEvents implements InputEvents {
                 Core.toggleRenderGizmos();
                 break;
             case "Restart":
-                restart.run();
+                restart.initSnakeAndObjects();
                 break;
             case "Up":
                 player.movingUp(true);
