@@ -2,6 +2,9 @@ package com.setur.se23;
 
 import com.setur.se23.FlappyBird.FlappyBird;
 import com.setur.se23.dependency.render.canvas.CanvasRenderer;
+import com.setur.se23.engine.audio.Audio;
+import com.setur.se23.engine.audio.PlaySoundEffect;
+import com.setur.se23.engine.audio.SoundEffects;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.render.Renderer;
 import com.setur.se23.engine.render.common.ViewPort;
@@ -25,6 +28,10 @@ public class Main extends Application {
 
         initializeRenderer(Core.mainStage);
         FlappyBird flappyBird = new FlappyBird();
+
+        PlaySoundEffect soundPlayer = new PlaySoundEffect();
+        soundPlayer.play(SoundEffects.DIE);
+        System.out.println("HIÐAN: " + System.getProperty("user.dir"));
         flappyBird.gameLoop.start();
     }
 
