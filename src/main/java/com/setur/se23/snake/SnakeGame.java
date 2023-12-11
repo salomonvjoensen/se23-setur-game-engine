@@ -19,8 +19,6 @@ import com.setur.se23.snake.Snake_Objects.SnakeHead;
 import com.setur.se23.snake.Snake_Objects.SnakeTail;
 import com.setur.se23.snake.Snake_Objects.StartGameInfo;
 
-import javafx.scene.input.KeyCode;
-
 /**
  * The Snake game. Contains all the game logic.
  */
@@ -332,21 +330,21 @@ public class SnakeGame {
 
         FX_Input inputSystem = new FX_Input(gameEvents);
 
-        inputSystem.addInput(InputType.onPress, KeyCode.P, "toggle_FPS_Counter");
-        inputSystem.addInput(InputType.onPress, KeyCode.O, "toggle_Gizmos");
-        inputSystem.addInput(InputType.onPress, KeyCode.R, "Restart");
+        inputSystem.addInput(InputType.onPress, "P", "toggle_FPS_Counter");
+        inputSystem.addInput(InputType.onPress, "O", "toggle_Gizmos");
+        inputSystem.addInput(InputType.onPress, "R", "Restart");
 
         // Onkey press.
-        inputSystem.addInput(InputType.onPress, KeyCode.W, "Up");
-        inputSystem.addInput(InputType.onPress, KeyCode.S, "Down");
-        inputSystem.addInput(InputType.onPress, KeyCode.A, "Left");
-        inputSystem.addInput(InputType.onPress, KeyCode.D, "Right");
+        inputSystem.addInput(InputType.onPress, "W", "Up");
+        inputSystem.addInput(InputType.onPress, "S", "Down");
+        inputSystem.addInput(InputType.onPress, "A", "Left");
+        inputSystem.addInput(InputType.onPress, "D", "Right");
 
         // Onkey release.
-        inputSystem.addInput(InputType.onRelease, KeyCode.W, "Up_Ready");
-        inputSystem.addInput(InputType.onRelease, KeyCode.S, "Down_Ready");
-        inputSystem.addInput(InputType.onRelease, KeyCode.A, "Left_Ready");
-        inputSystem.addInput(InputType.onRelease, KeyCode.D, "Right_Ready");
+        inputSystem.addInput(InputType.onRelease, "W", "Up_Ready");
+        inputSystem.addInput(InputType.onRelease, "S", "Down_Ready");
+        inputSystem.addInput(InputType.onRelease, "A", "Left_Ready");
+        inputSystem.addInput(InputType.onRelease, "D", "Right_Ready");
 
         inputSystem.setInputs();
     }
