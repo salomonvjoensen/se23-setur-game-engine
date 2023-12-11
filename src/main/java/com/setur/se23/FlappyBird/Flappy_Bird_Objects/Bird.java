@@ -19,6 +19,7 @@ public class Bird extends Entity implements DynamicEntity, Collidable {
 
     private boolean alive = true;
     private boolean airborn = true;
+    private boolean started = false;
 
     public boolean jumpReady = true;
 
@@ -40,16 +41,21 @@ public class Bird extends Entity implements DynamicEntity, Collidable {
 
     public void jump() {
         if (alive && jumpReady) {
+
             velocityY = -200;
             fallSpeed = 10;
+            
             jumpReady = false;
+
+            started = true;
+            Pipe.started = true;
         }
     }
 
     @Override
     public void update(double deltaTime) {
 
-        if (airborn) {
+        if (airborn && started) {
 
             fallSpeed *= fallAccel;
 

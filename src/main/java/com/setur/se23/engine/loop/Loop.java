@@ -12,14 +12,14 @@ import com.setur.se23.engine.render.Renderer;
 public class Loop extends FX_FrameUpdate {
 
     public static ArrayList<Entity> entities = new ArrayList<Entity>();
-    public static ArrayList<Entity> dynamicEntities = new ArrayList<Entity>();
+    public static ArrayList<DynamicEntity> dynamicEntities = new ArrayList<DynamicEntity>();
     public static ArrayList<Entity> collidableEntities = new ArrayList<Entity>();
 
-    public static ArrayList<Runnable> gameFunctions = new ArrayList<Runnable>();
+    public static ArrayList<Runnable> gameRunnables = new ArrayList<Runnable>();
 
-    public void sendScene(ArrayList<Entity> entityList, ArrayList<Runnable> functionList) {
+    public void sendScene(ArrayList<Entity> entityList, ArrayList<Runnable> runnableList) {
         entities = entityList;
-        gameFunctions = functionList;
+        gameRunnables = runnableList;
 
         assignDynamics();
         assignCollidables();
@@ -31,7 +31,7 @@ public class Loop extends FX_FrameUpdate {
 
         for (Entity entity : entities) {
             if (entity instanceof DynamicEntity) {
-                dynamicEntities.add(entity);
+                dynamicEntities.add((DynamicEntity)(entity));
             }
         }
     }
@@ -49,8 +49,8 @@ public class Loop extends FX_FrameUpdate {
 
     public void logicLoop(double deltaTime) {
 
-        for (Entity entity : dynamicEntities) {
-            ((DynamicEntity) entity).update(deltaTime);
+        for (DynamicEntity entity : dynamicEntities) {
+            entity.update(deltaTime);
         }
 
 
@@ -64,7 +64,7 @@ public class Loop extends FX_FrameUpdate {
             }
         }
 
-        for (Runnable function : gameFunctions) {
+        for (Runnable function : gameRunnables) {
             function.run();
         }
 

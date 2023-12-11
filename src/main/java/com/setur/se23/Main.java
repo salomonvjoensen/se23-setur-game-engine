@@ -1,6 +1,6 @@
 package com.setur.se23;
 
-import com.setur.se23.FlappyBird.FlappyBird;
+import com.setur.se23.SceneManager.SceneManager;
 import com.setur.se23.dependency.render.canvas.CanvasRenderer;
 import com.setur.se23.engine.audio.Audio;
 import com.setur.se23.engine.audio.PlaySoundEffect;
@@ -26,13 +26,15 @@ public class Main extends Application {
         Core.mainStage.setHeight(800.0f);
         Core.mainStage.setTitle("Game Engine Boilerplate!");
 
+        SceneManager.manage();
+
         initializeRenderer(Core.mainStage);
-        FlappyBird flappyBird = new FlappyBird();
+        
 
         PlaySoundEffect soundPlayer = new PlaySoundEffect();
         soundPlayer.play(SoundEffects.DIE);
         System.out.println("HIÐAN: " + System.getProperty("user.dir"));
-        flappyBird.gameLoop.start();
+        SceneManager.load();
     }
 
 
