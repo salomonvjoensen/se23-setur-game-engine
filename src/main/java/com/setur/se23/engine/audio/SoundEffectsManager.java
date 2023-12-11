@@ -12,27 +12,32 @@ public class SoundEffectsManager {
 
     /**
      * Pre-load sound effect into memory for quick playback.
+     * 
      * @param shortPathToSoundEffect
      */
-    public static void addSoundEffect(String shortPathToSoundEffect) {
-        soundEffectsMap.put(shortPathToSoundEffect, new AudioClip(Core.getResourcePath(shortPathToSoundEffect)));
+    public static void loadSoundEffect(String shortPathToSoundEffect) {
+        AudioClip audioClip = new AudioClip(Core.getResourcePath(shortPathToSoundEffect));
+        soundEffectsMap.put(shortPathToSoundEffect, audioClip);
     }
 
     /**
      * Play pre-loaded sound effect.
+     * 
      * @param shortPathToSoundEffect
      */
-    public static void playSoundEffect(String shortPathToSoundEffect) {
-        soundEffectsMap.get(shortPathToSoundEffect).play();
+    public static void playLoaded(String shortPathToSoundEffect) {
+        AudioClip audioClip = soundEffectsMap.get(shortPathToSoundEffect);
+        audioClip.play();
     }
 
     /**
      * Unused, laggy.
      * Could be used for non-immediate or seldom used sound effects.
+     * 
      * @param soundEffect
      */
-    public void play(String soundEffect) {
-        
+    public void playNonLoaded(String soundEffect) {
+
         String path = Core.getResourcePath(soundEffect);
 
         try {

@@ -88,9 +88,9 @@ public class FlappyBird {
     }
 
     private void loadSoundEffects() {
-        SoundEffectsManager.addSoundEffect(SoundEffects.DIE.getFilePath());
-        SoundEffectsManager.addSoundEffect(SoundEffects.FLAP.getFilePath());
-        SoundEffectsManager.addSoundEffect(SoundEffects.HIT.getFilePath());
+        SoundEffectsManager.loadSoundEffect(SoundEffects.DIE.getFilePath());
+        SoundEffectsManager.loadSoundEffect(SoundEffects.FLAP.getFilePath());
+        SoundEffectsManager.loadSoundEffect(SoundEffects.HIT.getFilePath());
     }
 
     private ArrayList<Runnable> getRunnables() {

@@ -7,8 +7,13 @@ import javafx.scene.media.MediaPlayer;
 /**
  * Unfinished class.
  */
-public class Audio {
+public class Music {
     MediaPlayer mediaPlayer;
     Media media;
     AudioClip audioClip;
+
+    public Music(String shortPathToMusic) {
+
+    }
 }
+

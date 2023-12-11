@@ -42,7 +42,7 @@ public class Bird extends Entity implements DynamicEntity, Collidable {
 
     public void jump() {
         if (alive && jumpReady) {
-            SoundEffectsManager.playSoundEffect(SoundEffects.FLAP.getFilePath());
+            SoundEffectsManager.playLoaded(SoundEffects.FLAP.getFilePath());
 
             velocityY = -200;
             fallSpeed = 10;
@@ -90,13 +90,13 @@ public class Bird extends Entity implements DynamicEntity, Collidable {
     public void collisionEvent(Entity collisionEntity) {
 
         if (collisionEntity instanceof Pipe && alive) {
-            SoundEffectsManager.playSoundEffect(SoundEffects.DIE.getFilePath());
+            SoundEffectsManager.playLoaded(SoundEffects.DIE.getFilePath());
 
             alive = false;
         }
         
         if (collisionEntity instanceof Ground && airborne) {
-            SoundEffectsManager.playSoundEffect(SoundEffects.HIT.getFilePath());
+            SoundEffectsManager.playLoaded(SoundEffects.HIT.getFilePath());
             
             alive = false;
             airborne = false;
