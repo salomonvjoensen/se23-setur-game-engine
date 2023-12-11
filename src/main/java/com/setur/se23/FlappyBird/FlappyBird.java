@@ -15,8 +15,6 @@ import com.setur.se23.engine.input.InputEvents;
 import com.setur.se23.engine.input.InputType;
 import com.setur.se23.engine.loop.Loop;
 
-import javafx.scene.input.KeyCode;
-
 public class FlappyBird {
 
     public Loop gameLoop = new Loop();
@@ -76,15 +74,15 @@ public class FlappyBird {
         FX_Input inputSystem = new FX_Input(gameEvents);
 
         //on key press
-        inputSystem.addInput(InputType.onPress, KeyCode.SPACE, "Jump");
-        inputSystem.addInput(InputType.onPress, KeyCode.UP, "Jump");
-        inputSystem.addInput(InputType.onPress, KeyCode.P, "toggle_FPS_Counter");
-        inputSystem.addInput(InputType.onPress, KeyCode.O, "toggle_Gizmos");
-        inputSystem.addInput(InputType.onPress, KeyCode.R, "Restart");
+        inputSystem.addInput(InputType.onPress, "SPACE", "Jump");
+        inputSystem.addInput(InputType.onPress, "UP", "Jump");
+        inputSystem.addInput(InputType.onPress, "P", "toggle_FPS_Counter");
+        inputSystem.addInput(InputType.onPress, "O", "toggle_Gizmos");
+        inputSystem.addInput(InputType.onPress, "R", "Restart");
 
         //on key release
-        inputSystem.addInput(InputType.onRelease, KeyCode.SPACE, "Jump_Ready");
-        inputSystem.addInput(InputType.onRelease, KeyCode.UP, "Jump_Ready");
+        inputSystem.addInput(InputType.onRelease, "SPACE", "Jump_Ready");
+        inputSystem.addInput(InputType.onRelease, "UP", "Jump_Ready");
 
         inputSystem.setInputs();
     }
