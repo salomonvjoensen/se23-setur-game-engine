@@ -19,7 +19,7 @@ public class Bird extends Entity implements DynamicEntity, Collidable {
     private double velocityY;
 
     private boolean alive = true;
-    private boolean airborn = true;
+    private boolean airborne = true;
     private boolean started = false;
 
     public boolean jumpReady = true;
@@ -57,7 +57,7 @@ public class Bird extends Entity implements DynamicEntity, Collidable {
     @Override
     public void update(double deltaTime) {
 
-        if (airborn && started) {
+        if (airborne && started) {
 
             fallSpeed *= fallAccel;
 
@@ -95,11 +95,11 @@ public class Bird extends Entity implements DynamicEntity, Collidable {
             alive = false;
         }
         
-        if (collisionEntity instanceof Ground && airborn) {
+        if (collisionEntity instanceof Ground && airborne) {
             SoundEffectsManager.playSoundEffect(SoundEffects.HIT.getFilePath());
             
             alive = false;
-            airborn = false;
+            airborne = false;
 
             stopPipes();
         }
