@@ -133,66 +133,66 @@ public class SnakeGame {
      */
     public void moveSnake() {
         if (snakeHead.isAlive() && !isFirstMove) {
-        int[] newHeadPosition = calculateNewHeadPosition();
+            int[] newHeadPosition = calculateNewHeadPosition();
 
-        // Convert the old head into a body part, defaults to SnakeBody.
-        SnakeEntity oldHeadAsBody = new SnakeBody(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
-        
-        // Before updating the head's position, check if the direction has changed
-        // Replace the body part behind the head with the appropriate bendy part
-        // Determine the appropriate bendy part based on direction, --8-- possibilities, with 4 different conditions.
-        if (snakeHead.isDirectionChanged()) {
-            // moving down to right -or- moving up to left (i.e. counterclockwise).
-            if ((snakeHead.getPrevDirectionY() == 1 && snakeHead.getDirectionX() == 1) ||
-                (snakeHead.getPrevDirectionY() == -1 && snakeHead.getDirectionX() == -1)){
-                oldHeadAsBody = new SnakeBodyCounterClockwise(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
-                snakeHead.setIsMovingX(true);
-            // moving right to up -or- moving left to down (i.e. counterclockwise).
-            } else if ((snakeHead.getPrevDirectionX() == 1 && snakeHead.getDirectionY() == -1) ||
-                       (snakeHead.getPrevDirectionX() == -1 && snakeHead.getDirectionY() == 1)) {
-                oldHeadAsBody = new SnakeBodyCounterClockwise(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
-                snakeHead.setIsMovingY(true);
-            // moving up to right -or- down to left (i.e. clockwise).
-            } else if ((snakeHead.getPrevDirectionY() == -1 && snakeHead.getDirectionX() == 1) ||
-                       (snakeHead.getPrevDirectionY() == 1 && snakeHead.getDirectionX() == -1) ){
-                oldHeadAsBody = new SnakeBodyClockwise(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
-                snakeHead.setIsMovingX(true);
-            // moving right to down -or- moving left to up (i.e. clockwise).
-            } else if ((snakeHead.getPrevDirectionX() == 1 && snakeHead.getDirectionY() == 1) ||
-                       (snakeHead.getPrevDirectionX() == -1 && snakeHead.getDirectionY() == -1)) {
-                oldHeadAsBody = new SnakeBodyClockwise(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
-                snakeHead.setIsMovingY(true);
+            // Convert the old head into a body part, defaults to SnakeBody.
+            SnakeEntity oldHeadAsBody = new SnakeBody(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
+            
+            // Before updating the head's position, check if the direction has changed
+            // Replace the body part behind the head with the appropriate bendy part
+            // Determine the appropriate bendy part based on direction, --8-- possibilities, with 4 different conditions.
+            if (snakeHead.isDirectionChanged()) {
+                // moving down to right -or- moving up to left (i.e. counterclockwise).
+                if ((snakeHead.getPrevDirectionY() == 1 && snakeHead.getDirectionX() == 1) ||
+                    (snakeHead.getPrevDirectionY() == -1 && snakeHead.getDirectionX() == -1)){
+                    oldHeadAsBody = new SnakeBodyCounterClockwise(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
+                    snakeHead.setIsMovingX(true);
+                // moving right to up -or- moving left to down (i.e. counterclockwise).
+                } else if ((snakeHead.getPrevDirectionX() == 1 && snakeHead.getDirectionY() == -1) ||
+                        (snakeHead.getPrevDirectionX() == -1 && snakeHead.getDirectionY() == 1)) {
+                    oldHeadAsBody = new SnakeBodyCounterClockwise(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
+                    snakeHead.setIsMovingY(true);
+                // moving up to right -or- down to left (i.e. clockwise).
+                } else if ((snakeHead.getPrevDirectionY() == -1 && snakeHead.getDirectionX() == 1) ||
+                        (snakeHead.getPrevDirectionY() == 1 && snakeHead.getDirectionX() == -1) ){
+                    oldHeadAsBody = new SnakeBodyClockwise(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
+                    snakeHead.setIsMovingX(true);
+                // moving right to down -or- moving left to up (i.e. clockwise).
+                } else if ((snakeHead.getPrevDirectionX() == 1 && snakeHead.getDirectionY() == 1) ||
+                        (snakeHead.getPrevDirectionX() == -1 && snakeHead.getDirectionY() == -1)) {
+                    oldHeadAsBody = new SnakeBodyClockwise(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
+                    snakeHead.setIsMovingY(true);
+                }
             }
-        }
 
-        snakeEntities.set(0, oldHeadAsBody);  // replace snakehead with bodypart
+            snakeEntities.set(0, oldHeadAsBody);  // replace snakehead with bodypart
 
-        snakeEntities.addFirst(snakeHead);  // add snakehead as new head.
+            snakeEntities.addFirst(snakeHead);  // add snakehead as new head.
 
-        // Update the position of the head
-        snakeHead.setPosition(
-            newHeadPosition[0],
-            newHeadPosition[1],
-            calculateHeadAngle()
-            );
-        
-        // Update the previous direction of the head
-        snakeHead.updateDirection();
+            // Update the position of the head
+            snakeHead.setPosition(
+                newHeadPosition[0],
+                newHeadPosition[1],
+                calculateHeadAngle()
+                );
+            
+            // Update the previous direction of the head
+            snakeHead.updateDirection();
 
-        // Set the cell with the new head to containing snake.
-        grid.setCell(newHeadPosition[0], newHeadPosition[1], true);
+            // Set the cell with the new head to containing snake.
+            grid.setCell(newHeadPosition[0], newHeadPosition[1], true);
 
-        // Remove the tail segment if no apple was eaten
-        if (!snakeHead.isAppleEaten()) {
-            removeTailSegment();
-        } else {
-            // Apple was eaten, instead of removing tail,
-            // sets AppleEaten to false again
-            // and move the Apple to a new random location.
-            snakeHead.setAppleEaten(false);
-            apple.setX(Core.randomDouble(0, SCREEN_SIZE-C_S));
-            apple.setY(Core.randomDouble(0, SCREEN_SIZE-C_S));
-        }
+            // Remove the tail segment if no apple was eaten
+            if (!snakeHead.isAppleEaten()) {
+                removeTailSegment();
+            } else {
+                // Apple was eaten, instead of removing tail,
+                // sets AppleEaten to false again
+                // and move the Apple to a new random location.
+                snakeHead.setAppleEaten(false);
+                apple.setX(Core.randomDouble(0, SCREEN_SIZE-C_S));
+                apple.setY(Core.randomDouble(0, SCREEN_SIZE-C_S));
+            }
         }
     }
 
