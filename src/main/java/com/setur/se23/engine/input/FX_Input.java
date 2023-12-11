@@ -18,6 +18,15 @@ public class FX_Input implements Input {
         this.events = events;
     }
 
+    /**
+     * Assigns a key and its type of input to a game event.
+     * Refer to JavaFX KeyCode javadoc for correct key syntax:
+     * https://docs.oracle.com/javafx/2/api/javafx/scene/input/KeyCode.html
+     * 
+     * @param inputType the type of input
+     * @param key       the key in JavaFX KeyCode syntax
+     * @param gameEvent the game event
+     */
     public void addInput(InputType inputType, String key, String gameEvent) {
         KeyCode code = stringToKeyCode(key);
 
