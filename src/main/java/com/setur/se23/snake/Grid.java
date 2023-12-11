@@ -24,11 +24,11 @@ public class Grid {
         }
     }
 
-    public int getX() {
+    public int getSizeX() {
         return sizeX;
     }
 
-    public int getY() {
+    public int getSizeY() {
         return sizeY;
     }
 

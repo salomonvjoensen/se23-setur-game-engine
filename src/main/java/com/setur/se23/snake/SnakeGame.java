@@ -233,17 +233,17 @@ public class SnakeGame {
         int newHeadY = (int)snakeHead.getY()/C_S + snakeHead.getDirectionY();
     
         // Check for wrapping on the X-axis
-        if (newHeadX >= grid.getX()) {
+        if (newHeadX >= grid.getSizeX()) {
             newHeadX = 0; // Wrap to the left side
         } else if (newHeadX < 0) {
-            newHeadX = grid.getX() - 1; // Wrap to the right side
+            newHeadX = grid.getSizeX() - 1; // Wrap to the right side
         }
     
         // Check for wrapping on the Y-axis
-        if (newHeadY >= grid.getY()) {
+        if (newHeadY >= grid.getSizeY()) {
             newHeadY = 0; // Wrap to the top
         } else if (newHeadY < 0) {
-            newHeadY = grid.getY() - 1; // Wrap to the bottom
+            newHeadY = grid.getSizeY() - 1; // Wrap to the bottom
         }
     
         return new int[]{newHeadX, newHeadY};
