@@ -21,7 +21,7 @@ public class GameOver extends Entity{
         super(new Material(
                     new Texture2D(Core.getSprite("gameover.png"), 192, 42),
                     new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)), 
-              300*PIXEL_SIZE, 
+              300*PIXEL_SIZE, //scaling according to Screen size.
               384*PIXEL_SIZE,
               0, 
               1*PIXEL_SIZE, 

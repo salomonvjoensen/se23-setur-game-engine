@@ -21,7 +21,7 @@ public class StartGameInfo extends Entity{
         super(new Material(
                     new Texture2D(Core.getSprite("start-game-info.png"), 651, 409),
                     new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)), 
-              100*PIXEL_SIZE, 
+              100*PIXEL_SIZE, //scaling according to Screen size.
               100*PIXEL_SIZE,
               0, 
               1*PIXEL_SIZE, 
