@@ -3,6 +3,7 @@ package com.setur.se23.FlappyBird.Flappy_Bird_Objects;
 import com.setur.se23.engine.Collision.CircleCollider;
 import com.setur.se23.engine.Collision.Collidable;
 import com.setur.se23.engine.Collision.Collider;
+import com.setur.se23.engine.audio.SoundEffectsManager;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.DynamicEntity;
 import com.setur.se23.engine.core.Entity;
@@ -41,6 +42,7 @@ public class Bird extends Entity implements DynamicEntity, Collidable {
 
     public void jump() {
         if (alive && jumpReady) {
+            SoundEffectsManager.playSoundEffect(SoundEffects.FLAP.getFilePath());
 
             velocityY = -200;
             fallSpeed = 10;
@@ -87,11 +89,15 @@ public class Bird extends Entity implements DynamicEntity, Collidable {
     @Override
     public void collisionEvent(Entity collisionEntity) {
 
-        if (collisionEntity instanceof Pipe) {
+        if (collisionEntity instanceof Pipe && alive) {
+            SoundEffectsManager.playSoundEffect(SoundEffects.DIE.getFilePath());
+
             alive = false;
         }
-
-        if (collisionEntity instanceof Ground) {
+        
+        if (collisionEntity instanceof Ground && airborn) {
+            SoundEffectsManager.playSoundEffect(SoundEffects.HIT.getFilePath());
+            
             alive = false;
             airborn = false;
 
