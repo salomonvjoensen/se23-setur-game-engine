@@ -23,7 +23,7 @@ public class Main extends Application {
         Core.mainStage.setHeight(800.0f);
         Core.mainStage.setTitle("Game Engine Boilerplate!");
 
-        //SceneManager.manage();
+        SceneManager.manage();
 
         initializeRenderer(Core.mainStage);
         

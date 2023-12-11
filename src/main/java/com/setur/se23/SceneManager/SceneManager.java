@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.setur.se23.FlappyBird.FlappyBird;
 import com.setur.se23.GameTemplate.GameTemplate;
+import com.setur.se23.snake.SnakeGame;
 
 public class SceneManager {
 
@@ -14,7 +15,7 @@ public class SceneManager {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("1: Flappy Bird");
-        System.out.println("2: Second Game");
+        System.out.println("2: Snake Game");
         System.out.println("3: GameTemplate");
         System.out.println("");
         System.out.println("Scene number: ");
@@ -32,6 +33,8 @@ public class SceneManager {
         }
 
         if (scene.equals("2")) {
+            SnakeGame snakeGame = new SnakeGame();
+            snakeGame.gameLoop.start();
             
         }
 
