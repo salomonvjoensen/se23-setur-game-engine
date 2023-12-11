@@ -19,13 +19,13 @@ public class GameOver extends Entity{
      */
     public GameOver() {
         super(new Material(
-                    new Texture2D(Core.getSprite("gameover.png"), (int)(192*PIXEL_SIZE), (int)(42*PIXEL_SIZE)),
+                    new Texture2D(Core.getSprite("gameover.png"), 192, 42),
                     new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)), 
               300*PIXEL_SIZE, 
               384*PIXEL_SIZE,
               0, 
-              1, 
-              1);
+              1*PIXEL_SIZE, 
+              1*PIXEL_SIZE);
     }  
     
 }
