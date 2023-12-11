@@ -25,6 +25,10 @@ public class Core {
         return "file:src/main/resources/" + resource;
     }
 
+    public static String getResourcePathNoPreappend(String resource) {
+        return "src/main/resources/" + resource;
+    }
+
     public static String getSprite(String sprite) {
         return "file:src/main/resources/sprites/" + sprite;
     }

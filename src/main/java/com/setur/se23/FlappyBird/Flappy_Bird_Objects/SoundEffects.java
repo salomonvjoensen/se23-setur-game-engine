@@ -5,7 +5,8 @@ public enum SoundEffects {
     FLAP("sound-effects/flap.mp3"),
     HIT("sound-effects/hit.mp3"),
     POINT("sound-effects/point.mp3"),
-    SWOOSH("sound-effects/swoosh.mp3");
+    SWOOSH("sound-effects/swoosh.mp3"),
+    BACK("sound-effects/fun.mp3");
 
     private final String filePath;
 

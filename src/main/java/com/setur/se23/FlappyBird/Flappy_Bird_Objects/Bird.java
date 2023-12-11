@@ -3,6 +3,7 @@ package com.setur.se23.FlappyBird.Flappy_Bird_Objects;
 import com.setur.se23.engine.Collision.CircleCollider;
 import com.setur.se23.engine.Collision.Collidable;
 import com.setur.se23.engine.Collision.Collider;
+import com.setur.se23.engine.audio.Music;
 import com.setur.se23.engine.audio.SoundEffectsManager;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.DynamicEntity;
@@ -25,6 +26,7 @@ public class Bird extends Entity implements DynamicEntity, Collidable {
     public boolean jumpReady = true;
 
     public Collider collider;
+    public int i;
 
 
     public Bird(double xPos, double yPos) {
@@ -51,6 +53,14 @@ public class Bird extends Entity implements DynamicEntity, Collidable {
 
             started = true;
             Pipe.started = true;
+        }
+
+        if (i == 0) {
+            // new Music("background-music/bensound-funnysong.mp3");
+            // new Music(SoundEffects.HIT.getFilePath());
+            
+            // SoundEffectsManager.playLoaded(SoundEffects.HIT.getFilePath());
+            i = 1;
         }
     }
 
