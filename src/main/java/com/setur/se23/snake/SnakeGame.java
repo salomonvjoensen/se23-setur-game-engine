@@ -31,6 +31,8 @@ public class SnakeGame {
     private static final int GRID_SIZE = SnakeGlobals.GRID_SIZE;  // Default 50
     private static final long MOVE_INTERVAL = SnakeGlobals.MOVE_INTERVAL;  // 200ms between updates.
     private static final int C_S = SnakeGlobals.C_S;  // Cell size. (default 16)
+    private static final int HEAD_START_POSITION_X = GRID_SIZE/2;
+    private static final int HEAD_START_POSITION_Y = GRID_SIZE/2;
 
     private Grid grid;
     private ArrayList<SnakeEntity> snakeEntities;
@@ -71,8 +73,9 @@ public class SnakeGame {
      * Used in the Constructor and when pressing the 'R' button.
      */
     public void initSnakeAndObjects() {
-        // can be between 4-49 and 0-49
-        initializeSnake((int)(GRID_SIZE/2), (int)(GRID_SIZE/2));        
+        // can be between 4-49 for the x position on the grid,
+        // and 0-49 for the y position on the grid.
+        initializeSnake((int)(HEAD_START_POSITION_X), (int)(HEAD_START_POSITION_Y));        
 
         sendGameObjects();
     }
@@ -289,7 +292,8 @@ public class SnakeGame {
         snakeEntities.removeLast();
         snakeEntities.addLast(newTail);
 
-        grid.setCell((int)oldTail.getX()/C_S, (int)oldTail.getY()/C_S, false);  // Leaves old spot.
+        // Leaves old spot as false size
+        grid.setCell(GridUtils.stageCoordinateXtoGrid((int)oldTail.getX()), GridUtils.stageCoordinateYtoGrid((int)oldTail.getY()), false);  
         oldTail = null;
     }
 
