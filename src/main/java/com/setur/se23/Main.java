@@ -30,7 +30,6 @@ public class Main extends Application {
         SceneManager.load();
     }
 
-
     private void initializeRenderer(Stage stage) {
         var canvasRenderer = new CanvasRenderer(stage);
 

@@ -21,7 +21,7 @@ public class Core {
 
     public static boolean renderGizmos;
     
-    public static String getResorcePath(String resource) {
+    public static String getResourcePath(String resource) {
         return "file:src/main/resources/" + resource;
     }
 

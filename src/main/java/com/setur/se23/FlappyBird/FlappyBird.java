@@ -6,6 +6,8 @@ import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Background;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Bird;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Ground;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Pipe;
+import com.setur.se23.FlappyBird.Flappy_Bird_Objects.SoundEffects;
+import com.setur.se23.engine.audio.SoundEffectsManager;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.input.FX_Input;
@@ -23,7 +25,7 @@ public class FlappyBird {
 
     private void sendGameObjects() {
         Pipe.started = false;
-
+        loadSoundEffects();
         gameLoop.sendScene(createFlappyBirdObjects(), getRunnables());
     }
 
@@ -83,6 +85,12 @@ public class FlappyBird {
         inputSystem.addInput(InputType.onRelease, "UP", "Jump_Ready");
 
         inputSystem.setInputs();
+    }
+
+    private void loadSoundEffects() {
+        SoundEffectsManager.loadSoundEffect(SoundEffects.DIE.getFilePath());
+        SoundEffectsManager.loadSoundEffect(SoundEffects.FLAP.getFilePath());
+        SoundEffectsManager.loadSoundEffect(SoundEffects.HIT.getFilePath());
     }
 
     private ArrayList<Runnable> getRunnables() {
