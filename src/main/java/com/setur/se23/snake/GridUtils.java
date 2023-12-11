@@ -26,8 +26,7 @@ public class GridUtils {
      * @return The corresponding horizontal position on the Stage.
      */
     public static double gridToStageCoordinateX(int gridX) {
-        double stageX = gridX * CELL_SIZE;
-        return stageX;
+        return gridX * CELL_SIZE;
     }
     
     /**
@@ -37,8 +36,27 @@ public class GridUtils {
      * @return The corresponding vertical position on the Stage.
      */    
     public static double gridToStageCoordinateY(int gridY) {
-        double stageY = gridY * CELL_SIZE;
-        return stageY;
+        return gridY * CELL_SIZE;
+    }
+
+    /**
+     * Static method for translation of stage X-coordinate to grid.
+     * 
+     * @param stageX
+     * @return the corresponding horizontal position on the grid.
+     */
+    public static int stageCoordinateXtoGrid(int stageX) {
+        return stageX / CELL_SIZE;
+    }
+
+    /**
+     * Static method for translation of stage Y-coordinate to grid.
+     * 
+     * @param stageX
+     * @return the corresponding vertical position on the grid.
+     */
+    public static int stageCoordinateYtoGrid(int stageY) {
+        return stageY / CELL_SIZE;
     }
 }
 
