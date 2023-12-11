@@ -75,7 +75,7 @@ public class SnakeGame {
     public void initSnakeAndObjects() {
         // can be between 4-49 for the x position on the grid,
         // and 0-49 for the y position on the grid.
-        initializeSnake((int)(HEAD_START_POSITION_X), (int)(HEAD_START_POSITION_Y));        
+        initializeSnake(HEAD_START_POSITION_X, HEAD_START_POSITION_Y);        
 
         sendGameObjects();
     }
