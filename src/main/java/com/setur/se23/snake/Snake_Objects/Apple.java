@@ -8,12 +8,14 @@ import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.MaterialColour;
 import com.setur.se23.engine.render.common.Texture2D;
+import com.setur.se23.snake.SnakeGlobals;
 
 /**
  * The Apple that is to be eaten by the Snake to grow
  */
 public class Apple extends Entity implements Collidable{
 
+    private static final double SCALE = SnakeGlobals.SCALE;  // Default 0.1
     Collider collider;
 
     /**
@@ -29,8 +31,8 @@ public class Apple extends Entity implements Collidable{
               xPos, 
               yPos, 
               0,
-              0.1, 
-              0.1);
+              SCALE, 
+              SCALE);
         
         setCollider(new CircleCollider(this, getHeight() / 2));
     }

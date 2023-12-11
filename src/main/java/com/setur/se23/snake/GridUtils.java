@@ -4,7 +4,7 @@ package com.setur.se23.snake;
  * Translation between grid and Stage.
  */
 public class GridUtils {
-    private static final int CELL_SIZE = 16; // Each cell is 16x16 pixels
+    private static final int CELL_SIZE = SnakeGlobals.C_S; // Default Each cell is 16x16 pixels
 
     /**
      * Static method for translation from grid to Stage.

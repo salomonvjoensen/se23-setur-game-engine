@@ -6,12 +6,14 @@ import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.render.common.Material;
 
 import com.setur.se23.snake.GridUtils;
+import com.setur.se23.snake.SnakeGlobals;
 
 /**
  * The abstract class of all 5 snake body parts.
  */
 public abstract class SnakeEntity extends Entity implements Collidable{
 
+    private static final double SCALE = SnakeGlobals.SCALE;  // Default 0.1
     public Collider collider;
 
     /**
@@ -25,7 +27,7 @@ public abstract class SnakeEntity extends Entity implements Collidable{
      * @param scaleY Sets the vertical scaling, all the body parts use 10% scaling.
      */
     public SnakeEntity(Material material, double xPos, double yPos, double angle) {
-        super(material, xPos, yPos, angle, 0.1, 0.1);
+        super(material, xPos, yPos, angle, SCALE, SCALE);
 
         setCollider(new SquareCollider(this, getWidth(), getHeight()));
     }

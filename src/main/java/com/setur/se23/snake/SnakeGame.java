@@ -27,8 +27,10 @@ import javafx.scene.input.KeyCode;
 public class SnakeGame {
 
     private long lastMoveTime = System.currentTimeMillis();
-    private static final long MOVE_INTERVAL = 200;  // 200ms between updates.
-    private static final int S_C = 16;  // Size of each cell.
+    private static final double SCREEN_SIZE = SnakeGlobals.SCREEN_SIZE;  // Default 800
+    private static final int GRID_SIZE = SnakeGlobals.GRID_SIZE;  // Default 50
+    private static final long MOVE_INTERVAL = SnakeGlobals.MOVE_INTERVAL;  // 200ms between updates.
+    private static final int C_S = SnakeGlobals.C_S;  // Cell size. (default 16)
 
     private Grid grid;
     private ArrayList<SnakeEntity> snakeEntities;
@@ -55,8 +57,8 @@ public class SnakeGame {
      */
     public SnakeGame() {
         this.background = new Background();
-        this.apple = new Apple(Core.randomInt(0, 784), Core.randomInt(0, 784));
-        this.grid = new Grid(50, 50);
+        this.apple = new Apple(Core.randomDouble(0, SCREEN_SIZE-C_S), Core.randomDouble(0, SCREEN_SIZE-C_S));
+        this.grid = new Grid(GRID_SIZE, GRID_SIZE);
         this.startGameInfo = new StartGameInfo();
         this.gameOver = new GameOver();
         this.snakeEntities = new ArrayList<SnakeEntity>();
@@ -70,7 +72,7 @@ public class SnakeGame {
      */
     public void initSnakeAndObjects() {
         // can be between 4-49 and 0-49
-        initializeSnake(24, 24);        
+        initializeSnake((int)(GRID_SIZE/2), (int)(GRID_SIZE/2));        
 
         sendGameObjects();
     }
@@ -188,8 +190,8 @@ public class SnakeGame {
             // sets AppleEaten to false again
             // and move the Apple to a new random location.
             snakeHead.setAppleEaten(false);
-            apple.setX(Core.randomInt(0, 784));
-            apple.setY(Core.randomInt(0, 784));
+            apple.setX(Core.randomDouble(0, SCREEN_SIZE-C_S));
+            apple.setY(Core.randomDouble(0, SCREEN_SIZE-C_S));
         }
         }
     }
@@ -227,8 +229,8 @@ public class SnakeGame {
      * @return
      */
     private int[] calculateNewHeadPosition() {
-        int newHeadX = (int)snakeHead.getX()/S_C + snakeHead.getDirectionX();
-        int newHeadY = (int)snakeHead.getY()/S_C + snakeHead.getDirectionY();
+        int newHeadX = (int)snakeHead.getX()/C_S + snakeHead.getDirectionX();
+        int newHeadY = (int)snakeHead.getY()/C_S + snakeHead.getDirectionY();
     
         // Check for wrapping on the X-axis
         if (newHeadX >= grid.getX()) {
@@ -287,7 +289,7 @@ public class SnakeGame {
         snakeEntities.removeLast();
         snakeEntities.addLast(newTail);
 
-        grid.setCell((int)oldTail.getX()/S_C, (int)oldTail.getY()/S_C, false);  // Leaves old spot.
+        grid.setCell((int)oldTail.getX()/C_S, (int)oldTail.getY()/C_S, false);  // Leaves old spot.
         oldTail = null;
     }
 
