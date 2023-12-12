@@ -1,4 +1,4 @@
-package com.setur.se23.FlappyBird.Flappy_Bird_GUI;
+package com.setur.se23.FlappyBird;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

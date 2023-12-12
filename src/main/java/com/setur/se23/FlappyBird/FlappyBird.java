@@ -2,7 +2,6 @@ package com.setur.se23.FlappyBird;
 
 import java.util.ArrayList;
 
-import com.setur.se23.FlappyBird.Flappy_Bird_GUI.Score;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Background;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Bird;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Ground;

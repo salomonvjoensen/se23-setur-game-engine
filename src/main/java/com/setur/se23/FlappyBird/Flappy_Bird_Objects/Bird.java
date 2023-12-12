@@ -1,6 +1,6 @@
 package com.setur.se23.FlappyBird.Flappy_Bird_Objects;
 
-import com.setur.se23.FlappyBird.Flappy_Bird_GUI.Score;
+import com.setur.se23.FlappyBird.Score;
 import com.setur.se23.engine.Collision.CircleCollider;
 import com.setur.se23.engine.Collision.Collidable;
 import com.setur.se23.engine.Collision.Collider;
