@@ -1,28 +1,9 @@
 package com.setur.se23.engine.GUI;
 
-import com.setur.se23.engine.core.Core;
+import javafx.beans.property.StringProperty;
 
-import javafx.scene.canvas.Canvas;
-import javafx.stage.Stage;
-
-public class GUI {
-
-    private final Stage STAGE;
-
-    private static Canvas canvas;
-
-    public GUI(Stage stage) {
-        this.STAGE = stage;
-        canvas = new Canvas(Core.getStageWidth(), Core.getStageHeight());
-        STAGE.getScene().getRoot();
-    }
-
-    
-    public static void renderGUI() {
-
-        var context = canvas.getGraphicsContext2D();
-
-        context.clearRect(0, 0, canvas.getHeight(), canvas.getWidth());
-
-    }
+public interface GUI {
+    public void AddText(double x, double y, StringProperty text, int size, String backgroundHexCode, int padding);
+    public void AddButton(double x, double y, double width, double height, String text, int fontSize, Runnable action);
+    public void loadGUI();
 }

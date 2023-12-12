@@ -13,9 +13,9 @@ import com.setur.se23.engine.render.common.Texture2D;
 
 public class Pipe extends Entity implements DynamicEntity, Collidable {
 
-    public static boolean started = false;
+    public static boolean started;
 
-    public double speed = 90;
+    public static double speed;
     public boolean reverse;
 
     public Collider collider;
@@ -32,6 +32,9 @@ public class Pipe extends Entity implements DynamicEntity, Collidable {
               1.68);
 
         this.reverse = reverse;
+
+        speed = 90;
+        started = false;
 
         setCollider(new SquareCollider(this, getWidth(), getHeight()));
     }
@@ -72,22 +75,38 @@ public class Pipe extends Entity implements DynamicEntity, Collidable {
 
         for (Entity entity : Loop.entities) {
 
-            if (entity instanceof Pipe) {
-                Pipe.loopAroundPipe((Pipe) entity, random);
+            if (entity instanceof Pipe || entity instanceof ScoreCollider) {
+                Pipe.loopAroundPipe(entity, random);
             }
         }
     }
 
-    private static void loopAroundPipe(Pipe pipe, double random) {
+    private static void loopAroundPipe(Entity entity, double random) {
 
-        if (pipe.getX() < -100) {
+        if (entity instanceof Pipe) {
 
-            if (pipe.reverse) {
-                pipe.setX(pipe.getX() + 1200);
-                pipe.setY(random * 50 - 500);
-            } else {
-                pipe.setX(pipe.getX() + 1200);
-                pipe.setY(random * 50 + 250);
+            Pipe pipe = (Pipe) entity;
+
+            if (pipe.getX() < -100) {
+    
+                if (pipe.reverse) {
+                    pipe.setX(pipe.getX() + 1200);
+                    pipe.setY(random * 50 - 500);
+                } else {
+                    pipe.setX(pipe.getX() + 1200);
+                    pipe.setY(random * 50 + 250);
+                }
+            }
+        }
+
+        if (entity instanceof ScoreCollider) {
+
+            ScoreCollider scoreCollider = (ScoreCollider) entity;
+
+            if (scoreCollider.getX() < -100) {
+    
+                scoreCollider.setX(scoreCollider.getX() + 1200);
+                scoreCollider.setY(random * 50 + 150);
             }
         }
     }

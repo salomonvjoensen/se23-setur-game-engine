@@ -2,10 +2,14 @@ package com.setur.se23.FlappyBird;
 
 import java.util.ArrayList;
 
+import com.setur.se23.FlappyBird.Flappy_Bird_GUI.Score;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Background;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Bird;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Ground;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Pipe;
+import com.setur.se23.FlappyBird.Flappy_Bird_Objects.ScoreCollider;
+import com.setur.se23.engine.GUI.FX_GUI;
+import com.setur.se23.engine.GUI.GUI;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.input.FX_Input;
@@ -27,6 +31,32 @@ public class FlappyBird {
         Pipe.started = false;
 
         gameLoop.sendScene(createFlappyBirdObjects(), getRunnables());
+    }
+
+    private void createGUI(Bird player) {
+
+        GUI gui = new FX_GUI();
+
+        gui.AddText(20, 20, Score.scoreProperty, 40, "#086604", 5);
+        //gui.AddButton(Core.getStageWidth() / 2 - 80, 
+        //              Core.getStageHeight() - 150, 
+        //              100,
+        //              30,
+        //              "Jump",
+        //              30,
+        //              () -> {
+        //                    player.jump();
+        //                    player.jumpReady = true;
+        //              });
+        //gui.AddButton(25, 
+        //              Core.getStageHeight() - 130, 
+        //              100,
+        //              30,
+        //              "Restart",
+        //              20,
+        //              () -> sendGameObjects());
+        
+        gui.loadGUI();
     }
 
     private ArrayList<Entity> createFlappyBirdObjects() {
@@ -61,6 +91,8 @@ public class FlappyBird {
 
             entities.add(new Pipe(true,  spacing,  (random * 50 - 500)));
             entities.add(new Pipe(false, spacing,  (random * 50 + 250)));
+            
+            entities.add(new ScoreCollider(spacing,  (random * 50 + 150)));
 
             spacing += 300;
             random = Core.randomDouble(1, 8);
@@ -85,6 +117,8 @@ public class FlappyBird {
         inputSystem.addInput(InputType.onRelease, KeyCode.UP, "Jump_Ready");
 
         inputSystem.setInputs();
+
+        createGUI(player);
     }
 
     private ArrayList<Runnable> getRunnables() {
