@@ -17,5 +17,9 @@ public class Background extends Entity {
               0, 
               1, 
               1);
-    }    
+    }
+
+    public void changeBackground(Material material) {
+        changeMaterial(material);
+    }
 }

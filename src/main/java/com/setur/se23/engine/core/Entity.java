@@ -30,6 +30,14 @@ public abstract class Entity {
         return material;
     }
 
+    public void changeMaterial(Material material) {
+        this.material = material;
+
+        BufferItem bufferItem = new BufferItem(material, xPos, yPos, angle, scaleX, scaleY);
+
+        Renderer.getInstance().allocateTexture(bufferItem.material().texture());
+    }
+
     public Texture2D getTexture() {
         return material.texture();
     }
