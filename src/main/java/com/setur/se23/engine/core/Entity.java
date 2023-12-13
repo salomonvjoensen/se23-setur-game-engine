@@ -30,12 +30,14 @@ public abstract class Entity {
         return material;
     }
 
-    public void changeMaterial(Material material) {
+    public void changeMaterial(Material material, boolean allocate) {
         this.material = material;
 
         BufferItem bufferItem = new BufferItem(material, xPos, yPos, angle, scaleX, scaleY);
 
-        Renderer.getInstance().allocateTexture(bufferItem.material().texture());
+        if (allocate) {
+            Renderer.getInstance().allocateTexture(bufferItem.material().texture());
+        }
     }
 
     public Texture2D getTexture() {

@@ -36,7 +36,8 @@ public class Score {
         if (score % 30 == 0) {
             background.changeBackground(new Material(
                     new Texture2D(Core.getSprite("background-night.png"), 800, 800),
-                    new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)));
+                    new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)),
+                                        true);
 
             // change music
         }
@@ -44,7 +45,8 @@ public class Score {
         else if (score % 20 == 0) {
             background.changeBackground(new Material(
                     new Texture2D(Core.getSprite("background-day.png"), 800, 800),
-                    new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)));
+                    new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)),
+                                        true);
 
             // change music
         }
@@ -52,7 +54,8 @@ public class Score {
         else if (score % 10 == 0) {
             background.changeBackground(new Material(
                     new Texture2D(Core.getSprite("background-night.png"), 800, 800),
-                    new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)));
+                    new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)),
+                                        true);
 
             // change music
         }
