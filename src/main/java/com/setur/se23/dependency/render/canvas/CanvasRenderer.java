@@ -113,10 +113,16 @@ public class CanvasRenderer implements RenderPipelineInterface {
         _buffer.add(new BufferItem(material, x, y, angle, scaleX, scaleY));
     }
 
+    /**
+     * Adds GUI_Item to GUIbuffer.
+     */
     public static void addToGUI(GUI_Item GUI_Item) {
         _GUIbuffer.add(GUI_Item);
     }
 
+    /**
+     * Removes old GUI and loads GUIbuffer.
+     */
     public static void loadGUI() {
         anchorPane.getChildren().clear();
 

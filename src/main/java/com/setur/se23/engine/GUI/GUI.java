@@ -12,18 +12,21 @@ import javafx.scene.text.Text;
 public class GUI {
 
     /**
+     * Adds text to gui with given parameters.
      * 
      * @param <T> needs StringProperty or String to function
-     * @param x 
-     * @param y
-     * @param text
-     * @param size
-     * @param padding
-     * @param textColor
-     * @param backgroundHexCode 
+     * @param x x position
+     * @param y y position
+     * @param text text to be added
+     * @param textSize text px size
+     * @param padding text padding
+     * @param textHexCode text color in hex code
+     * @param backgroundHexCode background color in hex code
      */
-    public static <T> void AddText(double x, double y, T text, int size, int padding, String textHexCode, String backgroundHexCode) {
-        
+    public static <T> void AddText(double x, double y, T text, int textSize, 
+                                   int padding, String textHexCode, 
+                                   String backgroundHexCode) {
+
         Text textNode = new Text();
 
         if (text instanceof StringProperty) {
@@ -39,7 +42,7 @@ public class GUI {
         int blue = Integer.valueOf(textHexCode.substring(5, 7), 16);
 
         textNode.setFill(Color.rgb(red, green, blue));
-        textNode.setFont(new Font("Arial", size));
+        textNode.setFont(new Font("Arial", textSize));
 
         
         StackPane stackPane = new StackPane(textNode);
@@ -58,8 +61,20 @@ public class GUI {
         CanvasRenderer.addToGUI(new GUI_Item(stackPane, x, y));
     }
 
-    
-    public static void AddButton(double x, double y, double width, double height, String text, int textSize, Runnable action) {
+    /**
+     * Adds button to gui with given parameters.
+     * 
+     * @param x x position
+     * @param y y position
+     * @param text text to be added
+     * @param width button width
+     * @param height button height
+     * @param textSize text px size
+     * @param action button action
+     */
+    public static void AddButton(double x, double y, String text, 
+                                 double width, double height, 
+                                 int textSize, Runnable action) {
 
         Button button = new Button(text);
 
@@ -70,6 +85,9 @@ public class GUI {
         CanvasRenderer.addToGUI(new GUI_Item(button, x, y));
     }
 
+    /**
+     * Removes old GUI and adds new GUI.
+     */
     public static void loadGUI() {
         CanvasRenderer.loadGUI();
     }

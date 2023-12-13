@@ -25,25 +25,15 @@ public class FlappyBirdGUI {
     public static void setGUI(Bird player) {
 
         GUI.AddText(20, 20, Score.scoreProperty, 50, 5, "#FFFFFF", null);
-        //GUI.AddButton(Core.getStageWidth() / 2 - 80, 
-        //              Core.getStageHeight() - 150, 
-        //              100,
-        //              30,
-        //              "Jump",
-        //              30,
-        //              () -> {
-        //                    player.jump();
-        //                    player.jumpReady = true;
-        //              });
 
         if (gameover) {
             GUI.AddText(Core.getStageWidth() / 2 - 125, 150, "Game Over", 40, 10, "#FFF000", "#A00000");
 
             GUI.AddButton(Core.getStageWidth() / 2 - 60, 
                           250, 
+                          "Restart",
                           100,
                           30,
-                          "Restart",
                           20,
                           restart);
         }
