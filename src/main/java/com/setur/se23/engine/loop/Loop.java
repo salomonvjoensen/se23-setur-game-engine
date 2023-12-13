@@ -87,7 +87,7 @@ public class Loop extends FX_FrameUpdate {
         if (Core.FPS_Counter) {
             Core.debug.checkFPS();
         }
-        
+
         Renderer.getInstance().swapBuffers();
     }
 }

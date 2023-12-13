@@ -1,5 +1,6 @@
 package com.setur.se23.dependency.render.canvas;
 
+import com.setur.se23.engine.GUI.GUI_Item;
 import com.setur.se23.engine.render.BufferItem;
 import com.setur.se23.engine.render.RenderPipelineInterface;
 import com.setur.se23.engine.render.common.Material;
@@ -10,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
@@ -25,13 +27,16 @@ public class CanvasRenderer implements RenderPipelineInterface {
     // note: this should be extended to be a double-buffer. Meaning that whilst one buffer is being filled,
     // the other is being rendered, and vice versa
     private final List<BufferItem> _buffer = new ArrayList<>();
+    private static final List<GUI_Item> _GUIbuffer = new ArrayList<>();
 
     private final HashMap<String, Image> _textureMap = new HashMap<>();
 
     private Canvas _canvas;
+    private static AnchorPane anchorPane;
 
     public CanvasRenderer(Stage stage) {
         _stage = stage;
+        
     }
 
     @Override
@@ -48,8 +53,9 @@ public class CanvasRenderer implements RenderPipelineInterface {
         }
 
         _canvas = new Canvas(width, height);
+        anchorPane = new AnchorPane();
 
-        var group = new Group(_canvas);
+        var group = new Group(_canvas, anchorPane);
         var scene = new Scene(group, 320, 240);
         _stage.setScene(scene);
         _stage.show();
@@ -94,6 +100,7 @@ public class CanvasRenderer implements RenderPipelineInterface {
 
         // clears the buffer to make it ready for the next render pass.
         _buffer.clear();
+        _GUIbuffer.clear();
     }
 
     private void rotate(GraphicsContext context, double angle, double pivotX, double pivotY) {
@@ -104,5 +111,28 @@ public class CanvasRenderer implements RenderPipelineInterface {
     @Override
     public void render(Material material, double x, double y, double angle, double scaleX, double scaleY) {
         _buffer.add(new BufferItem(material, x, y, angle, scaleX, scaleY));
+    }
+
+    /**
+     * Adds GUI_Item to GUIbuffer.
+     */
+    public static void addToGUI(GUI_Item GUI_Item) {
+        _GUIbuffer.add(GUI_Item);
+    }
+
+    /**
+     * Removes old GUI and loads GUIbuffer.
+     */
+    public static void loadGUI() {
+        anchorPane.getChildren().clear();
+
+        for (GUI_Item item : _GUIbuffer) {
+
+            AnchorPane.setLeftAnchor(item.node(), item.x());
+            AnchorPane.setTopAnchor(item.node(), item.y());
+
+            anchorPane.getChildren().add(item.node());
+        }
+        
     }
 }

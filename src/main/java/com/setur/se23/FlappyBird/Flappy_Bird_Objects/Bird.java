@@ -1,5 +1,7 @@
 package com.setur.se23.FlappyBird.Flappy_Bird_Objects;
 
+import com.setur.se23.FlappyBird.FlappyBirdGUI;
+import com.setur.se23.FlappyBird.Score;
 import com.setur.se23.engine.Collision.CircleCollider;
 import com.setur.se23.engine.Collision.Collidable;
 import com.setur.se23.engine.Collision.Collider;
@@ -7,7 +9,6 @@ import com.setur.se23.engine.audio.SoundEffectsManager;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.DynamicEntity;
 import com.setur.se23.engine.core.Entity;
-import com.setur.se23.engine.loop.Loop;
 import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.MaterialColour;
 import com.setur.se23.engine.render.common.Texture2D;
@@ -21,6 +22,8 @@ public class Bird extends Entity implements DynamicEntity, Collidable {
     private boolean alive = true;
     private boolean airborne = true;
     private boolean started = false;
+
+    private Entity prevScoreCollider;
 
     public boolean jumpReady = true;
 
@@ -50,7 +53,7 @@ public class Bird extends Entity implements DynamicEntity, Collidable {
             jumpReady = false;
 
             started = true;
-            Pipe.started = true;
+            Pipe.start();
         }
     }
 
@@ -101,14 +104,20 @@ public class Bird extends Entity implements DynamicEntity, Collidable {
             alive = false;
             airborne = false;
 
-            stopPipes();
-        }
-    }
+            Pipe.speed = 0;
 
-    private void stopPipes() {
-        for (Entity entity : Loop.entities) {
-            if (entity instanceof Pipe) {
-                ((Pipe) entity).speed = 0;
+            if (FlappyBirdGUI.gameover == false) {
+                FlappyBirdGUI.gameOver();
+                FlappyBirdGUI.setGUI();
+            }
+        }
+
+        if (collisionEntity instanceof ScoreCollider) {
+
+            if (collisionEntity.equals(prevScoreCollider) == false) {
+                Score.updateScore(1);
+
+                prevScoreCollider = collisionEntity;
             }
         }
     }
