@@ -30,7 +30,6 @@ public class FlappyBird {
         Score.resetScore();
         FlappyBirdGUI.newGame();
 
-        Pipe.started = false;
         loadSoundEffects();
         gameLoop.sendScene(createFlappyBirdObjects(), getRunnables());
     }
