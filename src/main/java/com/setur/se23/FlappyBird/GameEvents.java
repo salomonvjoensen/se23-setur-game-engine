@@ -24,7 +24,7 @@ public class GameEvents implements InputEvents {
                 break;
             case "toggle_FPS_Counter":
                 Core.toggleFPS_Counter();
-                FlappyBirdGUI.setGUI(player);
+                FlappyBirdGUI.setGUI();
                 break;
             case "toggle_Gizmos":
                 Core.toggleRenderGizmos();

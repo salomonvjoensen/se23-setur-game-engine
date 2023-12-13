@@ -108,7 +108,7 @@ public class Bird extends Entity implements DynamicEntity, Collidable {
 
             if (FlappyBirdGUI.gameover == false) {
                 FlappyBirdGUI.gameOver();
-                FlappyBirdGUI.setGUI(this);
+                FlappyBirdGUI.setGUI();
             }
         }
 

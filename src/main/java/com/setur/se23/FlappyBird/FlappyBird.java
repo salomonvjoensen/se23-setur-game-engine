@@ -94,7 +94,7 @@ public class FlappyBird {
 
         inputSystem.setInputs();
 
-        FlappyBirdGUI.setGUI(player);
+        FlappyBirdGUI.setGUI();
     }
 
     private void loadSoundEffects() {

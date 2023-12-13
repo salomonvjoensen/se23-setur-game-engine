@@ -22,7 +22,7 @@ public class FlappyBirdGUI {
         restart = restartRunnable;
     }
 
-    public static void setGUI(Bird player) {
+    public static void setGUI() {
 
         GUI.AddText(20, 20, Score.scoreProperty, 50, 5, "#FFFFFF", null);
 
