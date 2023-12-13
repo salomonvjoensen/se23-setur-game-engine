@@ -1,9 +1,76 @@
 package com.setur.se23.engine.GUI;
 
-import javafx.beans.property.StringProperty;
+import com.setur.se23.dependency.render.canvas.CanvasRenderer;
 
-public interface GUI {
-    public void AddText(double x, double y, StringProperty text, int size, String backgroundHexCode, int padding);
-    public void AddButton(double x, double y, double width, double height, String text, int fontSize, Runnable action);
-    public void loadGUI();
+import javafx.beans.property.StringProperty;
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+
+public class GUI {
+
+    /**
+     * 
+     * @param <T> needs StringProperty or String to function
+     * @param x 
+     * @param y
+     * @param text
+     * @param size
+     * @param padding
+     * @param textColor
+     * @param backgroundHexCode 
+     */
+    public static <T> void AddText(double x, double y, T text, int size, int padding, String textHexCode, String backgroundHexCode) {
+        
+        Text textNode = new Text();
+
+        if (text instanceof StringProperty) {
+            textNode.textProperty().bind((StringProperty) text);
+        }
+
+        if (text instanceof String) {
+            textNode.textProperty().set((String) text);
+        }
+
+        int red = Integer.valueOf(textHexCode.substring(1, 3), 16);
+        int green = Integer.valueOf(textHexCode.substring(3, 5), 16);
+        int blue = Integer.valueOf(textHexCode.substring(5, 7), 16);
+
+        textNode.setFill(Color.rgb(red, green, blue));
+        textNode.setFont(new Font("Arial", size));
+
+        
+        StackPane stackPane = new StackPane(textNode);
+
+        String options = "";
+
+        if (backgroundHexCode != null) {
+            options += "-fx-background-color: " + backgroundHexCode + ";";
+        }
+
+        options += "-fx-padding: " + padding + ";";
+        
+        stackPane.setStyle(options);
+        
+
+        CanvasRenderer.addToGUI(new GUI_Item(stackPane, x, y));
+    }
+
+    
+    public static void AddButton(double x, double y, double width, double height, String text, int textSize, Runnable action) {
+
+        Button button = new Button(text);
+
+        button.setOnAction(evt -> action.run());
+        button.setMinSize(width, height);
+        button.setStyle("-fx-font-size:" + textSize + ";");
+
+        CanvasRenderer.addToGUI(new GUI_Item(button, x, y));
+    }
+
+    public static void loadGUI() {
+        CanvasRenderer.loadGUI();
+    }
 }

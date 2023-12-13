@@ -47,6 +47,14 @@ public class Pipe extends Entity implements DynamicEntity, Collidable {
         }
     }
 
+    public static void start() {
+        started = true;
+    }
+
+    public static void stop() {
+        started = false;
+    }
+
     @Override
     public void update(double deltaTime) {
         if (started) {

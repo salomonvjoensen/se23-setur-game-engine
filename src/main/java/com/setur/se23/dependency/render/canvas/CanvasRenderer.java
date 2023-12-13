@@ -1,6 +1,6 @@
 package com.setur.se23.dependency.render.canvas;
 
-import com.setur.se23.engine.GUI.FX_GUI_Item;
+import com.setur.se23.engine.GUI.GUI_Item;
 import com.setur.se23.engine.render.BufferItem;
 import com.setur.se23.engine.render.RenderPipelineInterface;
 import com.setur.se23.engine.render.common.Material;
@@ -27,7 +27,7 @@ public class CanvasRenderer implements RenderPipelineInterface {
     // note: this should be extended to be a double-buffer. Meaning that whilst one buffer is being filled,
     // the other is being rendered, and vice versa
     private final List<BufferItem> _buffer = new ArrayList<>();
-    private static final List<FX_GUI_Item> _GUIbuffer = new ArrayList<>();
+    private static final List<GUI_Item> _GUIbuffer = new ArrayList<>();
 
     private final HashMap<String, Image> _textureMap = new HashMap<>();
 
@@ -113,14 +113,14 @@ public class CanvasRenderer implements RenderPipelineInterface {
         _buffer.add(new BufferItem(material, x, y, angle, scaleX, scaleY));
     }
 
-    public static void addToGUI(FX_GUI_Item GUI_Item) {
+    public static void addToGUI(GUI_Item GUI_Item) {
         _GUIbuffer.add(GUI_Item);
     }
 
     public static void loadGUI() {
-        anchorPane.getChildren().removeAll();
+        anchorPane.getChildren().clear();
 
-        for (FX_GUI_Item item : _GUIbuffer) {
+        for (GUI_Item item : _GUIbuffer) {
 
             AnchorPane.setLeftAnchor(item.node(), item.x());
             AnchorPane.setTopAnchor(item.node(), item.y());

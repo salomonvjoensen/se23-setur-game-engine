@@ -1,5 +1,6 @@
 package com.setur.se23.FlappyBird.Flappy_Bird_Objects;
 
+import com.setur.se23.FlappyBird.FlappyBirdGUI;
 import com.setur.se23.FlappyBird.Score;
 import com.setur.se23.engine.Collision.CircleCollider;
 import com.setur.se23.engine.Collision.Collidable;
@@ -50,7 +51,7 @@ public class Bird extends Entity implements DynamicEntity, Collidable {
             jumpReady = false;
 
             started = true;
-            Pipe.started = true;
+            Pipe.start();
         }
     }
 
@@ -98,6 +99,11 @@ public class Bird extends Entity implements DynamicEntity, Collidable {
             airborn = false;
 
             Pipe.speed = 0;
+
+            if (FlappyBirdGUI.gameover == false) {
+                FlappyBirdGUI.gameOver();
+                FlappyBirdGUI.setGUI(this);
+            }
         }
 
         if (collisionEntity instanceof ScoreCollider) {
