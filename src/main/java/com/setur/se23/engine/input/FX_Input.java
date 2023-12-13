@@ -1,5 +1,6 @@
 package com.setur.se23.engine.input;
 
+import java.io.InvalidObjectException;
 import java.util.ArrayList;
 
 import com.setur.se23.engine.core.Core;
@@ -17,10 +18,36 @@ public class FX_Input implements Input {
         this.events = events;
     }
 
-    public void addInput(InputType inputType, KeyCode code, String gameEvent) {
+    /**
+     * Assigns a key and its type of input to a game event.
+     * Refer to JavaFX KeyCode javadoc for correct key syntax:
+     * https://docs.oracle.com/javafx/2/api/javafx/scene/input/KeyCode.html
+     * 
+     * @param inputType the type of input
+     * @param key       the key in JavaFX KeyCode syntax
+     * @param gameEvent the game event
+     */
+    public void addInput(InputType inputType, String key, String gameEvent) {
+        KeyCode code = stringToKeyCode(key);
+
         Object[] input = {inputType, code, gameEvent};
 
         inputMap.add(input);
+    }
+
+    private KeyCode stringToKeyCode(String key) {
+        for (KeyCode code : KeyCode.values()) {
+            if (key.toUpperCase().equals(code.toString())) {
+                return code;
+            }
+        }
+        try {
+            throw new InvalidObjectException("Given key not found in JavaFX "
+                                             + "KeyCode enum");
+        } catch (InvalidObjectException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private void keyPressed(KeyEvent event) {

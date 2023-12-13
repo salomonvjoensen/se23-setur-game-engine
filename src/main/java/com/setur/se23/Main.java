@@ -23,13 +23,12 @@ public class Main extends Application {
         Core.mainStage.setHeight(800.0f);
         Core.mainStage.setTitle("Game Engine Boilerplate!");
 
-        //SceneManager.manage();
+        SceneManager.manage();
 
         initializeRenderer(Core.mainStage);
         
         SceneManager.load();
     }
-
 
     private void initializeRenderer(Stage stage) {
         var canvasRenderer = new CanvasRenderer(stage);

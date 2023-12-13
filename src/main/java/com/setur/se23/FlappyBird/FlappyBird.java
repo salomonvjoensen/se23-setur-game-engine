@@ -7,14 +7,14 @@ import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Bird;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Ground;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Pipe;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.ScoreCollider;
+import com.setur.se23.FlappyBird.Flappy_Bird_Objects.SoundEffects;
+import com.setur.se23.engine.audio.SoundEffectsManager;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.input.FX_Input;
 import com.setur.se23.engine.input.InputEvents;
 import com.setur.se23.engine.input.InputType;
 import com.setur.se23.engine.loop.Loop;
-
-import javafx.scene.input.KeyCode;
 
 public class FlappyBird {
 
@@ -30,6 +30,8 @@ public class FlappyBird {
         Score.resetScore();
         FlappyBirdGUI.newGame();
 
+        Pipe.started = false;
+        loadSoundEffects();
         gameLoop.sendScene(createFlappyBirdObjects(), getRunnables());
     }
 
@@ -80,19 +82,25 @@ public class FlappyBird {
         FX_Input inputSystem = new FX_Input(gameEvents);
 
         //on key press
-        inputSystem.addInput(InputType.onPress, KeyCode.SPACE, "Jump");
-        inputSystem.addInput(InputType.onPress, KeyCode.UP, "Jump");
-        inputSystem.addInput(InputType.onPress, KeyCode.P, "toggle_FPS_Counter");
-        inputSystem.addInput(InputType.onPress, KeyCode.O, "toggle_Gizmos");
-        inputSystem.addInput(InputType.onPress, KeyCode.R, "Restart");
+        inputSystem.addInput(InputType.onPress, "SPACE", "Jump");
+        inputSystem.addInput(InputType.onPress, "UP", "Jump");
+        inputSystem.addInput(InputType.onPress, "P", "toggle_FPS_Counter");
+        inputSystem.addInput(InputType.onPress, "O", "toggle_Gizmos");
+        inputSystem.addInput(InputType.onPress, "R", "Restart");
 
         //on key release
-        inputSystem.addInput(InputType.onRelease, KeyCode.SPACE, "Jump_Ready");
-        inputSystem.addInput(InputType.onRelease, KeyCode.UP, "Jump_Ready");
+        inputSystem.addInput(InputType.onRelease, "SPACE", "Jump_Ready");
+        inputSystem.addInput(InputType.onRelease, "UP", "Jump_Ready");
 
         inputSystem.setInputs();
 
         FlappyBirdGUI.setGUI(player);
+    }
+
+    private void loadSoundEffects() {
+        SoundEffectsManager.loadSoundEffect(SoundEffects.DIE.getFilePath());
+        SoundEffectsManager.loadSoundEffect(SoundEffects.FLAP.getFilePath());
+        SoundEffectsManager.loadSoundEffect(SoundEffects.HIT.getFilePath());
     }
 
     private ArrayList<Runnable> getRunnables() {
