@@ -36,7 +36,7 @@ public class Physics {
 
     private void physicsX(double deltaTime) {
 
-        horizontalSpeed *= horizontalAccel;
+        horizontalSpeed += horizontalSpeed * horizontalAccel * deltaTime;
 
         velocityX += horizontalSpeed * deltaTime;
         
@@ -51,7 +51,7 @@ public class Physics {
 
     private void physicsY(double deltaTime) {
 
-        verticalSpeed *= verticalAccel;
+        verticalSpeed += verticalSpeed * verticalAccel * deltaTime;
 
         velocityY += verticalSpeed * deltaTime;
 
