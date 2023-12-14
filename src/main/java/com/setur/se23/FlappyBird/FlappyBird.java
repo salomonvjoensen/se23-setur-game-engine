@@ -6,8 +6,7 @@ import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Background;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Bird;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Ground;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Pipe;
-import com.setur.se23.FlappyBird.Flappy_Bird_Objects.ScoreCollider;
-import com.setur.se23.FlappyBird.Flappy_Bird_Objects.SoundEffects;
+import com.setur.se23.FlappyBird.Flappy_Bird_Objects.ScoringHitBox;
 import com.setur.se23.engine.audio.SoundEffectsManager;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
@@ -67,7 +66,7 @@ public class FlappyBird {
             entities.add(new Pipe(true,  spacing,  (random * 50 - 500)));
             entities.add(new Pipe(false, spacing,  (random * 50 + 250)));
             
-            entities.add(new ScoreCollider(spacing,  (random * 50 + 150)));
+            entities.add(new ScoringHitBox(spacing,  (random * 50 + 150)));
 
             spacing += 300;
             random = Core.randomDouble(1, 8);

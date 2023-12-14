@@ -10,11 +10,11 @@ import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.MaterialColour;
 import com.setur.se23.engine.render.common.Texture2D;
 
-public class ScoreCollider extends Entity implements DynamicEntity, Collidable {
+public class ScoringHitBox extends Entity implements DynamicEntity, Collidable {
 
     public Collider collider;
 
-    public ScoreCollider(double xPos, double yPos) {
+    public ScoringHitBox(double xPos, double yPos) {
         super(new Material(
                     new Texture2D(Core.getSprite("pipe-green.png"), 0, 0),
                     new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)), 

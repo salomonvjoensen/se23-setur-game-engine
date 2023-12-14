@@ -33,7 +33,7 @@ public class Pipe extends Entity implements DynamicEntity, Collidable {
 
         this.reverse = reverse;
 
-        speed = 90;
+        speed = 100;
         started = false;
 
         setCollider(new SquareCollider(this, getWidth(), getHeight()));
@@ -83,7 +83,7 @@ public class Pipe extends Entity implements DynamicEntity, Collidable {
 
         for (Entity entity : Loop.entities) {
 
-            if (entity instanceof Pipe || entity instanceof ScoreCollider) {
+            if (entity instanceof Pipe || entity instanceof ScoringHitBox) {
                 Pipe.loopAroundPipe(entity, random);
             }
         }
@@ -107,9 +107,9 @@ public class Pipe extends Entity implements DynamicEntity, Collidable {
             }
         }
 
-        if (entity instanceof ScoreCollider) {
+        if (entity instanceof ScoringHitBox) {
 
-            ScoreCollider scoreCollider = (ScoreCollider) entity;
+            ScoringHitBox scoreCollider = (ScoringHitBox) entity;
 
             if (scoreCollider.getX() < -100) {
     
