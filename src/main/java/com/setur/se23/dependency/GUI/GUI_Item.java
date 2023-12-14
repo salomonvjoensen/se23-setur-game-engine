@@ -1,4 +1,4 @@
-package com.setur.se23.engine.GUI;
+package com.setur.se23.dependency.GUI;
 
 import javafx.scene.Node;
 

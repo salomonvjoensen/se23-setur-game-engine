@@ -1,6 +1,6 @@
 package com.setur.se23.dependency.render.canvas;
 
-import com.setur.se23.engine.GUI.GUI_Item;
+import com.setur.se23.dependency.GUI.GUI_Item;
 import com.setur.se23.engine.render.BufferItem;
 import com.setur.se23.engine.render.RenderPipelineInterface;
 import com.setur.se23.engine.render.common.Material;
@@ -12,7 +12,6 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
@@ -24,8 +23,6 @@ public class CanvasRenderer implements RenderPipelineInterface {
 
     private final Stage _stage;
 
-    // note: this should be extended to be a double-buffer. Meaning that whilst one buffer is being filled,
-    // the other is being rendered, and vice versa
     private final List<BufferItem> _buffer = new ArrayList<>();
     private static final List<GUI_Item> _GUIbuffer = new ArrayList<>();
 
@@ -75,11 +72,7 @@ public class CanvasRenderer implements RenderPipelineInterface {
 
         // iterates over all the requested render items, and pushes them onto the canvas
         for (var item : _buffer) {
-            var materialColour = item.material().colour();
             var texture = item.material().texture();
-
-            // note: this color should be used to tint the image
-            Color color = CanvasConverter.ToFxColor(materialColour);
 
             Image img = _textureMap.get(texture.path());
 
