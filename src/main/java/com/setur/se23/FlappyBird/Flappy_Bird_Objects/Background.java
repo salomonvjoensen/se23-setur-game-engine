@@ -22,8 +22,4 @@ public class Background extends Entity {
                         new Texture2D(Core.getSprite("background-night.png"), 800, 800),
                         new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)));
     }
-
-    public void changeBackground(int index) {
-        currentMaterialIndex = index;
-    }
 }

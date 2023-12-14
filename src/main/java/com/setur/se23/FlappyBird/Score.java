@@ -31,19 +31,19 @@ public class Score {
         Background background = (Background) Loop.entities.get(0);
 
         if (score % 30 == 0) {
-            background.changeBackground(1);
+            background.changeMaterial(1);
 
             // change music
         }
         
         else if (score % 20 == 0) {
-            background.changeBackground(0);
+            background.changeMaterial(0);
 
             // change music
         }
         
         else if (score % 10 == 0) {
-            background.changeBackground(1);
+            background.changeMaterial(1);
 
             // change music
         }

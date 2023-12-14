@@ -42,6 +42,10 @@ public abstract class Entity {
         Renderer.getInstance().allocateTexture(bufferItem.material().texture());
     }
 
+    public void changeMaterial(int index) {
+        currentMaterialIndex = index;
+    }
+
     public Texture2D getCurrentTexture() {
         return materialList.get(currentMaterialIndex).texture();
     }
