@@ -116,7 +116,7 @@ public class Bird extends Entity implements DynamicEntity, Collidable {
         if (collisionEntity instanceof ScoringHitBox) {
 
             if (collisionEntity.equals(prevScoreCollider) == false) {
-                Score.updateScore(5);
+                Score.updateScore(1);
 
                 prevScoreCollider = collisionEntity;
             }

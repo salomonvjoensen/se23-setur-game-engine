@@ -33,7 +33,7 @@ public class Pipe extends Entity implements DynamicEntity, Collidable {
 
         this.reverse = reverse;
 
-        speed = 90;
+        speed = 100;
         started = false;
 
         setCollider(new SquareCollider(this, getWidth(), getHeight()));

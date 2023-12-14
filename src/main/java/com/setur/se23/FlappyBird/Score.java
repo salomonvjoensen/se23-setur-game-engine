@@ -49,7 +49,7 @@ public class Score {
         }
 
         if (score % 10 == 0) {
-            Pipe.speed += 10;
+            Pipe.speed += 25;
             Core.debug.info("Pipe speeding up (pipe speed: " + Pipe.speed + ")");
         }
     }
