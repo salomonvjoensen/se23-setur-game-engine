@@ -1,12 +1,15 @@
 package com.setur.se23.engine.core;
 
+import java.util.ArrayList;
+
 import com.setur.se23.engine.render.BufferItem;
 import com.setur.se23.engine.render.Renderer;
 import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.Texture2D;
 
 public abstract class Entity {
-    protected Material material;
+    protected ArrayList<Material> materialList = new ArrayList<>();
+    protected int currentMaterialIndex;
     protected double xPos;
     protected double yPos;
     protected double angle;
@@ -14,7 +17,8 @@ public abstract class Entity {
     protected double scaleY;
     
     public Entity(Material material, double xPos, double yPos, double angle, double scaleX, double scaleY) {
-        this.material = material;
+        this.materialList.add(material);
+        this.currentMaterialIndex = 0;
         this.xPos = xPos;
         this.yPos = yPos;
         this.angle = angle;
@@ -27,21 +31,19 @@ public abstract class Entity {
     }
 
     public Material getMaterial() {
-        return material;
+        return materialList.get(currentMaterialIndex);
     }
 
-    public void changeMaterial(Material material, boolean allocate) {
-        this.material = material;
+    public void addMaterial(Material material) {
+        this.materialList.add(material);
 
         BufferItem bufferItem = new BufferItem(material, xPos, yPos, angle, scaleX, scaleY);
 
-        if (allocate) {
-            Renderer.getInstance().allocateTexture(bufferItem.material().texture());
-        }
+        Renderer.getInstance().allocateTexture(bufferItem.material().texture());
     }
 
-    public Texture2D getTexture() {
-        return material.texture();
+    public Texture2D getCurrentTexture() {
+        return materialList.get(currentMaterialIndex).texture();
     }
 
     public double getX() {
@@ -98,11 +100,11 @@ public abstract class Entity {
     }
 
     public int getTextureWidth() {
-        return getTexture().width();
+        return getCurrentTexture().width();
     }
 
     public int getTextureHeight() {
-        return getTexture().height();
+        return getCurrentTexture().height();
     }
 
     public int getWidth() {
@@ -122,7 +124,7 @@ public abstract class Entity {
     }
 
     public void renderEntity() {
-        BufferItem bufferItem = new BufferItem(material, xPos, yPos, angle, scaleX, scaleY);
+        BufferItem bufferItem = new BufferItem(materialList.get(currentMaterialIndex), xPos, yPos, angle, scaleX, scaleY);
         
         Renderer.getInstance().render(bufferItem);
     }
