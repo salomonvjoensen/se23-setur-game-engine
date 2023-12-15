@@ -25,7 +25,7 @@ public class Core {
         return "file:src/main/resources/" + resource;
     }
 
-    public static String getResourcePathNoPreappend(String resource) {
+    public static String getResourcePathNonPreappended(String resource) {
         return "src/main/resources/" + resource;
     }
 

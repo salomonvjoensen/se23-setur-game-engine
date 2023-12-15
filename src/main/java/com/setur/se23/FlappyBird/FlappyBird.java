@@ -3,6 +3,7 @@ package com.setur.se23.FlappyBird;
 import java.util.ArrayList;
 
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Background;
+import com.setur.se23.FlappyBird.Flappy_Bird_Objects.BackgroundMusic;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Bird;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Ground;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Pipe;
@@ -27,8 +28,9 @@ public class FlappyBird {
     private void sendGameObjects() {
         Pipe.started = false;
         loadSoundEffects();
+        Music music = new Music(BackgroundMusic.MUSIC_FOLDER.getFilePath());
+        music.play();
         gameLoop.sendScene(createFlappyBirdObjects(), getRunnables());
-        new Music(SoundEffects.BACK.getFilePath());
         // SoundEffectsManager.playLoaded(SoundEffects.BACK.getFilePath());
         // Music music = new Music("background-music/bensound-funnysong.mp3");
         // music.play();
@@ -96,7 +98,7 @@ public class FlappyBird {
         SoundEffectsManager.loadSoundEffect(SoundEffects.DIE.getFilePath());
         SoundEffectsManager.loadSoundEffect(SoundEffects.FLAP.getFilePath());
         SoundEffectsManager.loadSoundEffect(SoundEffects.HIT.getFilePath());
-        SoundEffectsManager.loadSoundEffect(SoundEffects.BACK.getFilePath());
+        // SoundEffectsManager.loadSoundEffect(SoundEffects.BACK.getFilePath());
     }
 
     private ArrayList<Runnable> getRunnables() {
