@@ -38,30 +38,30 @@ public class Physics {
 
         horizontalSpeed += horizontalSpeed * horizontalAccel * deltaTime;
 
-        velocityX += horizontalSpeed * deltaTime;
-        
         if (horizontalSpeed > maxHorizontalSpeed) {
             horizontalSpeed = maxHorizontalSpeed;
         }
-
+        
         if (horizontalSpeed < minHorizontalSpeed) {
             horizontalSpeed = minHorizontalSpeed;
         }
+        
+        velocityX += horizontalSpeed * deltaTime;
     }
 
     private void physicsY(double deltaTime) {
 
         verticalSpeed += verticalSpeed * verticalAccel * deltaTime;
 
-        velocityY += verticalSpeed * deltaTime;
-
         if (verticalSpeed > maxVerticalSpeed) {
             verticalSpeed = maxVerticalSpeed;
         }
-
+        
         if (verticalSpeed < minVerticalSpeed) {
             verticalSpeed = minVerticalSpeed;
         }
+
+        velocityY += verticalSpeed * deltaTime;
     }
 
     public void setHorizontalSpeed(double horizontalSpeed) {

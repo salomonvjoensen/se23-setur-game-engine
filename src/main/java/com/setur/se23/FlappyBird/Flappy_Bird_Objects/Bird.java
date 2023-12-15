@@ -44,7 +44,7 @@ public class Bird extends Entity implements DynamicEntity, Collidable, PhysicsEn
         setPhysics(new Physics(0, 100, 
                                0, 1.5,
                                0, 1000,
-                               0, -1000));
+                               0, 0));
     }
 
     public void jump() {
