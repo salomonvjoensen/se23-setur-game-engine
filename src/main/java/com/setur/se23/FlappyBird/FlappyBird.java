@@ -14,24 +14,33 @@ import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.input.InputEvents;
 import com.setur.se23.engine.input.InputManager;
 import com.setur.se23.engine.input.InputType;
+import com.setur.se23.engine.loop.GameLoop;
 import com.setur.se23.engine.loop.Loop;
 
 public class FlappyBird {
 
-    public Loop gameLoop = new Loop();
+    public GameLoop gameLoop = GameLoop.getInstance();
+    public Loop loop;
 
     public FlappyBird() {
-        FlappyBirdGUI.setRestartRunnable(() -> sendGameObjects());
-        sendGameObjects();
+        FlappyBirdGUI.setRestartRunnable(() -> newGame());
+        
+        newGame();
     }
 
-    private void sendGameObjects() {
+    private void newGame() {
         Pipe.stop();
         Score.resetScore();
         FlappyBirdGUI.newGame();
 
         loadSoundEffects();
-        gameLoop.sendScene(createFlappyBirdObjects(), getRunnables());
+
+        
+        gameLoop.unsubscribeFromFrame(loop);
+
+        loop = new Loop(createFlappyBirdObjects(), getRunnables());
+
+        gameLoop.subscribeToFrame(loop);
     }
 
     private ArrayList<Entity> createFlappyBirdObjects() {
@@ -82,7 +91,7 @@ public class FlappyBird {
     }
 
     private void createInputs(Bird player) {
-        initializeInputManager(new GameEvents(player, () -> sendGameObjects()));
+        initializeInputManager(new GameEvents(player, () -> newGame()));
 
         InputManager inputSystem = InputManager.getInstance();
 

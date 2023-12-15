@@ -9,9 +9,8 @@ import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.DynamicEntity;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.core.RenderConfig;
-import com.setur.se23.engine.render.Renderer;
 
-public class Loop extends FX_FrameUpdate {
+public class Loop implements FrameInterface {
 
     public static ArrayList<Entity> entities = new ArrayList<>();
     public static ArrayList<PhysicsEntity> physicsEntities = new ArrayList<>();
@@ -20,10 +19,16 @@ public class Loop extends FX_FrameUpdate {
 
     public static ArrayList<Runnable> gameRunnables = new ArrayList<>();
 
-    public void sendScene(ArrayList<Entity> entityList, ArrayList<Runnable> runnableList) {
+    public Loop(ArrayList<Entity> entityList, ArrayList<Runnable> runnableList) {
         entities = entityList;
         gameRunnables = runnableList;
 
+        assignPhysics();
+        assignDynamics();
+        assignCollidables();
+    }
+
+    public void assignlists() {
         assignPhysics();
         assignDynamics();
         assignCollidables();
@@ -62,6 +67,24 @@ public class Loop extends FX_FrameUpdate {
         }
     }
 
+    private long previousTime = 0;
+
+    @Override
+    public void update(long currentTime) {
+        if (previousTime == 0) {
+            previousTime = currentTime;
+        }
+
+        double deltaTimeNs = currentTime - previousTime;
+        double deltaTimeS = deltaTimeNs / 1_000_000_000.0;
+
+        // Call your update method to update the game state based on deltaTime
+        logicLoop(deltaTimeS);
+        renderLoop();
+
+        previousTime = currentTime;
+    }
+
     public void logicLoop(double deltaTime) {
 
         for (PhysicsEntity entity : physicsEntities) {
@@ -86,9 +109,6 @@ public class Loop extends FX_FrameUpdate {
         for (Runnable function : gameRunnables) {
             function.run();
         }
-
-
-        renderLoop();
     }
 
     private void renderLoop() {
@@ -106,7 +126,5 @@ public class Loop extends FX_FrameUpdate {
         if (RenderConfig.FPS_Counter) {
             Core.debug.checkFPS();
         }
-
-        Renderer.getInstance().swapBuffers();
     }
 }

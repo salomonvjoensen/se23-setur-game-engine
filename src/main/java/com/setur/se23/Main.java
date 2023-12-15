@@ -1,8 +1,10 @@
 package com.setur.se23;
 
 import com.setur.se23.SceneManager.SceneManager;
+import com.setur.se23.dependency.loop.JavaFxGameLoop;
 import com.setur.se23.dependency.render.canvas.CanvasRenderer;
 import com.setur.se23.engine.core.Core;
+import com.setur.se23.engine.loop.GameLoop;
 import com.setur.se23.engine.render.Renderer;
 import com.setur.se23.engine.render.common.ViewPort;
 
@@ -27,6 +29,7 @@ public class Main extends Application {
         SceneManager.manage();
 
         initializeRenderer(Core.mainStage);
+        initializeGameLoop();
         
         SceneManager.load();
     }
@@ -36,5 +39,9 @@ public class Main extends Application {
 
         Renderer.Instantiate(canvasRenderer)
                 .initialize(new ViewPort(stage.getWidth(), stage.getHeight()));
+    }
+
+    private void initializeGameLoop() {
+        GameLoop.initialize(new JavaFxGameLoop());
     }
 }

@@ -1,6 +1,6 @@
 package com.setur.se23.engine.debug;
 
-import com.setur.se23.engine.core.Core;
+import com.setur.se23.engine.core.Time;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -31,14 +31,14 @@ public class VS_Debug extends Debug {
     public void checkFPS() {
         FPS += 1;
 
-        if (1 <= (Core.getCurrentTime() - previousTime) / 1_000_000_000) {
+        if (1 <= (Time.getCurrentTime() - previousTime) / 1_000_000_000) {
             
             info("FPS:" + FPS);
             FPSProperty.set(Integer.toString(FPS));
 
             FPS = 0;
 
-            previousTime = Core.getCurrentTime();
+            previousTime = Time.getCurrentTime();
         }
     }
 

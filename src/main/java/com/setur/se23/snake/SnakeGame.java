@@ -8,6 +8,7 @@ import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.input.InputEvents;
 import com.setur.se23.engine.input.InputManager;
 import com.setur.se23.engine.input.InputType;
+import com.setur.se23.engine.loop.GameLoop;
 import com.setur.se23.engine.loop.Loop;
 import com.setur.se23.snake.Snake_Objects.Apple;
 import com.setur.se23.snake.Snake_Objects.Background;
@@ -51,7 +52,8 @@ public class SnakeGame {
     
     private boolean isFirstMove;
 
-    public Loop gameLoop = new Loop();
+    public GameLoop gameLoop = GameLoop.getInstance();
+    public Loop loop;
 
     /**
      * Constructor.
@@ -76,14 +78,19 @@ public class SnakeGame {
         // and 0-49 for the y position on the grid.
         initializeSnake(HEAD_START_POSITION_X, HEAD_START_POSITION_Y);        
 
-        sendGameObjects();
+        newScene();
     }
 
     /**
      * What is sent to the game loop.
      */
-    private void sendGameObjects() {
-        gameLoop.sendScene(createSnakeGameObjects(), getRunnables());
+    private void newScene() {
+
+        gameLoop.unsubscribeFromFrame(loop);
+
+        loop = new Loop(createSnakeGameObjects(), getRunnables());
+
+        gameLoop.subscribeToFrame(loop);
 
     }
 
@@ -202,26 +209,34 @@ public class SnakeGame {
      * Method for refreshing all the entities in the scene.
      */
     private void refreshRenderingEntities() {
-        ArrayList<Entity> entities = new ArrayList<Entity>();
+        //ArrayList<Entity> entities = new ArrayList<Entity>();
 
-        entities.add(background);
-        entities.add(apple);
+        Loop.entities.clear();
+
+        Loop.entities.add(background);
+        Loop.entities.add(apple);
         
         for (SnakeEntity entity : snakeEntities) {
-            entities.add(entity);
+            Loop.entities.add(entity);
         }
 
         // If it is the first move, displays info about movement and how to restart.
         if (isFirstMove) {
-            entities.add(startGameInfo);
+            Loop.entities.add(startGameInfo);
         }
 
         // If the snake collides with itself display the Game Over object.
         if (!snakeHead.isAlive()) {
-            entities.add(gameOver);
+            Loop.entities.add(gameOver);
         }
 
-        gameLoop.sendScene(entities, getRunnables());
+        loop.assignlists();
+
+        //gameLoop.unsubscribeFromFrame(loop);
+
+        //loop = new Loop(entities, getRunnables());
+
+        //gameLoop.subscribeToFrame(loop);
     }
 
     /**

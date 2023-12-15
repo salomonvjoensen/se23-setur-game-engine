@@ -11,8 +11,6 @@ public class Core {
 
     public static Stage mainStage;
 
-    public static long currentTime;
-
     public static Debug debug = new VS_Debug();
 
     public static Random random = new Random();
@@ -23,10 +21,6 @@ public class Core {
 
     public static double getStageHeight() {
         return mainStage.getHeight();
-    }
-
-    public static long getCurrentTime() {
-        return currentTime;
     }
 
     public static Stage getStage() {

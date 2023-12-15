@@ -6,18 +6,25 @@ import com.setur.se23.dependency.input.FX_Input;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.input.InputEvents;
 import com.setur.se23.engine.input.InputManager;
+import com.setur.se23.engine.loop.GameLoop;
 import com.setur.se23.engine.loop.Loop;
 
 public class GameTemplate {
 
-    public Loop gameLoop = new Loop();
+    public GameLoop gameLoop = GameLoop.getInstance();
+    public Loop loop;
 
     public GameTemplate() {
-        sendGameObjects();
+        newGame();
     }
 
-    private void sendGameObjects() {
-        gameLoop.sendScene(createObjects(), getFunctions());
+    private void newGame() {
+
+        gameLoop.unsubscribeFromFrame(loop);
+
+        loop = new Loop(createObjects(), getRunnables());
+
+        gameLoop.subscribeToFrame(loop);
     }
 
     private ArrayList<Entity> createObjects() {
@@ -49,7 +56,7 @@ public class GameTemplate {
         inputSystem.setInputs();
     }
 
-    private ArrayList<Runnable> getFunctions() {
+    private ArrayList<Runnable> getRunnables() {
         ArrayList<Runnable> runnables = new ArrayList<Runnable>();
 
 
