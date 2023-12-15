@@ -8,7 +8,7 @@ import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Bird;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Ground;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Pipe;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.ScoringHitBox;
-import com.setur.se23.engine.audio.Music;
+import com.setur.se23.engine.audio.BackgroundMusicManager;
 import com.setur.se23.engine.audio.SoundEffectsManager;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
@@ -32,12 +32,12 @@ public class FlappyBird {
         FlappyBirdGUI.newGame();
 
         loadSoundEffects();
-        Music music = new Music(BackgroundMusic.MUSIC_FOLDER.getFilePath());
-        music.play();
+        loadBackgroundMusic();
+
+        BackgroundMusicManager.playLoaded(BackgroundMusic.NORMAL.getFilePath());
+        BackgroundMusicManager.normalSpeed();
+
         gameLoop.sendScene(createFlappyBirdObjects(), getRunnables());
-        // SoundEffectsManager.playLoaded(SoundEffects.BACK.getFilePath());
-        // Music music = new Music("background-music/bensound-funnysong.mp3");
-        // music.play();
     }
 
     private ArrayList<Entity> createFlappyBirdObjects() {
@@ -106,7 +106,12 @@ public class FlappyBird {
         SoundEffectsManager.loadSoundEffect(SoundEffects.DIE.getFilePath());
         SoundEffectsManager.loadSoundEffect(SoundEffects.FLAP.getFilePath());
         SoundEffectsManager.loadSoundEffect(SoundEffects.HIT.getFilePath());
-        // SoundEffectsManager.loadSoundEffect(SoundEffects.BACK.getFilePath());
+    }
+
+    private void loadBackgroundMusic() {
+        BackgroundMusicManager.loadBackgroundMusic(BackgroundMusic.NORMAL.getFilePath());
+        BackgroundMusicManager.loadBackgroundMusic(BackgroundMusic.FASTER.getFilePath());
+        BackgroundMusicManager.loadBackgroundMusic(BackgroundMusic.FASTEST.getFilePath());
     }
 
     private ArrayList<Runnable> getRunnables() {

@@ -1,7 +1,9 @@
 package com.setur.se23.FlappyBird;
 
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Background;
+import com.setur.se23.FlappyBird.Flappy_Bird_Objects.BackgroundMusic;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Pipe;
+import com.setur.se23.engine.audio.BackgroundMusicManager;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.loop.Loop;
 
@@ -13,6 +15,8 @@ public class Score {
     public static final StringProperty scoreProperty = new SimpleStringProperty("0");
 
     public static int score;
+
+    public static int level = 0;
     
     public static void updateScore(int amount) {
         score += amount;
@@ -23,6 +27,7 @@ public class Score {
    
     public static void resetScore() {
         score = 0;
+        level = 0;
         scoreProperty.set(Integer.toString(score));
     }
 
@@ -51,6 +56,16 @@ public class Score {
         if (score % 10 == 0) {
             Pipe.speed += 25;
             Core.debug.info("Pipe speeding up (pipe speed: " + Pipe.speed + ")");
+            level++;
+            if (level == 1) {
+                BackgroundMusicManager.playLoaded(BackgroundMusic.FASTER.getFilePath());
+            }
+            if (level == 2) {
+                BackgroundMusicManager.playLoaded(BackgroundMusic.FASTEST.getFilePath()); 
+            }
+            if (level > 2) {
+                BackgroundMusicManager.speedMusic();
+            }
         }
     }
 }
