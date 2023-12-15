@@ -1,6 +1,6 @@
 package com.setur.se23.dependency.render.canvas;
 
-import com.setur.se23.dependency.GUI.GUI_Item;
+import com.setur.se23.dependency.render.GUI.GUI_Item;
 import com.setur.se23.engine.render.BufferItem;
 import com.setur.se23.engine.render.RenderPipelineInterface;
 import com.setur.se23.engine.render.common.Material;

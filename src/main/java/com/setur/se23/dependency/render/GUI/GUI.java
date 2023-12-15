@@ -1,4 +1,4 @@
-package com.setur.se23.dependency.GUI;
+package com.setur.se23.dependency.render.GUI;
 
 import com.setur.se23.dependency.render.canvas.CanvasRenderer;
 
