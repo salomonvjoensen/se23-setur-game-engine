@@ -3,8 +3,8 @@ package com.setur.se23.snake;
 import java.util.ArrayList;
 
 import com.setur.se23.dependency.input.FX_Input;
-import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
+import com.setur.se23.engine.core.Randoms;
 import com.setur.se23.engine.input.InputEvents;
 import com.setur.se23.engine.input.InputManager;
 import com.setur.se23.engine.input.InputType;
@@ -60,7 +60,7 @@ public class SnakeGame {
      */
     public SnakeGame() {
         this.background = new Background();
-        this.apple = new Apple(Core.randomDouble(0, SCREEN_SIZE-C_S), Core.randomDouble(0, SCREEN_SIZE-C_S));
+        this.apple = new Apple(Randoms.randomDouble(0, SCREEN_SIZE-C_S), Randoms.randomDouble(0, SCREEN_SIZE-C_S));
         this.grid = new Grid(GRID_SIZE, GRID_SIZE);
         this.startGameInfo = new StartGameInfo();
         this.gameOver = new GameOver();
@@ -199,8 +199,8 @@ public class SnakeGame {
                 // sets AppleEaten to false again
                 // and move the Apple to a new random location.
                 snakeHead.setAppleEaten(false);
-                apple.setX(Core.randomDouble(0, SCREEN_SIZE-C_S));
-                apple.setY(Core.randomDouble(0, SCREEN_SIZE-C_S));
+                apple.setX(Randoms.randomDouble(0, SCREEN_SIZE-C_S));
+                apple.setY(Randoms.randomDouble(0, SCREEN_SIZE-C_S));
             }
         }
     }

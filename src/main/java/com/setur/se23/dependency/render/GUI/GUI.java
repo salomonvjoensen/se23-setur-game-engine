@@ -2,7 +2,6 @@ package com.setur.se23.dependency.render.GUI;
 
 import com.setur.se23.dependency.render.canvas.CanvasRenderer;
 
-import javafx.beans.property.StringProperty;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -29,8 +28,8 @@ public class GUI {
 
         Text textNode = new Text();
 
-        if (text instanceof StringProperty) {
-            textNode.textProperty().bind((StringProperty) text);
+        if (text instanceof DynamicString) {
+            textNode.textProperty().bind(((DynamicString) text).property);
         }
 
         if (text instanceof String) {

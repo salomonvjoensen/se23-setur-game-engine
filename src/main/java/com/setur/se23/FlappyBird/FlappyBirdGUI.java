@@ -27,9 +27,9 @@ public class FlappyBirdGUI {
         GUI.AddText(20, 20, Score.scoreProperty, 50, 5, "#FFFFFF", null);
 
         if (gameover) {
-            GUI.AddText(Core.getStageWidth() / 2 - 125, 150, "Game Over", 40, 10, "#FFF000", "#A00000");
+            GUI.AddText(Core.getWindowWidth() / 2 - 125, 150, "Game Over", 40, 10, "#FFF000", "#A00000");
 
-            GUI.AddButton(Core.getStageWidth() / 2 - 60, 
+            GUI.AddButton(Core.getWindowWidth() / 2 - 60, 
                           250, 
                           "Restart",
                           100,
@@ -39,7 +39,7 @@ public class FlappyBirdGUI {
         }
 
         if (RenderConfig.FPS_Counter) {
-            GUI.AddText(20, Core.getStageHeight() - 120, VS_Debug.FPSProperty, 50, 5, "#FFFFFF", "#000000");
+            GUI.AddText(20, Core.getWindowHeight() - 120, VS_Debug.FPSProperty, 50, 5, "#FFFFFF", "#000000");
         }
 
         GUI.loadGUI();

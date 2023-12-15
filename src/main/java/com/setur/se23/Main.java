@@ -1,6 +1,7 @@
 package com.setur.se23;
 
 import com.setur.se23.SceneManager.SceneManager;
+import com.setur.se23.dependency.FX_Globals;
 import com.setur.se23.dependency.loop.JavaFxGameLoop;
 import com.setur.se23.dependency.render.canvas.CanvasRenderer;
 import com.setur.se23.engine.core.Core;
@@ -19,16 +20,19 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
 
-        Core.mainStage = stage;
+        FX_Globals.stage = stage;
 
-        Core.mainStage.setWidth(816.0f);
-        Core.mainStage.setHeight(839.0f);
-        Core.mainStage.setTitle("Game Engine Boilerplate!");
-        Core.mainStage.resizableProperty().set(false);
+        FX_Globals.stage.setWidth(816.0f);
+        FX_Globals.stage.setHeight(839.0f);
+        FX_Globals.stage.setTitle("Game Engine Boilerplate!");
+        FX_Globals.stage.resizableProperty().set(false);
+
+        Core.WindowWidth = FX_Globals.getStage().getWidth();
+        Core.WindowHeight = FX_Globals.getStage().getHeight();
 
         SceneManager.manage();
 
-        initializeRenderer(Core.mainStage);
+        initializeRenderer(FX_Globals.stage);
         initializeGameLoop();
         
         SceneManager.load();

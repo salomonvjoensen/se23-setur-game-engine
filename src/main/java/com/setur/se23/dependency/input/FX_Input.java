@@ -3,7 +3,7 @@ package com.setur.se23.dependency.input;
 import java.io.InvalidObjectException;
 import java.util.ArrayList;
 
-import com.setur.se23.engine.core.Core;
+import com.setur.se23.dependency.FX_Globals;
 import com.setur.se23.engine.input.Input;
 import com.setur.se23.engine.input.InputEvents;
 import com.setur.se23.engine.input.InputType;
@@ -84,7 +84,7 @@ public class FX_Input implements Input {
     }
 
     public void setInputs() {
-        Core.getStage().getScene().setOnKeyPressed(event -> keyPressed(event));
-        Core.getStage().getScene().setOnKeyReleased(event -> keyReleased(event));
+        FX_Globals.getStage().getScene().setOnKeyPressed(event -> keyPressed(event));
+        FX_Globals.getStage().getScene().setOnKeyReleased(event -> keyReleased(event));
     }
 }

@@ -3,9 +3,9 @@ package com.setur.se23.FlappyBird.Flappy_Bird_Objects;
 import com.setur.se23.engine.Collision.Collidable;
 import com.setur.se23.engine.Collision.Collider;
 import com.setur.se23.engine.Collision.SquareCollider;
-import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.DynamicEntity;
 import com.setur.se23.engine.core.Entity;
+import com.setur.se23.engine.core.Randoms;
 import com.setur.se23.engine.core.Resource;
 import com.setur.se23.engine.loop.Loop;
 import com.setur.se23.engine.render.common.Material;
@@ -80,7 +80,7 @@ public class Pipe extends Entity implements DynamicEntity, Collidable {
 
     public static void loopAroundPipes() {
 
-        double random = Core.randomDouble(1, 8);
+        double random = Randoms.randomDouble(1, 8);
 
         for (Entity entity : Loop.entities) {
 

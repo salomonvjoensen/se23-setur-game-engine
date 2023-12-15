@@ -2,28 +2,26 @@ package com.setur.se23.FlappyBird;
 
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Background;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Pipe;
+import com.setur.se23.dependency.render.GUI.DynamicString;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.loop.Loop;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-
 public class Score {
     
-    public static final StringProperty scoreProperty = new SimpleStringProperty("0");
+    public static final DynamicString scoreProperty = new DynamicString("0");
 
     public static int score;
     
     public static void updateScore(int amount) {
         score += amount;
-        scoreProperty.set(Integer.toString(score));
+        scoreProperty.setString(Integer.toString(score));
 
         updateGame();
     }
    
     public static void resetScore() {
         score = 0;
-        scoreProperty.set(Integer.toString(score));
+        scoreProperty.setString(Integer.toString(score));
     }
 
     private static void updateGame() {

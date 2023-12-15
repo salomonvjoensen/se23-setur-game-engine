@@ -2,7 +2,7 @@ package com.setur.se23.engine.core;
 
 public class Time {
     
-    public static long currentNanoTime;
+    private static long currentNanoTime;
 
     public static long getCurrentTime() {
         return currentNanoTime;

@@ -9,8 +9,8 @@ import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Pipe;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.ScoringHitBox;
 import com.setur.se23.dependency.input.FX_Input;
 import com.setur.se23.engine.audio.SoundEffectsManager;
-import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
+import com.setur.se23.engine.core.Randoms;
 import com.setur.se23.engine.input.InputEvents;
 import com.setur.se23.engine.input.InputManager;
 import com.setur.se23.engine.input.InputType;
@@ -69,7 +69,7 @@ public class FlappyBird {
 
         int spacing = 500;
 
-        double random = Core.randomDouble(1, 8);
+        double random = Randoms.randomDouble(1, 8);
 
         for (int i = 0; i < pairAmount; i++) {
 
@@ -79,7 +79,7 @@ public class FlappyBird {
             entities.add(new ScoringHitBox(spacing,  (random * 50 + 150)));
 
             spacing += 300;
-            random = Core.randomDouble(1, 8);
+            random = Randoms.randomDouble(1, 8);
         }
     }
 
