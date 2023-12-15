@@ -27,7 +27,7 @@ public class GameTemplate {
         // i.e. last in list is rendered over the others
 
         ArrayList<Entity> entities = new ArrayList<Entity>();
-        
+
 
 
         createInputs();

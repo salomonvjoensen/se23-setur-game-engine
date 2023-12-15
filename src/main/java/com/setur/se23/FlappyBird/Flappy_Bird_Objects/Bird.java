@@ -1,32 +1,33 @@
 package com.setur.se23.FlappyBird.Flappy_Bird_Objects;
 
+import com.setur.se23.FlappyBird.FlappyBirdGUI;
+import com.setur.se23.FlappyBird.Score;
+import com.setur.se23.FlappyBird.SoundEffects;
 import com.setur.se23.engine.Collision.CircleCollider;
 import com.setur.se23.engine.Collision.Collidable;
 import com.setur.se23.engine.Collision.Collider;
+import com.setur.se23.engine.Physics.Physics;
+import com.setur.se23.engine.Physics.PhysicsEntity;
 import com.setur.se23.engine.audio.Music;
 import com.setur.se23.engine.audio.SoundEffectsManager;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.DynamicEntity;
 import com.setur.se23.engine.core.Entity;
-import com.setur.se23.engine.loop.Loop;
 import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.MaterialColour;
 import com.setur.se23.engine.render.common.Texture2D;
 
-public class Bird extends Entity implements DynamicEntity, Collidable {
-
-    private double fallAccel = 1.25;
-    private double fallSpeed = 10;
-    private double velocityY;
+public class Bird extends Entity implements DynamicEntity, Collidable, PhysicsEntity {
 
     private boolean alive = true;
     private boolean airborne = true;
     private boolean started = false;
 
+    private Entity prevScoreCollider;
+
     public boolean jumpReady = true;
 
     public Collider collider;
-    public int i;
 
 
     public Bird(double xPos, double yPos) {
@@ -40,19 +41,35 @@ public class Bird extends Entity implements DynamicEntity, Collidable {
               0.2);
 
         setCollider(new CircleCollider(this, getHeight() / 2));
+        setPhysics(new Physics(0, 100, 
+                               0, 1.5,
+                               0, 1000,
+                               0, 0));
     }
 
     public void jump() {
         if (alive && jumpReady) {
             SoundEffectsManager.playLoaded(SoundEffects.FLAP.getFilePath());
 
-            velocityY = -200;
-            fallSpeed = 10;
+            physics.setVelocityY(-300);
+            physics.setVerticalAccel(300);
             
             jumpReady = false;
 
             started = true;
-            Pipe.started = true;
+            Pipe.start();
+        }
+    }
+
+    public void jumpIsReady() {
+        jumpReady = true;
+    }
+
+    @Override
+    public void updatePhysics(double deltaTime) {
+
+        if (airborne && started) {
+            physics.physicsUpdate(deltaTime);
         }
 
         if (i == 0) {
@@ -69,21 +86,19 @@ public class Bird extends Entity implements DynamicEntity, Collidable {
 
         if (airborne && started) {
 
-            fallSpeed *= fallAccel;
+            setAngle(physics.getVelocityY() / 20);
 
-            if (fallSpeed > 1200) {
-                fallSpeed = 1200;
-            }
-
-            setAngle(velocityY / 20);
-
-            velocityY += fallSpeed * deltaTime;
-            setY(getY() + velocityY * deltaTime);
+            setY(getY() + physics.getVelocityY() * deltaTime);
 
             if (getY() < 0) {
                 setY(0);
             }
         }
+    }
+
+    @Override
+    public void setPhysics(Physics physics) {
+        this.physics = physics;
     }
 
     @Override
@@ -111,14 +126,20 @@ public class Bird extends Entity implements DynamicEntity, Collidable {
             alive = false;
             airborne = false;
 
-            stopPipes();
-        }
-    }
+            Pipe.speed = 0;
 
-    private void stopPipes() {
-        for (Entity entity : Loop.entities) {
-            if (entity instanceof Pipe) {
-                ((Pipe) entity).speed = 0;
+            if (FlappyBirdGUI.gameover == false) {
+                FlappyBirdGUI.gameOver();
+                FlappyBirdGUI.setGUI();
+            }
+        }
+
+        if (collisionEntity instanceof ScoringHitBox) {
+
+            if (collisionEntity.equals(prevScoreCollider) == false) {
+                Score.updateScore(1);
+
+                prevScoreCollider = collisionEntity;
             }
         }
     }

@@ -4,26 +4,35 @@ import com.setur.se23.engine.Collision.Collidable;
 import com.setur.se23.engine.Collision.Collider;
 import com.setur.se23.engine.Collision.SquareCollider;
 import com.setur.se23.engine.core.Core;
+import com.setur.se23.engine.core.DynamicEntity;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.MaterialColour;
 import com.setur.se23.engine.render.common.Texture2D;
 
-public class Ground extends Entity implements Collidable {
+public class ScoringHitBox extends Entity implements DynamicEntity, Collidable {
 
     public Collider collider;
 
-    public Ground() {
+    public ScoringHitBox(double xPos, double yPos) {
         super(new Material(
-                    new Texture2D(Core.getSprite("ground.png"), (int) Core.getStageWidth(), 100),
+                    new Texture2D(Core.getSprite("pipe-green.png"), 0, 0),
                     new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)), 
-              0, 
-              Core.getStageHeight() - 100, 
+              xPos, 
+              yPos, 
               0, 
               1, 
               1);
 
-        setCollider(new SquareCollider(this, getWidth(), getHeight()));
+
+        setCollider(new SquareCollider(this, 25, 250));
+    }
+
+    @Override
+    public void update(double deltaTime) {
+        if (Pipe.started) {
+            setX(getX() - 1 * Pipe.speed * deltaTime);
+        }
     }
 
     @Override

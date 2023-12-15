@@ -7,7 +7,7 @@ import com.setur.se23.FlappyBird.Flappy_Bird_Objects.BackgroundMusic;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Bird;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Ground;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Pipe;
-import com.setur.se23.FlappyBird.Flappy_Bird_Objects.SoundEffects;
+import com.setur.se23.FlappyBird.Flappy_Bird_Objects.ScoringHitBox;
 import com.setur.se23.engine.audio.Music;
 import com.setur.se23.engine.audio.SoundEffectsManager;
 import com.setur.se23.engine.core.Core;
@@ -22,11 +22,15 @@ public class FlappyBird {
     public Loop gameLoop = new Loop();
 
     public FlappyBird() {
+        FlappyBirdGUI.setRestartRunnable(() -> sendGameObjects());
         sendGameObjects();
     }
 
     private void sendGameObjects() {
-        Pipe.started = false;
+        Pipe.stop();
+        Score.resetScore();
+        FlappyBirdGUI.newGame();
+
         loadSoundEffects();
         Music music = new Music(BackgroundMusic.MUSIC_FOLDER.getFilePath());
         music.play();
@@ -68,6 +72,8 @@ public class FlappyBird {
 
             entities.add(new Pipe(true,  spacing,  (random * 50 - 500)));
             entities.add(new Pipe(false, spacing,  (random * 50 + 250)));
+            
+            entities.add(new ScoringHitBox(spacing,  (random * 50 + 150)));
 
             spacing += 300;
             random = Core.randomDouble(1, 8);
@@ -92,6 +98,8 @@ public class FlappyBird {
         inputSystem.addInput(InputType.onRelease, "UP", "Jump_Ready");
 
         inputSystem.setInputs();
+
+        FlappyBirdGUI.setGUI();
     }
 
     private void loadSoundEffects() {

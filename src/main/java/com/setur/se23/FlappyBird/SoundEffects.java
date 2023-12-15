@@ -1,4 +1,4 @@
-package com.setur.se23.FlappyBird.Flappy_Bird_Objects;
+package com.setur.se23.FlappyBird;
 
 public enum SoundEffects {
     DIE("sound-effects/die.mp3"),

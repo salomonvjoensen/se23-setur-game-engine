@@ -17,5 +17,9 @@ public class Background extends Entity {
               0, 
               1, 
               1);
-    }    
+
+        addMaterial(new Material(
+                        new Texture2D(Core.getSprite("background-night.png"), 800, 800),
+                        new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)));
+    }
 }

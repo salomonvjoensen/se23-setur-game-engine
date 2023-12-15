@@ -2,6 +2,9 @@ package com.setur.se23.engine.debug;
 
 import com.setur.se23.engine.core.Core;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public class VS_Debug extends Debug {
     
     @Override
@@ -19,6 +22,8 @@ public class VS_Debug extends Debug {
         System.out.println(" Info: " + string);
     }
 
+    public static final StringProperty FPSProperty = new SimpleStringProperty("0");
+
     private int FPS;
 
     private long previousTime = 0;
@@ -29,6 +34,7 @@ public class VS_Debug extends Debug {
         if (1 <= (Core.getCurrentTime() - previousTime) / 1_000_000_000) {
             
             info("FPS:" + FPS);
+            FPSProperty.set(Integer.toString(FPS));
 
             FPS = 0;
 
