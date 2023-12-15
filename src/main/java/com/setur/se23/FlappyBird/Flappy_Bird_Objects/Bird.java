@@ -72,14 +72,6 @@ public class Bird extends Entity implements DynamicEntity, Collidable, PhysicsEn
         if (airborne && started) {
             physics.physicsUpdate(deltaTime);
         }
-
-        if (i == 0) {
-            // new Music("background-music/bensound-funnysong.mp3");
-            // new Music(SoundEffects.HIT.getFilePath());
-            
-            // SoundEffectsManager.playLoaded(SoundEffects.HIT.getFilePath());
-            i = 1;
-        }
     }
 
     @Override
