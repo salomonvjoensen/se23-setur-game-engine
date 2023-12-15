@@ -1,7 +1,7 @@
 package com.setur.se23.engine.Collision;
 
-import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
+import com.setur.se23.engine.core.Resource;
 import com.setur.se23.engine.render.BufferItem;
 import com.setur.se23.engine.render.Renderer;
 import com.setur.se23.engine.render.common.Material;
@@ -15,7 +15,7 @@ public class CircleCollider extends Collider {
 
     public CircleCollider(Entity attachedEntity, int radius) {
         super(new Material(
-                    new Texture2D(Core.getResourcePath("gizmo/red_circle.png"), radius * 2, radius * 2), 
+                    new Texture2D(Resource.getResourcePath("gizmo/red_circle.png"), radius * 2, radius * 2), 
                     new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)),
               attachedEntity);
         this.radius = radius;

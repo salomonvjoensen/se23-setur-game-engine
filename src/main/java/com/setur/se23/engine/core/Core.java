@@ -20,14 +20,6 @@ public class Core {
     public static boolean FPS_Counter;
 
     public static boolean renderGizmos;
-    
-    public static String getResourcePath(String resource) {
-        return "file:src/main/resources/" + resource;
-    }
-
-    public static String getSprite(String sprite) {
-        return "file:src/main/resources/sprites/" + sprite;
-    }
 
     public static double getStageWidth() {
         return mainStage.getWidth();
