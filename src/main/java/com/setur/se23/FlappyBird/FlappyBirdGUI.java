@@ -2,6 +2,7 @@ package com.setur.se23.FlappyBird;
 
 import com.setur.se23.dependency.render.GUI.GUI;
 import com.setur.se23.engine.core.Core;
+import com.setur.se23.engine.core.RenderConfig;
 import com.setur.se23.engine.debug.VS_Debug;
 
 public class FlappyBirdGUI {
@@ -37,7 +38,7 @@ public class FlappyBirdGUI {
                           restart);
         }
 
-        if (Core.FPS_Counter) {
+        if (RenderConfig.FPS_Counter) {
             GUI.AddText(20, Core.getStageHeight() - 120, VS_Debug.FPSProperty, 50, 5, "#FFFFFF", "#000000");
         }
 

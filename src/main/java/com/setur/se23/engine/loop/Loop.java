@@ -8,6 +8,7 @@ import com.setur.se23.engine.Physics.PhysicsEntity;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.DynamicEntity;
 import com.setur.se23.engine.core.Entity;
+import com.setur.se23.engine.core.RenderConfig;
 import com.setur.se23.engine.render.Renderer;
 
 public class Loop extends FX_FrameUpdate {
@@ -96,13 +97,13 @@ public class Loop extends FX_FrameUpdate {
             entity.renderEntity();
         }
 
-        if (Core.renderGizmos) {
+        if (RenderConfig.renderGizmos) {
             for (Entity entity : collidableEntities) {
                 ((Collidable) entity).getCollider().RenderGizmo();
             }
         }
 
-        if (Core.FPS_Counter) {
+        if (RenderConfig.FPS_Counter) {
             Core.debug.checkFPS();
         }
 

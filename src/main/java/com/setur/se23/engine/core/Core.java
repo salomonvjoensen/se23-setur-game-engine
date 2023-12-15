@@ -17,10 +17,6 @@ public class Core {
 
     public static Random random = new Random();
 
-    public static boolean FPS_Counter;
-
-    public static boolean renderGizmos;
-
     public static double getStageWidth() {
         return mainStage.getWidth();
     }
@@ -35,22 +31,6 @@ public class Core {
 
     public static Stage getStage() {
         return mainStage;
-    }
-
-    public static void toggleFPS_Counter() {
-        if (FPS_Counter) {
-            FPS_Counter = false;
-        } else {
-            FPS_Counter = true;
-        }
-    }
-
-    public static void toggleRenderGizmos() {
-        if (renderGizmos) {
-            renderGizmos = false;
-        } else {
-            renderGizmos = true;
-        }
     }
 
     /**
