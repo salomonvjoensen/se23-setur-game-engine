@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.setur.se23.engine.Collision.Collidable;
 import com.setur.se23.engine.Collision.CollisionDetection;
+import com.setur.se23.engine.Physics.PhysicsEntity;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.DynamicEntity;
 import com.setur.se23.engine.core.Entity;
@@ -11,18 +12,31 @@ import com.setur.se23.engine.render.Renderer;
 
 public class Loop extends FX_FrameUpdate {
 
-    public static ArrayList<Entity> entities = new ArrayList<Entity>();
-    public static ArrayList<DynamicEntity> dynamicEntities = new ArrayList<DynamicEntity>();
-    public static ArrayList<Entity> collidableEntities = new ArrayList<Entity>();
+    public static ArrayList<Entity> entities = new ArrayList<>();
+    public static ArrayList<PhysicsEntity> physicsEntities = new ArrayList<>();
+    public static ArrayList<DynamicEntity> dynamicEntities = new ArrayList<>();
+    public static ArrayList<Entity> collidableEntities = new ArrayList<>();
 
-    public static ArrayList<Runnable> gameRunnables = new ArrayList<Runnable>();
+    public static ArrayList<Runnable> gameRunnables = new ArrayList<>();
 
     public void sendScene(ArrayList<Entity> entityList, ArrayList<Runnable> runnableList) {
         entities = entityList;
         gameRunnables = runnableList;
 
+        assignPhysics();
         assignDynamics();
         assignCollidables();
+    }
+
+    private void assignPhysics() {
+
+        physicsEntities.clear();
+
+        for (Entity entity : entities) {
+            if (entity instanceof PhysicsEntity) {
+                physicsEntities.add((PhysicsEntity)(entity));
+            }
+        }
     }
 
     private void assignDynamics() {
@@ -48,6 +62,10 @@ public class Loop extends FX_FrameUpdate {
     }
 
     public void logicLoop(double deltaTime) {
+
+        for (PhysicsEntity entity : physicsEntities) {
+            entity.updatePhysics(deltaTime);
+        }
 
         for (DynamicEntity entity : dynamicEntities) {
             entity.update(deltaTime);

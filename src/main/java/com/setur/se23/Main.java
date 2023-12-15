@@ -19,9 +19,10 @@ public class Main extends Application {
 
         Core.mainStage = stage;
 
-        Core.mainStage.setWidth(800.0f);
-        Core.mainStage.setHeight(800.0f);
+        Core.mainStage.setWidth(816.0f);
+        Core.mainStage.setHeight(839.0f);
         Core.mainStage.setTitle("Game Engine Boilerplate!");
+        Core.mainStage.resizableProperty().set(false);
 
         SceneManager.manage();
 

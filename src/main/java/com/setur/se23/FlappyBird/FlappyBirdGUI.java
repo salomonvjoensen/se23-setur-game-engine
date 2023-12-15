@@ -1,6 +1,6 @@
 package com.setur.se23.FlappyBird;
 
-import com.setur.se23.engine.GUI.GUI;
+import com.setur.se23.dependency.render.GUI.GUI;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.debug.VS_Debug;
 
