@@ -14,6 +14,18 @@ public class Physics {
     private double minVerticalSpeed;
     private double velocityY;
 
+    /**
+     * Constructor for physics instance.
+     * 
+     * @param horizontalSpeed starting horizontal speed.
+     * @param verticalSpeed starting vertical speed.
+     * @param horizontalAccel starting horizontal acceleration.
+     * @param verticalAccel starting vertical acceleration.
+     * @param maxHorizontalSpeed maximum horizontal speed.
+     * @param maxVerticalSpeed maximum vertical speed.
+     * @param minHorizontalSpeed minimum horizontal speed.
+     * @param minVerticalSpeed minimum vertical speed.
+     */
     public Physics(double horizontalSpeed, double verticalSpeed,
                    double horizontalAccel, double verticalAccel,
                    double maxHorizontalSpeed, double maxVerticalSpeed,
@@ -29,11 +41,22 @@ public class Physics {
         this.minVerticalSpeed = minVerticalSpeed;
     }
 
+    /**
+     * Method for updating velocity, speed and acceleration with deltaTime.
+     * 
+     * @param deltaTime
+     */
     public void physicsUpdate(double deltaTime) {
         physicsX(deltaTime);
         physicsY(deltaTime);
     }
 
+    /**
+     * Updates already set velocity, speed and acceleration variables for x 
+     * with deltaTime.
+     * 
+     * @param deltaTime
+     */
     private void physicsX(double deltaTime) {
 
         horizontalSpeed += horizontalSpeed * horizontalAccel * deltaTime;
@@ -49,6 +72,12 @@ public class Physics {
         velocityX += horizontalSpeed * deltaTime;
     }
 
+    /**
+     * Updates already set velocity, speed and acceleration variables for y 
+     * with deltaTime.
+     * 
+     * @param deltaTime
+     */
     private void physicsY(double deltaTime) {
 
         verticalSpeed += verticalSpeed * verticalAccel * deltaTime;
@@ -64,6 +93,10 @@ public class Physics {
         velocityY += verticalSpeed * deltaTime;
     }
 
+    public void setHorizontalAccel(double horizontalAccel) {
+        this.horizontalAccel = horizontalAccel;
+    }
+
     public void setHorizontalSpeed(double horizontalSpeed) {
         this.horizontalSpeed = horizontalSpeed;
     }
@@ -74,6 +107,10 @@ public class Physics {
 
     public double getVelocityX() {
         return velocityX;
+    }
+
+    public void setVerticalAccel(double verticalAccel) {
+        this.verticalAccel = verticalAccel;
     }
 
     public void setVerticalSpeed(double verticalSpeed) {

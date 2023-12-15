@@ -61,6 +61,10 @@ public class Bird extends Entity implements DynamicEntity, Collidable, PhysicsEn
         }
     }
 
+    public void jumpIsReady() {
+        jumpReady = true;
+    }
+
     @Override
     public void updatePhysics(double deltaTime) {
 

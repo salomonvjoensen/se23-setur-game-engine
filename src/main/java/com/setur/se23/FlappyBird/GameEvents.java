@@ -20,7 +20,7 @@ public class GameEvents implements InputEvents {
                 player.jump();
                 break;
             case "Jump_Ready":
-                player.jumpReady = true;
+                player.jumpIsReady();
                 break;
             case "toggle_FPS_Counter":
                 Core.toggleFPS_Counter();
