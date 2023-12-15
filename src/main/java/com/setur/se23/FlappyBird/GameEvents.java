@@ -1,7 +1,7 @@
 package com.setur.se23.FlappyBird;
 
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Bird;
-import com.setur.se23.engine.core.Core;
+import com.setur.se23.engine.core.RenderConfig;
 import com.setur.se23.engine.input.InputEvents;
 
 public class GameEvents implements InputEvents {
@@ -23,11 +23,11 @@ public class GameEvents implements InputEvents {
                 player.jumpIsReady();
                 break;
             case "toggle_FPS_Counter":
-                Core.toggleFPS_Counter();
+                RenderConfig.toggleFPS_Counter();
                 FlappyBirdGUI.setGUI();
                 break;
             case "toggle_Gizmos":
-                Core.toggleRenderGizmos();
+                RenderConfig.toggleRenderGizmos();
                 break;
             case "Restart":
                 restart.run();

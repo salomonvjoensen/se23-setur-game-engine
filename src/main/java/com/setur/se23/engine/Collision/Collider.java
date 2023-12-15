@@ -23,6 +23,10 @@ public abstract class Collider {
         return material;
     }
 
+    public abstract double getX();
+
+    public abstract double getY();
+
     public abstract void uniformScale(double scalingFactor);
 
     public abstract void RenderGizmo();
