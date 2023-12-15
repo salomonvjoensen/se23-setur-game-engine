@@ -2,47 +2,50 @@ package com.setur.se23.engine.Physics;
 
 public class Physics {
 
+    private double horizontalAccelGrowth;
     private double horizontalAccel;
-    private double horizontalSpeed;
-    private double minHorizontalSpeed;
-    private double maxHorizontalSpeed;
+    private double minHorizontalAccel;
+    private double maxHorizontalAccel;
     private double velocityX;
     
+    private double verticalAccelGrowth;
     private double verticalAccel;
-    private double verticalSpeed;
-    private double maxVerticalSpeed;
-    private double minVerticalSpeed;
+    private double maxVerticalAccel;
+    private double minVerticalAccel;
     private double velocityY;
 
     /**
-     * Constructor for physics instance.
+     * Constructor for physics instance. 
+     * Accel is the rate of change of velocity.
+     * AccelGrowth is the rate of change of acceleration (1 is +100% per second).
+     * min and max are the upper and lower bounds of accel growth.
      * 
-     * @param horizontalSpeed starting horizontal speed.
-     * @param verticalSpeed starting vertical speed.
      * @param horizontalAccel starting horizontal acceleration.
      * @param verticalAccel starting vertical acceleration.
-     * @param maxHorizontalSpeed maximum horizontal speed.
-     * @param maxVerticalSpeed maximum vertical speed.
-     * @param minHorizontalSpeed minimum horizontal speed.
-     * @param minVerticalSpeed minimum vertical speed.
+     * @param horizontalAccelGrowth starting horizontal acceleration growth.
+     * @param verticalAccelGrowth starting vertical acceleration growth.
+     * @param maxHorizontalAccel maximum horizontal acceleration.
+     * @param maxVerticalAccel maximum vertical acceleration.
+     * @param minHorizontalAccel minimum horizontal acceleration.
+     * @param minVerticalAccel minimum vertical acceleration.
      */
-    public Physics(double horizontalSpeed, double verticalSpeed,
-                   double horizontalAccel, double verticalAccel,
-                   double maxHorizontalSpeed, double maxVerticalSpeed,
-                   double minHorizontalSpeed, double minVerticalSpeed) {
+    public Physics(double horizontalAccel, double verticalAccel,
+                   double horizontalAccelGrowth, double verticalAccelGrowth,
+                   double maxHorizontalAccel, double maxVerticalAccel,
+                   double minHorizontalAccel, double minVerticalAccel) {
 
-        this.horizontalSpeed = horizontalSpeed;
         this.horizontalAccel = horizontalAccel;
-        this.verticalSpeed = verticalSpeed;
+        this.horizontalAccelGrowth = horizontalAccelGrowth;
         this.verticalAccel = verticalAccel;
-        this.maxHorizontalSpeed = maxHorizontalSpeed;
-        this.minHorizontalSpeed = minHorizontalSpeed;
-        this.maxVerticalSpeed = maxVerticalSpeed;
-        this.minVerticalSpeed = minVerticalSpeed;
+        this.verticalAccelGrowth = verticalAccelGrowth;
+        this.maxHorizontalAccel = maxHorizontalAccel;
+        this.minHorizontalAccel = minHorizontalAccel;
+        this.maxVerticalAccel = maxVerticalAccel;
+        this.minVerticalAccel = minVerticalAccel;
     }
 
     /**
-     * Method for updating velocity, speed and acceleration with deltaTime.
+     * Method for updating velocity and acceleration with deltaTime.
      * 
      * @param deltaTime
      */
@@ -52,53 +55,53 @@ public class Physics {
     }
 
     /**
-     * Updates already set velocity, speed and acceleration variables for x 
+     * Updates already set velocity and acceleration variables for x 
      * with deltaTime.
      * 
      * @param deltaTime
      */
     private void physicsX(double deltaTime) {
 
-        horizontalSpeed += horizontalSpeed * horizontalAccel * deltaTime;
+        horizontalAccel += horizontalAccel * horizontalAccelGrowth * deltaTime;
 
-        if (horizontalSpeed > maxHorizontalSpeed) {
-            horizontalSpeed = maxHorizontalSpeed;
+        if (horizontalAccel > maxHorizontalAccel) {
+            horizontalAccel = maxHorizontalAccel;
         }
         
-        if (horizontalSpeed < minHorizontalSpeed) {
-            horizontalSpeed = minHorizontalSpeed;
+        if (horizontalAccel < minHorizontalAccel) {
+            horizontalAccel = minHorizontalAccel;
         }
         
-        velocityX += horizontalSpeed * deltaTime;
+        velocityX += horizontalAccel * deltaTime;
     }
 
     /**
-     * Updates already set velocity, speed and acceleration variables for y 
+     * Updates already set velocity and acceleration variables for y 
      * with deltaTime.
      * 
      * @param deltaTime
      */
     private void physicsY(double deltaTime) {
 
-        verticalSpeed += verticalSpeed * verticalAccel * deltaTime;
+        verticalAccel += verticalAccel * verticalAccelGrowth * deltaTime;
 
-        if (verticalSpeed > maxVerticalSpeed) {
-            verticalSpeed = maxVerticalSpeed;
+        if (verticalAccel > maxVerticalAccel) {
+            verticalAccel = maxVerticalAccel;
         }
         
-        if (verticalSpeed < minVerticalSpeed) {
-            verticalSpeed = minVerticalSpeed;
+        if (verticalAccel < minVerticalAccel) {
+            verticalAccel = minVerticalAccel;
         }
 
-        velocityY += verticalSpeed * deltaTime;
+        velocityY += verticalAccel * deltaTime;
+    }
+
+    public void setHorizontalAccelGrowth(double horizontalAccelGrowth) {
+        this.horizontalAccelGrowth = horizontalAccelGrowth;
     }
 
     public void setHorizontalAccel(double horizontalAccel) {
         this.horizontalAccel = horizontalAccel;
-    }
-
-    public void setHorizontalSpeed(double horizontalSpeed) {
-        this.horizontalSpeed = horizontalSpeed;
     }
 
     public void setVelocityX(double velocityX) {
@@ -109,12 +112,12 @@ public class Physics {
         return velocityX;
     }
 
-    public void setVerticalAccel(double verticalAccel) {
-        this.verticalAccel = verticalAccel;
+    public void setVerticalAccelGrowth(double verticalAccelGrowth) {
+        this.verticalAccelGrowth = verticalAccelGrowth;
     }
 
-    public void setVerticalSpeed(double verticalSpeed) {
-        this.verticalSpeed = verticalSpeed;
+    public void setVerticalAccel(double verticalAccel) {
+        this.verticalAccel = verticalAccel;
     }
 
     public void setVelocityY(double velocityY) {
