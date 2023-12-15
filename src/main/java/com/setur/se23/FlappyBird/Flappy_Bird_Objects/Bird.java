@@ -28,6 +28,7 @@ public class Bird extends Entity implements DynamicEntity, Collidable, PhysicsEn
     public boolean jumpReady = true;
 
     public Collider collider;
+    public Physics physics;
 
 
     public Bird(double xPos, double yPos) {
