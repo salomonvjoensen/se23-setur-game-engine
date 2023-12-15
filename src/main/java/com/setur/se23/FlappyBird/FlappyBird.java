@@ -7,11 +7,12 @@ import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Bird;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Ground;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Pipe;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.ScoringHitBox;
+import com.setur.se23.dependency.input.FX_Input;
 import com.setur.se23.engine.audio.SoundEffectsManager;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
-import com.setur.se23.engine.input.FX_Input;
 import com.setur.se23.engine.input.InputEvents;
+import com.setur.se23.engine.input.InputManager;
 import com.setur.se23.engine.input.InputType;
 import com.setur.se23.engine.loop.Loop;
 
@@ -73,11 +74,17 @@ public class FlappyBird {
         }
     }
 
+    private void initializeInputManager(InputEvents gameEvents) {
+        var inputSystem = new FX_Input();
+
+        InputManager.Instantiate(inputSystem)
+                .initialize(gameEvents);
+    }
+
     private void createInputs(Bird player) {
+        initializeInputManager(new GameEvents(player, () -> sendGameObjects()));
 
-        InputEvents gameEvents = new GameEvents(player, () -> sendGameObjects());
-
-        FX_Input inputSystem = new FX_Input(gameEvents);
+        InputManager inputSystem = InputManager.getInstance();
 
         //on key press
         inputSystem.addInput(InputType.onPress, "SPACE", "Jump");

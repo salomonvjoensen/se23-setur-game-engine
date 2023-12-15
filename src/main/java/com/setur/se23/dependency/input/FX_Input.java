@@ -1,9 +1,12 @@
-package com.setur.se23.engine.input;
+package com.setur.se23.dependency.input;
 
 import java.io.InvalidObjectException;
 import java.util.ArrayList;
 
 import com.setur.se23.engine.core.Core;
+import com.setur.se23.engine.input.Input;
+import com.setur.se23.engine.input.InputEvents;
+import com.setur.se23.engine.input.InputType;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -14,7 +17,7 @@ public class FX_Input implements Input {
 
     private ArrayList<Object[]> inputMap = new ArrayList<Object[]>();
 
-    public FX_Input(InputEvents events) {
+    public void initialize(InputEvents events) {
         this.events = events;
     }
 

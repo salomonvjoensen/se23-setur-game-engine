@@ -2,10 +2,11 @@ package com.setur.se23.snake;
 
 import java.util.ArrayList;
 
+import com.setur.se23.dependency.input.FX_Input;
 import com.setur.se23.engine.core.Core;
-import com.setur.se23.engine.input.FX_Input;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.input.InputEvents;
+import com.setur.se23.engine.input.InputManager;
 import com.setur.se23.engine.input.InputType;
 import com.setur.se23.engine.loop.Loop;
 import com.setur.se23.snake.Snake_Objects.Apple;
@@ -320,15 +321,23 @@ public class SnakeGame {
         return entities;
     }
 
+
+    private void initializeInputManager(InputEvents gameEvents) {
+        var inputSystem = new FX_Input();
+
+        InputManager.Instantiate(inputSystem)
+                .initialize(gameEvents);
+    }
+
     /**
      * Create the inputs for the player.
      * 
      * @param player The inputs are valid for the SnakeHead.
      */
     private void createInputs(SnakeHead player) {
-        InputEvents gameEvents = new GameEvents(player, this);
+        initializeInputManager(new GameEvents(player, this));
 
-        FX_Input inputSystem = new FX_Input(gameEvents);
+        InputManager inputSystem = InputManager.getInstance();
 
         inputSystem.addInput(InputType.onPress, "P", "toggle_FPS_Counter");
         inputSystem.addInput(InputType.onPress, "O", "toggle_Gizmos");
