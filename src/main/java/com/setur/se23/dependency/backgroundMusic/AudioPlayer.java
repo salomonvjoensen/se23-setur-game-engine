@@ -27,4 +27,8 @@ public class AudioPlayer {
     public void setSpeed(double speed) {
         mediaPlayer.setRate(speed);
     }
+
+    public void setVolume(double volume) {
+        mediaPlayer.setVolume(volume);
+    }
 }
