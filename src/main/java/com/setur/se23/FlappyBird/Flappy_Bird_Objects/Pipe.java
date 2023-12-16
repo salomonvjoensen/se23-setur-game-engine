@@ -8,8 +8,6 @@ import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.core.Randoms;
 import com.setur.se23.engine.core.Resource;
 import com.setur.se23.engine.loop.Loop;
-import com.setur.se23.engine.render.common.Material;
-import com.setur.se23.engine.render.common.MaterialColour;
 import com.setur.se23.engine.render.common.Texture2D;
 
 public class Pipe extends Entity implements DynamicEntity, Collidable {
@@ -23,9 +21,7 @@ public class Pipe extends Entity implements DynamicEntity, Collidable {
 
 
     public Pipe(boolean reverse, double xPos, double yPos) {
-        super(new Material(
-                    new Texture2D(Resource.getSprite("pipe-green.png"), 52, 320),
-                    new MaterialColour(1.0f, 1.0f, 1.0f, 1.0f)), 
+        super(new Texture2D(Resource.getSprite("pipe-green.png"), 52, 320), 
               xPos, 
               yPos, 
               reversePipe(reverse), 

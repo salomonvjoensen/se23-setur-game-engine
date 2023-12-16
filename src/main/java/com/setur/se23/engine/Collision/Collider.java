@@ -3,24 +3,24 @@ package com.setur.se23.engine.Collision;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.render.BufferItem;
 import com.setur.se23.engine.render.Renderer;
-import com.setur.se23.engine.render.common.Material;
+import com.setur.se23.engine.render.common.Texture2D;
 
 public abstract class Collider {
 
-    protected Material material;
+    protected Texture2D texture;
     protected Entity attachedEntity;
 
-    public Collider(Material material, Entity attachedEntity) {
-        this.material = material;
+    public Collider(Texture2D texture, Entity attachedEntity) {
+        this.texture = texture;
         this.attachedEntity = attachedEntity;
 
-        BufferItem bufferItem = new BufferItem(material, 0, 0, 0, 1, 1);
+        BufferItem bufferItem = new BufferItem(texture, 0, 0, 0, 1, 1);
 
-        Renderer.getInstance().allocateTexture(bufferItem.material().texture());
+        Renderer.getInstance().allocateTexture(bufferItem.texture());
     }
 
-    public Material getMaterial() {
-        return material;
+    public Texture2D getMaterial() {
+        return texture;
     }
 
     public abstract double getX();

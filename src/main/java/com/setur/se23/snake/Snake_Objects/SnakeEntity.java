@@ -3,8 +3,7 @@ import com.setur.se23.engine.Collision.Collidable;
 import com.setur.se23.engine.Collision.Collider;
 import com.setur.se23.engine.Collision.SquareCollider;
 import com.setur.se23.engine.core.Entity;
-import com.setur.se23.engine.render.common.Material;
-
+import com.setur.se23.engine.render.common.Texture2D;
 import com.setur.se23.snake.GridUtils;
 import com.setur.se23.snake.SnakeGlobals;
 
@@ -19,15 +18,15 @@ public abstract class SnakeEntity extends Entity implements Collidable{
     /**
      * Constructor. Uses the SquareCollider.
      * 
-     * @param material What body part image is used.
+     * @param texture What body part image is used.
      * @param xPos Sets horizontal position.
      * @param yPos Sets vertical position.
      * @param angle Sets the angle, initially.
      * @param scaleX Sets the horizontal scaling, all the body parts use 10% scaling.
      * @param scaleY Sets the vertical scaling, all the body parts use 10% scaling.
      */
-    public SnakeEntity(Material material, double xPos, double yPos, double angle) {
-        super(material, xPos, yPos, angle, SCALE, SCALE);
+    public SnakeEntity(Texture2D texture, double xPos, double yPos, double angle) {
+        super(texture, xPos, yPos, angle, SCALE, SCALE);
 
         setCollider(new SquareCollider(this, getWidth(), getHeight()));
     }
