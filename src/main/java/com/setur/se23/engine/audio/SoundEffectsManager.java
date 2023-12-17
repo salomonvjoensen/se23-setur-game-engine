@@ -3,12 +3,11 @@ package com.setur.se23.engine.audio;
 import java.util.Map;
 import java.util.HashMap;
 
-import javafx.scene.media.AudioClip;
-
+import com.setur.se23.dependency.soundEffects.SoundEffectPlayer;
 import com.setur.se23.engine.core.Core;
 
 public class SoundEffectsManager {
-    private static Map<String, AudioClip> soundEffectsMap = new HashMap<>();
+    private static Map<String, SoundEffectPlayer> soundEffectsMap = new HashMap<>();
 
     /**
      * Pre-load sound effect into memory for quick playback.
@@ -16,8 +15,9 @@ public class SoundEffectsManager {
      * @param shortPathToSoundEffect
      */
     public static void loadSoundEffect(String shortPathToSoundEffect) {
-        AudioClip audioClip = new AudioClip(Core.getResourcePath(shortPathToSoundEffect));
-        soundEffectsMap.put(shortPathToSoundEffect, audioClip);
+        SoundEffectPlayer soundEffect = new SoundEffectPlayer(
+                Core.getResourcePath(shortPathToSoundEffect));
+        soundEffectsMap.put(shortPathToSoundEffect, soundEffect);
     }
 
     /**
@@ -26,25 +26,26 @@ public class SoundEffectsManager {
      * @param shortPathToSoundEffect
      */
     public static void playLoaded(String shortPathToSoundEffect) {
-        AudioClip audioClip = soundEffectsMap.get(shortPathToSoundEffect);
-        audioClip.play();
+        SoundEffectPlayer soundEffect = soundEffectsMap.get(
+                shortPathToSoundEffect);
+        soundEffect.play();
     }
 
     /**
      * Unused, laggy.
      * Could be used for non-immediate or seldom used sound effects.
      * 
-     * @param soundEffect
+     * @param soundEffectPath
      */
-    public void playNonLoaded(String soundEffect) {
+    public void playNonLoaded(String soundEffectPath) {
 
-        String path = Core.getResourcePath(soundEffect);
+        String path = Core.getResourcePath(soundEffectPath);
 
         try {
-            AudioClip audioClip = new AudioClip(path);
-            audioClip.play();
+            SoundEffectPlayer soundEffect = new SoundEffectPlayer(path);
+            soundEffect.play();
         } catch (Exception e) {
-            System.out.println("Sound file not found: " + soundEffect);
+            System.out.println("Sound file not found: " + soundEffectPath);
         }
     }
 }

@@ -3,10 +3,12 @@ package com.setur.se23.FlappyBird;
 import java.util.ArrayList;
 
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Background;
+import com.setur.se23.FlappyBird.Flappy_Bird_Objects.BackgroundMusic;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Bird;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Ground;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Pipe;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.ScoringHitBox;
+import com.setur.se23.engine.audio.BackgroundMusicManager;
 import com.setur.se23.engine.audio.SoundEffectsManager;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
@@ -30,6 +32,11 @@ public class FlappyBird {
         FlappyBirdGUI.newGame();
 
         loadSoundEffects();
+        loadBackgroundMusic();
+
+        BackgroundMusicManager.playLoaded(BackgroundMusic.NORMAL.getFilePath());
+        BackgroundMusicManager.normalSpeed();
+
         gameLoop.sendScene(createFlappyBirdObjects(), getRunnables());
     }
 
@@ -99,6 +106,12 @@ public class FlappyBird {
         SoundEffectsManager.loadSoundEffect(SoundEffects.DIE.getFilePath());
         SoundEffectsManager.loadSoundEffect(SoundEffects.FLAP.getFilePath());
         SoundEffectsManager.loadSoundEffect(SoundEffects.HIT.getFilePath());
+    }
+
+    private void loadBackgroundMusic() {
+        BackgroundMusicManager.loadBackgroundMusic(BackgroundMusic.NORMAL.getFilePath());
+        BackgroundMusicManager.loadBackgroundMusic(BackgroundMusic.FASTER.getFilePath());
+        BackgroundMusicManager.loadBackgroundMusic(BackgroundMusic.FASTEST.getFilePath());
     }
 
     private ArrayList<Runnable> getRunnables() {
