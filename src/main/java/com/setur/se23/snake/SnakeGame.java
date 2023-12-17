@@ -2,12 +2,13 @@ package com.setur.se23.snake;
 
 import java.util.ArrayList;
 
-import com.setur.se23.engine.audio.SoundEffectsManager;
-import com.setur.se23.engine.core.Core;
-import com.setur.se23.engine.input.FX_Input;
+import com.setur.se23.dependency.input.FX_Input;
 import com.setur.se23.engine.core.Entity;
+import com.setur.se23.engine.core.Randoms;
 import com.setur.se23.engine.input.InputEvents;
+import com.setur.se23.engine.input.InputManager;
 import com.setur.se23.engine.input.InputType;
+import com.setur.se23.engine.loop.GameLoop;
 import com.setur.se23.engine.loop.Loop;
 import com.setur.se23.snake.Snake_Objects.Apple;
 import com.setur.se23.snake.Snake_Objects.Background;
@@ -51,14 +52,15 @@ public class SnakeGame {
     
     private boolean isFirstMove;
 
-    public Loop gameLoop = new Loop();
+    public GameLoop gameLoop = GameLoop.getInstance();
+    public Loop loop;
 
     /**
      * Constructor.
      */
     public SnakeGame() {
         this.background = new Background();
-        this.apple = new Apple(Core.randomDouble(0, SCREEN_SIZE-C_S), Core.randomDouble(0, SCREEN_SIZE-C_S));
+        this.apple = new Apple(Randoms.randomDouble(0, SCREEN_SIZE-C_S), Randoms.randomDouble(0, SCREEN_SIZE-C_S));
         this.grid = new Grid(GRID_SIZE, GRID_SIZE);
         this.startGameInfo = new StartGameInfo();
         this.gameOver = new GameOver();
@@ -81,14 +83,19 @@ public class SnakeGame {
 
         initializeSnake(HEAD_START_POSITION_X, HEAD_START_POSITION_Y);        
 
-        sendGameObjects();
+        newScene();
     }
 
     /**
      * What is sent to the game loop.
      */
-    private void sendGameObjects() {
-        gameLoop.sendScene(createSnakeGameObjects(), getRunnables());
+    private void newScene() {
+
+        gameLoop.unsubscribeFromFrame(loop);
+
+        loop = new Loop(createSnakeGameObjects(), getRunnables());
+
+        gameLoop.subscribeToFrame(loop);
 
     }
 
@@ -197,8 +204,8 @@ public class SnakeGame {
                 // sets AppleEaten to false again
                 // and move the Apple to a new random location.
                 snakeHead.setAppleEaten(false);
-                apple.setX(Core.randomDouble(0, SCREEN_SIZE-C_S));
-                apple.setY(Core.randomDouble(0, SCREEN_SIZE-C_S));
+                apple.setX(Randoms.randomDouble(0, SCREEN_SIZE-C_S));
+                apple.setY(Randoms.randomDouble(0, SCREEN_SIZE-C_S));
             }
         }
     }
@@ -207,27 +214,34 @@ public class SnakeGame {
      * Method for refreshing all the entities in the scene.
      */
     private void refreshRenderingEntities() {
-        ArrayList<Entity> entities = new ArrayList<Entity>();
+        //ArrayList<Entity> entities = new ArrayList<Entity>();
 
-        entities.add(background);
-        entities.add(apple);
+        Loop.entities.clear();
+
+        Loop.entities.add(background);
+        Loop.entities.add(apple);
         
         for (SnakeEntity entity : snakeEntities) {
-            entities.add(entity);
+            Loop.entities.add(entity);
         }
 
         // If it is the first move, displays info about movement and how to restart.
         if (isFirstMove) {
-            entities.add(startGameInfo);
+            Loop.entities.add(startGameInfo);
         }
 
         // If the snake collides with itself display the Game Over object.
         if (!snakeHead.isAlive()) {
-            entities.add(gameOver);
-            SnakeGameGUI.gameOver();
+            Loop.entities.add(gameOver);
         }
 
-        gameLoop.sendScene(entities, getRunnables());
+        loop.assignlists();
+
+        //gameLoop.unsubscribeFromFrame(loop);
+
+        //loop = new Loop(entities, getRunnables());
+
+        //gameLoop.subscribeToFrame(loop);
     }
 
     /**
@@ -327,15 +341,23 @@ public class SnakeGame {
         return entities;
     }
 
+
+    private void initializeInputManager(InputEvents gameEvents) {
+        var inputSystem = new FX_Input();
+
+        InputManager.Instantiate(inputSystem)
+                .initialize(gameEvents);
+    }
+
     /**
      * Create the inputs for the player.
      * 
      * @param player The inputs are valid for the SnakeHead.
      */
     private void createInputs(SnakeHead player) {
-        InputEvents gameEvents = new GameEvents(player, this);
+        initializeInputManager(new GameEvents(player, this));
 
-        FX_Input inputSystem = new FX_Input(gameEvents);
+        InputManager inputSystem = InputManager.getInstance();
 
         inputSystem.addInput(InputType.onPress, "P", "toggle_FPS_Counter");
         inputSystem.addInput(InputType.onPress, "O", "toggle_Gizmos");

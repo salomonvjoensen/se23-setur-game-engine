@@ -1,11 +1,9 @@
 package com.setur.se23.engine.Collision;
 
-import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
+import com.setur.se23.engine.core.Resource;
 import com.setur.se23.engine.render.BufferItem;
 import com.setur.se23.engine.render.Renderer;
-import com.setur.se23.engine.render.common.Material;
-import com.setur.se23.engine.render.common.MaterialColour;
 import com.setur.se23.engine.render.common.Texture2D;
 
 public class SquareCollider extends Collider {
@@ -16,9 +14,7 @@ public class SquareCollider extends Collider {
     private double scaleY;
 
     public SquareCollider(Entity attachedEntity, int width, int height) {
-        super(new Material(
-                    new Texture2D(Core.getResourcePath("gizmo/red_square.png"), width, height), 
-                    new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)),
+        super(new Texture2D(Resource.getResourcePath("gizmo/red_square.png"), width, height),
               attachedEntity);
         this.width = width;
         this.height = height;

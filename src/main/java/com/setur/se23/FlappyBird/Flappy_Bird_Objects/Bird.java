@@ -9,11 +9,9 @@ import com.setur.se23.engine.Collision.Collider;
 import com.setur.se23.engine.Physics.Physics;
 import com.setur.se23.engine.Physics.PhysicsEntity;
 import com.setur.se23.engine.audio.SoundEffectsManager;
-import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.DynamicEntity;
 import com.setur.se23.engine.core.Entity;
-import com.setur.se23.engine.render.common.Material;
-import com.setur.se23.engine.render.common.MaterialColour;
+import com.setur.se23.engine.core.Resource;
 import com.setur.se23.engine.render.common.Texture2D;
 
 public class Bird extends Entity implements DynamicEntity, Collidable, PhysicsEntity {
@@ -31,9 +29,7 @@ public class Bird extends Entity implements DynamicEntity, Collidable, PhysicsEn
 
 
     public Bird(double xPos, double yPos) {
-        super(new Material(
-                    new Texture2D(Core.getSprite("flappy-bird.png"), 280, 200),
-                    new MaterialColour(1.0f, 0.0f, 0.0f, 1.0f)), 
+        super(new Texture2D(Resource.getSprite("flappy-bird.png"), 280, 200), 
               xPos, 
               yPos, 
               0, 

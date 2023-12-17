@@ -2,23 +2,29 @@ package com.setur.se23.GameTemplate;
 
 import java.util.ArrayList;
 
+import com.setur.se23.dependency.input.FX_Input;
 import com.setur.se23.engine.core.Entity;
-import com.setur.se23.engine.input.FX_Input;
-import com.setur.se23.engine.input.Input;
+import com.setur.se23.engine.input.InputEvents;
+import com.setur.se23.engine.input.InputManager;
+import com.setur.se23.engine.loop.GameLoop;
 import com.setur.se23.engine.loop.Loop;
 
 public class GameTemplate {
 
-    private Input inputSystem;
-
-    public Loop gameLoop = new Loop();
+    public GameLoop gameLoop = GameLoop.getInstance();
+    public Loop loop;
 
     public GameTemplate() {
-        sendGameObjects();
+        newGame();
     }
 
-    private void sendGameObjects() {
-        gameLoop.sendScene(createObjects(), getFunctions());
+    private void newGame() {
+
+        gameLoop.unsubscribeFromFrame(loop);
+
+        loop = new Loop(createObjects(), getRunnables());
+
+        gameLoop.subscribeToFrame(loop);
     }
 
     private ArrayList<Entity> createObjects() {
@@ -35,13 +41,22 @@ public class GameTemplate {
         return entities;
     }
 
+    private void initializeInputManager(InputEvents gameEvents) {
+        var inputSystem = new FX_Input();
+
+        InputManager.Instantiate(inputSystem)
+                .initialize(gameEvents);
+    }
+
     private void createInputs() {
-        inputSystem = new FX_Input(new GameEventsTemplate());
+        initializeInputManager(new GameEventsTemplate());
+
+        InputManager inputSystem = InputManager.getInstance();
 
         inputSystem.setInputs();
     }
 
-    private ArrayList<Runnable> getFunctions() {
+    private ArrayList<Runnable> getRunnables() {
         ArrayList<Runnable> runnables = new ArrayList<Runnable>();
 
 

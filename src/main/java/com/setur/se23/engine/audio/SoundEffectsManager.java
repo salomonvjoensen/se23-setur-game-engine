@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import javafx.scene.media.AudioClip;
 
-import com.setur.se23.engine.core.Core;
+import com.setur.se23.engine.core.Resource;
 
 public class SoundEffectsManager {
     private static Map<String, AudioClip> soundEffectsMap = new HashMap<>();
@@ -16,7 +16,7 @@ public class SoundEffectsManager {
      * @param shortPathToSoundEffect
      */
     public static void loadSoundEffect(String shortPathToSoundEffect) {
-        AudioClip audioClip = new AudioClip(Core.getResourcePath(shortPathToSoundEffect));
+        AudioClip audioClip = new AudioClip(Resource.getResourcePath(shortPathToSoundEffect));
         soundEffectsMap.put(shortPathToSoundEffect, audioClip);
     }
 
@@ -38,7 +38,7 @@ public class SoundEffectsManager {
      */
     public void playNonLoaded(String soundEffect) {
 
-        String path = Core.getResourcePath(soundEffect);
+        String path = Resource.getResourcePath(soundEffect);
 
         try {
             AudioClip audioClip = new AudioClip(path);

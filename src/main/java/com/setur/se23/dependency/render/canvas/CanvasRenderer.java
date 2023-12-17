@@ -3,7 +3,6 @@ package com.setur.se23.dependency.render.canvas;
 import com.setur.se23.dependency.render.GUI.GUI_Item;
 import com.setur.se23.engine.render.BufferItem;
 import com.setur.se23.engine.render.RenderPipelineInterface;
-import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.Texture2D;
 import com.setur.se23.engine.render.common.ViewPort;
 import javafx.scene.Group;
@@ -72,7 +71,7 @@ public class CanvasRenderer implements RenderPipelineInterface {
 
         // iterates over all the requested render items, and pushes them onto the canvas
         for (var item : _buffer) {
-            var texture = item.material().texture();
+            var texture = item.texture();
 
             Image img = _textureMap.get(texture.path());
 
@@ -102,8 +101,8 @@ public class CanvasRenderer implements RenderPipelineInterface {
     }
 
     @Override
-    public void render(Material material, double x, double y, double angle, double scaleX, double scaleY) {
-        _buffer.add(new BufferItem(material, x, y, angle, scaleX, scaleY));
+    public void render(Texture2D texture, double x, double y, double angle, double scaleX, double scaleY) {
+        _buffer.add(new BufferItem(texture, x, y, angle, scaleX, scaleY));
     }
 
     /**

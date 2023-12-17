@@ -1,9 +1,7 @@
 package com.setur.se23.engine.debug;
 
-import com.setur.se23.engine.core.Core;
-
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import com.setur.se23.dependency.render.GUI.DynamicString;
+import com.setur.se23.engine.core.Time;
 
 public class VS_Debug extends Debug {
     
@@ -22,7 +20,7 @@ public class VS_Debug extends Debug {
         System.out.println(" Info: " + string);
     }
 
-    public static final StringProperty FPSProperty = new SimpleStringProperty("0");
+    public static final DynamicString FPSProperty = new DynamicString("0");
 
     private int FPS;
 
@@ -31,14 +29,14 @@ public class VS_Debug extends Debug {
     public void checkFPS() {
         FPS += 1;
 
-        if (1 <= (Core.getCurrentTime() - previousTime) / 1_000_000_000) {
+        if (1 <= (Time.getCurrentTime() - previousTime) / 1_000_000_000) {
             
             info("FPS:" + FPS);
-            FPSProperty.set(Integer.toString(FPS));
+            FPSProperty.setString(Integer.toString(FPS));
 
             FPS = 0;
 
-            previousTime = Core.getCurrentTime();
+            previousTime = Time.getCurrentTime();
         }
     }
 

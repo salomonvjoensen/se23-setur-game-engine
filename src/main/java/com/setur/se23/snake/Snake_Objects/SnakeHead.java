@@ -1,10 +1,7 @@
 package com.setur.se23.snake.Snake_Objects;
 
-import com.setur.se23.engine.audio.SoundEffectsManager;
-import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
-import com.setur.se23.engine.render.common.Material;
-import com.setur.se23.engine.render.common.MaterialColour;
+import com.setur.se23.engine.core.Resource;
 import com.setur.se23.engine.render.common.Texture2D;
 import com.setur.se23.snake.SnakeGameGUI;
 import com.setur.se23.snake.SoundEffects;
@@ -34,9 +31,7 @@ public class SnakeHead extends SnakeEntity{
      * @param angle Sets the angle, initially 0 (facing right).
      */
     public SnakeHead(double xPos, double yPos, double angle) {
-            super(new Material(
-                        new Texture2D(Core.getSprite("snake-head.png"), 160, 160),
-                        new MaterialColour(0.0f, 1.0f, 0.0f, 1.0f)), 
+            super(new Texture2D(Resource.getSprite("snake-head.png"), 160, 160), 
                 xPos, 
                 yPos, 
                 angle);
