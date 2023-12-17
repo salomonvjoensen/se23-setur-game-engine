@@ -48,7 +48,7 @@ public class Bird extends Entity implements DynamicEntity, Collidable, PhysicsEn
             SoundEffectsManager.playLoaded(SoundEffects.FLAP.getFilePath());
 
             physics.setVelocityY(-300);
-            physics.setVerticalSpeed(300);
+            physics.setVerticalAccel(300);
             
             jumpReady = false;
 
