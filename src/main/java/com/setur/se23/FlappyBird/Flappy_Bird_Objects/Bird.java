@@ -44,7 +44,7 @@ public class Bird extends Entity implements DynamicEntity, Collidable, PhysicsEn
         setPhysics(new Physics(0, 100, 
                                0, 1.5,
                                0, 1000,
-                               0, -1000));
+                               0, 0));
     }
 
     public void jump() {
@@ -52,13 +52,17 @@ public class Bird extends Entity implements DynamicEntity, Collidable, PhysicsEn
             SoundEffectsManager.playLoaded(SoundEffects.FLAP.getFilePath());
 
             physics.setVelocityY(-300);
-            physics.setVerticalSpeed(300);
+            physics.setVerticalAccel(300);
             
             jumpReady = false;
 
             started = true;
             Pipe.start();
         }
+    }
+
+    public void jumpIsReady() {
+        jumpReady = true;
     }
 
     @Override
