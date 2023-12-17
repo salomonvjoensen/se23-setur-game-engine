@@ -2,6 +2,7 @@ package com.setur.se23.snake;
 
 import java.util.ArrayList;
 
+import com.setur.se23.engine.audio.SoundEffectsManager;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.input.FX_Input;
 import com.setur.se23.engine.core.Entity;
@@ -64,6 +65,9 @@ public class SnakeGame {
         this.snakeEntities = new ArrayList<SnakeEntity>();
         this.isFirstMove = true;
 
+        loadSoundEffects();
+
+        SnakeGameGUI.setRestartRunnable(() -> initSnakeAndObjects());
         initSnakeAndObjects();
     }
 
@@ -73,6 +77,8 @@ public class SnakeGame {
     public void initSnakeAndObjects() {
         // can be between 4-49 for the x position on the grid,
         // and 0-49 for the y position on the grid.
+        SnakeGameGUI.newGame();
+
         initializeSnake(HEAD_START_POSITION_X, HEAD_START_POSITION_Y);        
 
         sendGameObjects();
@@ -218,6 +224,7 @@ public class SnakeGame {
         // If the snake collides with itself display the Game Over object.
         if (!snakeHead.isAlive()) {
             entities.add(gameOver);
+            SnakeGameGUI.gameOver();
         }
 
         gameLoop.sendScene(entities, getRunnables());
@@ -368,5 +375,10 @@ public class SnakeGame {
         });
 
         return runnables;
+    }
+
+    private void loadSoundEffects() {
+        SoundEffectsManager.loadSoundEffect(SoundEffects.EAT_APPLE.getFilePath());
+        SoundEffectsManager.loadSoundEffect(SoundEffects.SNAKE_HISS.getFilePath());
     }
 }
