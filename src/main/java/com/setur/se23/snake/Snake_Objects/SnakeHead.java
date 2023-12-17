@@ -1,10 +1,13 @@
 package com.setur.se23.snake.Snake_Objects;
 
+import com.setur.se23.engine.audio.SoundEffectsManager;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.MaterialColour;
 import com.setur.se23.engine.render.common.Texture2D;
+import com.setur.se23.snake.SnakeGameGUI;
+import com.setur.se23.snake.SoundEffects;
 
 /**
  * The Snake head, all the game logic is tied with the head,
@@ -241,11 +244,14 @@ public class SnakeHead extends SnakeEntity{
      */
     @Override
     public void collisionEvent(Entity collisionEntity) {
-        if (collisionEntity instanceof Apple) {
+        if (collisionEntity instanceof Apple && !appleEaten) {
+            SoundEffectsManager.playLoaded(SoundEffects.EAT_APPLE.getFilePath());
             appleEaten = true;
         }
 
-        if (collisionEntity instanceof SnakeEntity) {
+        if (collisionEntity instanceof SnakeEntity && isAlive) {
+            SoundEffectsManager.playLoaded(SoundEffects.SNAKE_HISS.getFilePath());
+            SnakeGameGUI.gameOver();
             isAlive = false;
         }
     }
