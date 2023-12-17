@@ -5,6 +5,7 @@ import com.setur.se23.engine.core.Resource;
 import com.setur.se23.engine.render.common.Texture2D;
 import com.setur.se23.snake.SnakeGameGUI;
 import com.setur.se23.snake.SoundEffects;
+import com.setur.se23.engine.audio.SoundEffectsManager;
 
 /**
  * The Snake head, all the game logic is tied with the head,
@@ -247,6 +248,7 @@ public class SnakeHead extends SnakeEntity{
         if (collisionEntity instanceof SnakeEntity && isAlive) {
             SoundEffectsManager.playLoaded(SoundEffects.SNAKE_HISS.getFilePath());
             SnakeGameGUI.gameOver();
+            SnakeGameGUI.setGUI();
             isAlive = false;
         }
     }

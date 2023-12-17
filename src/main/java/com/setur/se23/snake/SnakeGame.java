@@ -2,6 +2,7 @@ package com.setur.se23.snake;
 
 import java.util.ArrayList;
 
+import com.setur.se23.engine.audio.SoundEffectsManager;
 import com.setur.se23.dependency.input.FX_Input;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.core.Randoms;
@@ -77,10 +78,10 @@ public class SnakeGame {
      * Used in the Constructor and when pressing the 'R' button.
      */
     public void initSnakeAndObjects() {
-        // can be between 4-49 for the x position on the grid,
-        // and 0-49 for the y position on the grid.
         SnakeGameGUI.newGame();
-
+        SnakeGameGUI.setGUI();
+        // can be between 4-49 for the x position on the default grid,
+        // and 0-49 for the y position on the default grid.
         initializeSnake(HEAD_START_POSITION_X, HEAD_START_POSITION_Y);        
 
         newScene();
@@ -214,8 +215,6 @@ public class SnakeGame {
      * Method for refreshing all the entities in the scene.
      */
     private void refreshRenderingEntities() {
-        //ArrayList<Entity> entities = new ArrayList<Entity>();
-
         Loop.entities.clear();
 
         Loop.entities.add(background);
@@ -231,17 +230,7 @@ public class SnakeGame {
         }
 
         // If the snake collides with itself display the Game Over object.
-        if (!snakeHead.isAlive()) {
-            Loop.entities.add(gameOver);
-        }
-
         loop.assignlists();
-
-        //gameLoop.unsubscribeFromFrame(loop);
-
-        //loop = new Loop(entities, getRunnables());
-
-        //gameLoop.subscribeToFrame(loop);
     }
 
     /**
@@ -399,6 +388,9 @@ public class SnakeGame {
         return runnables;
     }
 
+    /**
+     * Preload sound effects into memory.
+     */
     private void loadSoundEffects() {
         SoundEffectsManager.loadSoundEffect(SoundEffects.EAT_APPLE.getFilePath());
         SoundEffectsManager.loadSoundEffect(SoundEffects.SNAKE_HISS.getFilePath());

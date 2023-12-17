@@ -27,6 +27,7 @@ public class GameEvents implements InputEvents {
         switch (event) {
             case "toggle_FPS_Counter":
                 RenderConfig.toggleFPS_Counter();
+                SnakeGameGUI.setGUI();
                 break;
             case "toggle_Gizmos":
                 RenderConfig.toggleRenderGizmos();
