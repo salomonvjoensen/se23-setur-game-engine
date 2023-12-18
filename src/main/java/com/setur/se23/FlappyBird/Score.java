@@ -43,16 +43,16 @@ public class Score {
                 playbackSpeed += 0.1;
                 BackgroundMusicManager.setPlaybackSpeed(playbackSpeed);
                 if (level % 2 == 0) {
-                    background.changeMaterial(0);
+                    background.changeTexture(0);
                 } else {
-                    background.changeMaterial(1);
+                    background.changeTexture(1);
                 }
             } else if (level == 2) {
                 BackgroundMusicManager.playLoaded(BackgroundMusic.FASTEST.getFilePath());
-                background.changeMaterial(0);
+                background.changeTexture(0);
             } else if (level == 1) {
                 BackgroundMusicManager.playLoaded(BackgroundMusic.FASTER.getFilePath());
-                background.changeMaterial(1);
+                background.changeTexture(1);
             }
         }
     }

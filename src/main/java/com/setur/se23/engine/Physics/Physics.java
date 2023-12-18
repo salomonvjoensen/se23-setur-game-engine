@@ -96,34 +96,74 @@ public class Physics {
         velocityY += verticalAccel * deltaTime;
     }
 
+    /**
+     * Method for setting horizontal acceleration growth.
+     * 
+     * @param horizontalAccelGrowth
+     */
     public void setHorizontalAccelGrowth(double horizontalAccelGrowth) {
         this.horizontalAccelGrowth = horizontalAccelGrowth;
     }
 
+    /**
+     * Method for setting horizontal acceleration.
+     * 
+     * @param horizontalAccel
+     */
     public void setHorizontalAccel(double horizontalAccel) {
         this.horizontalAccel = horizontalAccel;
     }
 
+    /**
+     * Method for setting velocity x.
+     * 
+     * @param velocityX
+     */
     public void setVelocityX(double velocityX) {
         this.velocityX = velocityX;
     }
 
+    /**
+     * Method for getting velocity x.
+     * 
+     * @return velocityX
+     */
     public double getVelocityX() {
         return velocityX;
     }
 
+    /**
+     * Method for setting vertical acceleration growth.
+     * 
+     * @param verticalAccelGrowth
+     */
     public void setVerticalAccelGrowth(double verticalAccelGrowth) {
         this.verticalAccelGrowth = verticalAccelGrowth;
     }
 
+    /**
+     * Method for setting vertical acceleration.
+     * 
+     * @param verticalAccel
+     */
     public void setVerticalAccel(double verticalAccel) {
         this.verticalAccel = verticalAccel;
     }
 
+    /**
+     * Method for setting velocity y.
+     * 
+     * @param velocityY
+     */
     public void setVelocityY(double velocityY) {
         this.velocityY = velocityY;
     }
     
+    /**
+     * Method for getting velocity y.
+     * 
+     * @return velocityY
+     */
     public double getVelocityY() {
         return velocityY;
     }

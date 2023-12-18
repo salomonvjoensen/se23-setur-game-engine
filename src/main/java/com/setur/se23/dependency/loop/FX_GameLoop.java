@@ -5,7 +5,7 @@ import com.setur.se23.engine.loop.GameIterationInterface;
 
 import javafx.animation.AnimationTimer;
 
-public class JavaFxGameLoop extends AnimationTimer implements GameIterationInterface {
+public class FX_GameLoop extends AnimationTimer implements GameIterationInterface {
 
     private FrameInterface _frameCallback;
 

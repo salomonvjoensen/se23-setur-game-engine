@@ -13,7 +13,7 @@ public class BackgroundMusicManager {
 
     private static double playbackSpeed = 1.0;
 
-    private static double volume = 0.8;
+    private static double volume = 0.15;
 
     public static void initialize(AudioPipelineInterface audioPipelineInterface) {
         BackgroundMusicManager.audioPlayer = audioPipelineInterface;
@@ -86,7 +86,7 @@ public class BackgroundMusicManager {
 
     /**
      * Sets volume.
-     * Initial volume is 0.8, i.e., 80 %.
+     * Initial volume is 0.15, i.e., 15 %.
      */
     public static void setVolume(double volume) {
         BackgroundMusicManager.volume = volume;
