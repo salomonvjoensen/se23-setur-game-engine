@@ -3,10 +3,13 @@ package com.setur.se23;
 import com.setur.se23.SceneManager.SceneManager;
 import com.setur.se23.dependency.FX_Globals;
 import com.setur.se23.dependency.backgroundMusic.AudioPlayer;
+import com.setur.se23.dependency.input.FX_Input;
 import com.setur.se23.dependency.loop.JavaFxGameLoop;
 import com.setur.se23.dependency.render.canvas.CanvasRenderer;
+
 import com.setur.se23.engine.audio.BackgroundMusicManager;
 import com.setur.se23.engine.core.Core;
+import com.setur.se23.engine.input.InputManager;
 import com.setur.se23.engine.loop.GameLoop;
 import com.setur.se23.engine.render.Renderer;
 import com.setur.se23.engine.render.common.ViewPort;
@@ -33,6 +36,8 @@ public class Main extends Application {
         Core.WindowHeight = FX_Globals.getStage().getHeight();
 
         SceneManager.manage();
+
+        InputManager.Instantiate(new FX_Input());
 
         initializeRenderer(FX_Globals.stage);
         initializeGameLoop();
