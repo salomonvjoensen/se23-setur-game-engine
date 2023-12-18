@@ -8,7 +8,6 @@ import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Bird;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Ground;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.Pipe;
 import com.setur.se23.FlappyBird.Flappy_Bird_Objects.ScoringHitBox;
-import com.setur.se23.dependency.input.FX_Input;
 import com.setur.se23.engine.audio.BackgroundMusicManager;
 import com.setur.se23.engine.audio.SoundEffectsManager;
 import com.setur.se23.engine.core.Entity;
@@ -89,9 +88,7 @@ public class FlappyBird {
     }
 
     private void initializeInputManager(InputEvents gameEvents) {
-        var inputSystem = new FX_Input();
-
-        InputManager.Instantiate(inputSystem)
+        InputManager.getInstance()
                 .initialize(gameEvents);
     }
 
@@ -126,6 +123,8 @@ public class FlappyBird {
         BackgroundMusicManager.loadBackgroundMusic(BackgroundMusic.NORMAL.getFilePath());
         BackgroundMusicManager.loadBackgroundMusic(BackgroundMusic.FASTER.getFilePath());
         BackgroundMusicManager.loadBackgroundMusic(BackgroundMusic.FASTEST.getFilePath());
+        SoundEffectsManager.loadSoundEffect(SoundEffects.POINT.getFilePath());
+
     }
 
     private ArrayList<Runnable> getRunnables() {
