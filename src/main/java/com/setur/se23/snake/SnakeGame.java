@@ -2,6 +2,7 @@ package com.setur.se23.snake;
 
 import java.util.ArrayList;
 
+import com.setur.se23.engine.audio.SoundEffectsManager;
 import com.setur.se23.dependency.input.FX_Input;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.core.Randoms;
@@ -12,13 +13,8 @@ import com.setur.se23.engine.loop.GameLoop;
 import com.setur.se23.engine.loop.Loop;
 import com.setur.se23.snake.Snake_Objects.Apple;
 import com.setur.se23.snake.Snake_Objects.Background;
-import com.setur.se23.snake.Snake_Objects.GameOver;
-import com.setur.se23.snake.Snake_Objects.SnakeBody;
-import com.setur.se23.snake.Snake_Objects.SnakeBodyCounterClockwise;
-import com.setur.se23.snake.Snake_Objects.SnakeBodyClockwise;
-import com.setur.se23.snake.Snake_Objects.SnakeEntity;
-import com.setur.se23.snake.Snake_Objects.SnakeHead;
-import com.setur.se23.snake.Snake_Objects.SnakeTail;
+import com.setur.se23.snake.Snake_Objects.Snake;
+import com.setur.se23.snake.Snake_Objects.SnakePart;
 import com.setur.se23.snake.Snake_Objects.StartGameInfo;
 
 /**
@@ -35,16 +31,15 @@ public class SnakeGame {
     private static final int HEAD_START_POSITION_Y = GRID_SIZE/2;
 
     private Grid grid;
-    private ArrayList<SnakeEntity> snakeEntities;
+    private ArrayList<Snake> snakeEntities;
     private Background background;
     private Apple apple;
-    private SnakeHead snakeHead;
-    private SnakeBody snakeBody1;
-    private SnakeBody snakeBody2;
-    private SnakeBody snakeBody3;
-    private SnakeTail snakeTail;
+    private Snake snakeHead;
+    private Snake snakeBody1;
+    private Snake snakeBody2;
+    private Snake snakeBody3;
+    private Snake snakeTail;
     private StartGameInfo startGameInfo;
-    private GameOver gameOver;
 
     // can be -1, 0 or 1.
     public int directionX;
@@ -63,10 +58,12 @@ public class SnakeGame {
         this.apple = new Apple(Randoms.randomDouble(0, SCREEN_SIZE-C_S), Randoms.randomDouble(0, SCREEN_SIZE-C_S));
         this.grid = new Grid(GRID_SIZE, GRID_SIZE);
         this.startGameInfo = new StartGameInfo();
-        this.gameOver = new GameOver();
-        this.snakeEntities = new ArrayList<SnakeEntity>();
+        this.snakeEntities = new ArrayList<Snake>();
         this.isFirstMove = true;
 
+        loadSoundEffects();
+
+        SnakeGameGUI.setRestartRunnable(() -> initSnakeAndObjects());
         initSnakeAndObjects();
     }
 
@@ -74,17 +71,19 @@ public class SnakeGame {
      * Used in the Constructor and when pressing the 'R' button.
      */
     public void initSnakeAndObjects() {
-        // can be between 4-49 for the x position on the grid,
-        // and 0-49 for the y position on the grid.
+        SnakeGameGUI.newGame();
+        SnakeGameGUI.setGUI();
+        // can be between 4-49 for the x position on the default grid,
+        // and 0-49 for the y position on the default grid.
         initializeSnake(HEAD_START_POSITION_X, HEAD_START_POSITION_Y);        
 
-        newScene();
+        newGame();
     }
 
     /**
      * What is sent to the game loop.
      */
-    private void newScene() {
+    private void newGame() {
 
         gameLoop.unsubscribeFromFrame(loop);
 
@@ -101,7 +100,7 @@ public class SnakeGame {
      * @param posY The initial grid Y positions of the snake.
      */
     private void initializeSnake(int posX, int posY) {
-        snakeEntities = new ArrayList<SnakeEntity>();
+        snakeEntities = new ArrayList<Snake>();
 
         // placement of snake.
         int[] headPosition = {posX, posY};
@@ -116,11 +115,13 @@ public class SnakeGame {
         double[] bodyStageCoordinates3 = GridUtils.gridToStageCoordinates(bodyPosition3[0], bodyPosition3[1]);
         double[] tailStageCoordinates = GridUtils.gridToStageCoordinates(tailPosition[0], tailPosition[1]);
 
-        snakeHead = new SnakeHead(headStageCoordinates[0], headStageCoordinates[1], 0);
-        snakeBody1 = new SnakeBody(bodyStageCoordinates1[0], bodyStageCoordinates1[1], 0);
-        snakeBody2 = new SnakeBody(bodyStageCoordinates2[0], bodyStageCoordinates2[1], 0);
-        snakeBody3 = new SnakeBody(bodyStageCoordinates3[0], bodyStageCoordinates3[1], 0);
-        snakeTail = new SnakeTail(tailStageCoordinates[0], tailStageCoordinates[1], 0);
+        snakeHead = new Snake(SnakePart.HEAD.getTexture(), headStageCoordinates[0], headStageCoordinates[1], 0);
+        snakeBody1 = new Snake(SnakePart.BODY.getTexture() , bodyStageCoordinates1[0], bodyStageCoordinates1[1], 0);
+        snakeBody2 = new Snake(SnakePart.BODY.getTexture() ,bodyStageCoordinates2[0], bodyStageCoordinates2[1], 0);
+        snakeBody3 = new Snake(SnakePart.BODY.getTexture() ,bodyStageCoordinates3[0], bodyStageCoordinates3[1], 0);
+        snakeTail = new Snake(SnakePart.TAIL.getTexture() ,tailStageCoordinates[0], tailStageCoordinates[1], 0);
+
+
 
         snakeEntities.addLast(snakeHead);
         snakeEntities.addLast(snakeBody1);
@@ -145,7 +146,7 @@ public class SnakeGame {
             int[] newHeadPosition = calculateNewHeadPosition();
 
             // Convert the old head into a body part, defaults to SnakeBody.
-            SnakeEntity oldHeadAsBody = new SnakeBody(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
+            Snake oldHeadAsBody = new Snake(SnakePart.BODY.getTexture(), snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
             
             // Before updating the head's position, check if the direction has changed
             // Replace the body part behind the head with the appropriate bendy part
@@ -154,22 +155,22 @@ public class SnakeGame {
                 // moving down to right -or- moving up to left (i.e. counterclockwise).
                 if ((snakeHead.getPrevDirectionY() == 1 && snakeHead.getDirectionX() == 1) ||
                     (snakeHead.getPrevDirectionY() == -1 && snakeHead.getDirectionX() == -1)){
-                    oldHeadAsBody = new SnakeBodyCounterClockwise(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
+                    oldHeadAsBody = new Snake(SnakePart.BODY_COUNTER_CLOCKWISE.getTexture(), snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
                     snakeHead.setIsMovingX(true);
                 // moving right to up -or- moving left to down (i.e. counterclockwise).
                 } else if ((snakeHead.getPrevDirectionX() == 1 && snakeHead.getDirectionY() == -1) ||
                         (snakeHead.getPrevDirectionX() == -1 && snakeHead.getDirectionY() == 1)) {
-                    oldHeadAsBody = new SnakeBodyCounterClockwise(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
+                    oldHeadAsBody = new Snake(SnakePart.BODY_COUNTER_CLOCKWISE.getTexture(), snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
                     snakeHead.setIsMovingY(true);
                 // moving up to right -or- down to left (i.e. clockwise).
                 } else if ((snakeHead.getPrevDirectionY() == -1 && snakeHead.getDirectionX() == 1) ||
                         (snakeHead.getPrevDirectionY() == 1 && snakeHead.getDirectionX() == -1) ){
-                    oldHeadAsBody = new SnakeBodyClockwise(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
+                    oldHeadAsBody = new Snake(SnakePart.BODY_CLOCKWISE.getTexture(), snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
                     snakeHead.setIsMovingX(true);
                 // moving right to down -or- moving left to up (i.e. clockwise).
                 } else if ((snakeHead.getPrevDirectionX() == 1 && snakeHead.getDirectionY() == 1) ||
                         (snakeHead.getPrevDirectionX() == -1 && snakeHead.getDirectionY() == -1)) {
-                    oldHeadAsBody = new SnakeBodyClockwise(snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
+                    oldHeadAsBody = new Snake(SnakePart.BODY_CLOCKWISE.getTexture(), snakeHead.getX(), snakeHead.getY(), calculateHeadAngle());
                     snakeHead.setIsMovingY(true);
                 }
             }
@@ -209,14 +210,12 @@ public class SnakeGame {
      * Method for refreshing all the entities in the scene.
      */
     private void refreshRenderingEntities() {
-        //ArrayList<Entity> entities = new ArrayList<Entity>();
-
         Loop.entities.clear();
 
         Loop.entities.add(background);
         Loop.entities.add(apple);
         
-        for (SnakeEntity entity : snakeEntities) {
+        for (Snake entity : snakeEntities) {
             Loop.entities.add(entity);
         }
 
@@ -226,17 +225,7 @@ public class SnakeGame {
         }
 
         // If the snake collides with itself display the Game Over object.
-        if (!snakeHead.isAlive()) {
-            Loop.entities.add(gameOver);
-        }
-
         loop.assignlists();
-
-        //gameLoop.unsubscribeFromFrame(loop);
-
-        //loop = new Loop(entities, getRunnables());
-
-        //gameLoop.subscribeToFrame(loop);
     }
 
     /**
@@ -293,14 +282,14 @@ public class SnakeGame {
      */
     private void removeTailSegment() {
 
-        SnakeEntity oldTail = snakeEntities.getLast();
+        Snake oldTail = snakeEntities.getLast();
         snakeEntities.removeLast(); // Assuming the tail is always the last element
 
         // Make second-last SnakeEntity to tail.
-        SnakeEntity replaceBody = snakeEntities.getLast();
+        Snake replaceBody = snakeEntities.getLast();
 
         // If the new tail is a body part, convert it to a tail
-        SnakeTail newTail = new SnakeTail(replaceBody.getX(), replaceBody.getY(), replaceBody.getAngle());
+        Snake newTail = new Snake(SnakePart.TAIL.getTexture(), replaceBody.getX(), replaceBody.getY(), replaceBody.getAngle());
 
         // Replace the body part with the new tail in the list
         snakeEntities.removeLast();
@@ -323,7 +312,7 @@ public class SnakeGame {
         entities.add(background);
         entities.add(apple);
 
-        for (SnakeEntity snakeEntity : snakeEntities) {
+        for (Snake snakeEntity : snakeEntities) {
             entities.add(snakeEntity);
         }
 
@@ -349,7 +338,7 @@ public class SnakeGame {
      * 
      * @param player The inputs are valid for the SnakeHead.
      */
-    private void createInputs(SnakeHead player) {
+    private void createInputs(Snake player) {
         initializeInputManager(new GameEvents(player, this));
 
         InputManager inputSystem = InputManager.getInstance();
@@ -392,5 +381,13 @@ public class SnakeGame {
         });
 
         return runnables;
+    }
+
+    /**
+     * Preload sound effects into memory.
+     */
+    private void loadSoundEffects() {
+        SoundEffectsManager.loadSoundEffect(SoundEffects.EAT_APPLE.getFilePath());
+        SoundEffectsManager.loadSoundEffect(SoundEffects.SNAKE_HISS.getFilePath());
     }
 }

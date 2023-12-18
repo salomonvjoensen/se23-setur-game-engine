@@ -1,19 +1,24 @@
 package com.setur.se23.snake.Snake_Objects;
-
+import com.setur.se23.engine.Collision.Collidable;
+import com.setur.se23.engine.Collision.Collider;
+import com.setur.se23.engine.Collision.SquareCollider;
+import com.setur.se23.engine.audio.SoundEffectsManager;
 import com.setur.se23.engine.core.Entity;
-import com.setur.se23.engine.core.Resource;
 import com.setur.se23.engine.render.common.Texture2D;
+import com.setur.se23.snake.GridUtils;
+import com.setur.se23.snake.SnakeGameGUI;
+import com.setur.se23.snake.SnakeGlobals;
+import com.setur.se23.snake.SoundEffects;
 
 /**
- * The Snake head, all the game logic is tied with the head,
- * and the rest of the body just follows suit.
+ * The class of all 5 snake body parts.
  */
-public class SnakeHead extends SnakeEntity{
+public class Snake extends Entity implements Collidable{
 
-    private int directionX;
+    private int directionX = 1;  // Initially moving right.
     private int directionY;
 
-    private int prevDirectionX = 1; // Initially moving right
+    private int prevDirectionX = 1; // Last movement was right.
     private int prevDirectionY = 0;
 
     private boolean isMovingX = true;
@@ -21,22 +26,59 @@ public class SnakeHead extends SnakeEntity{
     private boolean isAlive = true;
     private boolean appleEaten = false;
 
+    private static final double SCALE = SnakeGlobals.SCALE;  // Default 0.1
+    private Collider collider;
+
     /**
-     * Constructor.
+     * Constructor. Uses the SquareCollider.
      * 
+     * @param texture What body part image is used.
      * @param xPos Sets horizontal position.
      * @param yPos Sets vertical position.
-     * @param angle Sets the angle, initially 0 (facing right).
+     * @param angle Sets the angle, initially.
+     * @param scaleX Sets the horizontal scaling, all the body parts use 10% scaling.
+     * @param scaleY Sets the vertical scaling, all the body parts use 10% scaling.
      */
-    public SnakeHead(double xPos, double yPos, double angle) {
-            super(new Texture2D(Resource.getSprite("snake-head.png"), 160, 160), 
-                xPos, 
-                yPos, 
-                angle);
-            this.directionX = 1;  // Initially moving right.
-            this.directionY = 0;
+    public Snake(Texture2D texture, double xPos, double yPos, double angle) {
+        super(texture, xPos, yPos, angle, SCALE, SCALE);
 
-        }
+        setCollider(new SquareCollider(this, getWidth(), getHeight()));
+    }
+    
+    /**
+     * The logical translation between grid and stage, and angle.
+     * 
+     * @param gridX The corresponding horizontal position on the grid.
+     * @param gridY The corresponding vertical position on the grid.
+     * @param angle The angle of the snake bodypart.
+     */
+    public void setPosition(double gridX, double gridY, double angle) {
+        this.xPos = GridUtils.gridToStageCoordinateX((int)gridX);
+        this.yPos = GridUtils.gridToStageCoordinateY((int)gridY);
+        this.angle = angle;
+    }
+
+    /**
+     * Sets the Collider.
+     * 
+     * @param collider
+     */
+    @Override
+    public void setCollider(Collider collider) {
+        this.collider = collider;
+    }
+
+
+    /**
+     * Get method for the Collider. Uses Square Collider.
+     * 
+     * @return The Collider.
+     */
+    @Override
+    public Collider getCollider() {
+        return collider;
+    }
+
     /**
      * Moving upwards, decreasing Y-coordinate by 1,
      * by updating vertical direction.
@@ -237,11 +279,15 @@ public class SnakeHead extends SnakeEntity{
      */
     @Override
     public void collisionEvent(Entity collisionEntity) {
-        if (collisionEntity instanceof Apple) {
+        if (collisionEntity instanceof Apple && !appleEaten) {
+            SoundEffectsManager.playLoaded(SoundEffects.EAT_APPLE.getFilePath());
             appleEaten = true;
         }
 
-        if (collisionEntity instanceof SnakeEntity) {
+        if (collisionEntity instanceof Snake && isAlive) {
+            SoundEffectsManager.playLoaded(SoundEffects.SNAKE_HISS.getFilePath());
+            SnakeGameGUI.gameOver();
+            SnakeGameGUI.setGUI();
             isAlive = false;
         }
     }
