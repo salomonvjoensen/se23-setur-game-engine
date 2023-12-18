@@ -11,7 +11,7 @@ import com.setur.se23.snake.SnakeGlobals;
 import com.setur.se23.snake.SoundEffects;
 
 /**
- * The abstract class of all 5 snake body parts.
+ * The class of all 5 snake body parts.
  */
 public class Snake extends Entity implements Collidable{
 
