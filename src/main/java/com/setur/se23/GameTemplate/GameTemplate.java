@@ -2,7 +2,6 @@ package com.setur.se23.GameTemplate;
 
 import java.util.ArrayList;
 
-import com.setur.se23.dependency.input.FX_Input;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.input.InputEvents;
 import com.setur.se23.engine.input.InputManager;
@@ -42,9 +41,7 @@ public class GameTemplate {
     }
 
     private void initializeInputManager(InputEvents gameEvents) {
-        var inputSystem = new FX_Input();
-
-        InputManager.Instantiate(inputSystem)
+        InputManager.getInstance()
                 .initialize(gameEvents);
     }
 
