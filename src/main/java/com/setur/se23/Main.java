@@ -2,9 +2,12 @@ package com.setur.se23;
 
 import com.setur.se23.SceneManager.SceneManager;
 import com.setur.se23.dependency.FX_Globals;
+import com.setur.se23.dependency.backgroundMusic.AudioPlayer;
 import com.setur.se23.dependency.input.FX_Input;
 import com.setur.se23.dependency.loop.JavaFxGameLoop;
 import com.setur.se23.dependency.render.canvas.CanvasRenderer;
+
+import com.setur.se23.engine.audio.BackgroundMusicManager;
 import com.setur.se23.engine.core.Core;
 import com.setur.se23.engine.input.InputManager;
 import com.setur.se23.engine.loop.GameLoop;
@@ -38,6 +41,7 @@ public class Main extends Application {
 
         initializeRenderer(FX_Globals.stage);
         initializeGameLoop();
+        BackgroundMusicManager.initialize(new AudioPlayer());
         
         SceneManager.load();
     }

@@ -1,15 +1,13 @@
 package com.setur.se23.dependency.backgroundMusic;
 
+import com.setur.se23.engine.audio.AudioPipelineInterface;
+
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-public class AudioPlayer {
+public class AudioPlayer implements AudioPipelineInterface {
     private static Media media;
     private static MediaPlayer mediaPlayer;
-
-    public AudioPlayer(String fullPath) {
-        newMedia(fullPath);
-    }
 
     public void newMedia(String fullPath) {
         media = new Media(fullPath);
@@ -24,11 +22,19 @@ public class AudioPlayer {
         mediaPlayer.stop();
     }
 
+    public void pause() {
+        mediaPlayer.pause();
+    }
+
     public void setSpeed(double speed) {
         mediaPlayer.setRate(speed);
     }
 
     public void setVolume(double volume) {
         mediaPlayer.setVolume(volume);
+    }
+
+    public boolean isPlaying() {
+        return media != null;
     }
 }

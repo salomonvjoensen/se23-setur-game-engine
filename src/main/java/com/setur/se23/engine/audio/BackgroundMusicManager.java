@@ -5,17 +5,19 @@ import java.util.Map;
 import java.util.HashMap;
 
 import com.setur.se23.engine.core.Resource;
-import com.setur.se23.dependency.backgroundMusic.AudioPlayer;
 
 public class BackgroundMusicManager {
     private static Map<String, String> backgroundMusicList = new HashMap<>();
 
-    private static AudioPlayer audioPlayer;
+    private static AudioPipelineInterface audioPlayer;
 
     private static double playbackSpeed = 1.0;
-    private static double playbackSpeedIncrement = 0.10;
 
     private static double volume = 0.8;
+
+    public static void initialize(AudioPipelineInterface audioPipelineInterface) {
+        BackgroundMusicManager.audioPlayer = audioPipelineInterface;
+    }
 
     /**
      * Loading background music will load its full path
@@ -37,16 +39,34 @@ public class BackgroundMusicManager {
     public static void playLoaded(String shortPathToBackgroundMusic) {
         String fullPath = backgroundMusicList.get(shortPathToBackgroundMusic);
 
-        if (audioPlayer != null) {
-            audioPlayer.stop();
-            audioPlayer.newMedia(fullPath);
-            audioPlayer.setVolume(volume);
-        } else {
-            audioPlayer = new AudioPlayer(fullPath);
-            audioPlayer.setVolume(volume);
+        if (audioPlayer.isPlaying()) {
+            stop();
         }
+        audioPlayer.newMedia(fullPath);
+        setVolume(volume);
 
+        play();
+    }
+
+    /**
+     * Play music.
+     */
+    public static void play() {
         audioPlayer.play();
+    }
+
+    /**
+     * Pause music.
+     */
+    public static void pause() {
+        audioPlayer.pause();
+    }
+
+    /**
+     * Stop music.
+     */
+    public static void stop() {
+        audioPlayer.stop();
     }
 
     /**
@@ -58,10 +78,9 @@ public class BackgroundMusicManager {
     }
 
     /**
-     * Increases playback speed by 0.10.
+     * Sets the speed of playback.
      */
-    public static void speedMusic() {
-        playbackSpeed += playbackSpeedIncrement;
+    public static void setPlaybackSpeed(double playbackSpeed) {
         audioPlayer.setSpeed(playbackSpeed);
     }
 

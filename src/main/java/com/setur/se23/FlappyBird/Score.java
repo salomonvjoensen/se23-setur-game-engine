@@ -15,6 +15,8 @@ public class Score {
     public static int score;
 
     public static int level = 0;
+
+    public static double playbackSpeed = 1.0;
     
     public static void updateScore(int amount) {
         score += amount;
@@ -33,36 +35,24 @@ public class Score {
         
         Background background = (Background) Loop.entities.get(0);
 
-        if (score % 30 == 0) {
-            background.changeMaterial(1);
-
-            // change music
-        }
-        
-        else if (score % 20 == 0) {
-            background.changeMaterial(0);
-
-            // change music
-        }
-        
-        else if (score % 10 == 0) {
-            background.changeMaterial(1);
-
-            // change music
-        }
-
         if (score % 10 == 0) {
             Pipe.speed += 25;
             Core.debug.info("Pipe speeding up (pipe speed: " + Pipe.speed + ")");
             level++;
-            if (level == 1) {
-                BackgroundMusicManager.playLoaded(BackgroundMusic.FASTER.getFilePath());
-            }
-            if (level == 2) {
-                BackgroundMusicManager.playLoaded(BackgroundMusic.FASTEST.getFilePath()); 
-            }
             if (level > 2) {
-                BackgroundMusicManager.speedMusic();
+                playbackSpeed += 0.1;
+                BackgroundMusicManager.setPlaybackSpeed(playbackSpeed);
+                if (level % 2 == 0) {
+                    background.changeMaterial(0);
+                } else {
+                    background.changeMaterial(1);
+                }
+            } else if (level == 2) {
+                BackgroundMusicManager.playLoaded(BackgroundMusic.FASTEST.getFilePath());
+                background.changeMaterial(0);
+            } else if (level == 1) {
+                BackgroundMusicManager.playLoaded(BackgroundMusic.FASTER.getFilePath());
+                background.changeMaterial(1);
             }
         }
     }
