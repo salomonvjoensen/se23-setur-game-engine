@@ -83,6 +83,9 @@ public class FX_Input implements Input {
         events.event(gameEvent);
     }
 
+    /**
+     * Method sets all inputs that have been added with addInput()
+     */
     public void setInputs() {
         FX_Globals.getStage().getScene().setOnKeyPressed(event -> keyPressed(event));
         FX_Globals.getStage().getScene().setOnKeyReleased(event -> keyReleased(event));

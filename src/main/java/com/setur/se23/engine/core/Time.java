@@ -4,6 +4,11 @@ public class Time {
     
     private static long currentNanoTime;
 
+    /**
+     * Method for getting current time.
+     * 
+     * @return current time in nano seconds
+     */
     public static long getCurrentTime() {
         return currentNanoTime;
     }

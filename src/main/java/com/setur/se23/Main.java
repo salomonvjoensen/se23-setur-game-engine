@@ -2,9 +2,9 @@ package com.setur.se23;
 
 import com.setur.se23.SceneManager.SceneManager;
 import com.setur.se23.dependency.FX_Globals;
-import com.setur.se23.dependency.backgroundMusic.AudioPlayer;
+import com.setur.se23.dependency.audio.FX_AudioPlayer;
 import com.setur.se23.dependency.input.FX_Input;
-import com.setur.se23.dependency.loop.JavaFxGameLoop;
+import com.setur.se23.dependency.loop.FX_GameLoop;
 import com.setur.se23.dependency.render.canvas.CanvasRenderer;
 
 import com.setur.se23.engine.audio.BackgroundMusicManager;
@@ -35,13 +35,18 @@ public class Main extends Application {
         Core.WindowWidth = FX_Globals.getStage().getWidth();
         Core.WindowHeight = FX_Globals.getStage().getHeight();
 
+
         SceneManager.manage();
+
 
         InputManager.Instantiate(new FX_Input());
 
         initializeRenderer(FX_Globals.stage);
-        initializeGameLoop();
-        BackgroundMusicManager.initialize(new AudioPlayer());
+
+        GameLoop.initialize(new FX_GameLoop());
+
+        BackgroundMusicManager.initialize(new FX_AudioPlayer());
+        
         
         SceneManager.load();
     }
@@ -51,9 +56,5 @@ public class Main extends Application {
 
         Renderer.Instantiate(canvasRenderer)
                 .initialize(new ViewPort(stage.getWidth(), stage.getHeight()));
-    }
-
-    private void initializeGameLoop() {
-        GameLoop.initialize(new JavaFxGameLoop());
     }
 }

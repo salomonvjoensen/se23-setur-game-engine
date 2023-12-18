@@ -10,6 +10,12 @@ public abstract class Collider {
     protected Texture2D texture;
     protected Entity attachedEntity;
 
+    /**
+     * Constructor for Collider
+     * 
+     * @param texture Collider texture (intended to be gizmo texture)
+     * @param attachedEntity the colliders entity
+     */
     public Collider(Texture2D texture, Entity attachedEntity) {
         this.texture = texture;
         this.attachedEntity = attachedEntity;
@@ -19,7 +25,12 @@ public abstract class Collider {
         Renderer.getInstance().allocateTexture(bufferItem.texture());
     }
 
-    public Texture2D getMaterial() {
+    /**
+     * Method for getting texture (i.e. gizmo)
+     * 
+     * @return texture
+     */
+    public Texture2D getTexture() {
         return texture;
     }
 

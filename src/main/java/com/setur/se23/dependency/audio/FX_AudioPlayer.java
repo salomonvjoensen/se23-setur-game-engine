@@ -1,11 +1,11 @@
-package com.setur.se23.dependency.backgroundMusic;
+package com.setur.se23.dependency.audio;
 
 import com.setur.se23.engine.audio.AudioPipelineInterface;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-public class AudioPlayer implements AudioPipelineInterface {
+public class FX_AudioPlayer implements AudioPipelineInterface {
     private static Media media;
     private static MediaPlayer mediaPlayer;
 

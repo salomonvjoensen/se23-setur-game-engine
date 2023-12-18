@@ -3,6 +3,7 @@ package com.setur.se23.engine.Collision;
 import com.setur.se23.engine.core.Entity;
 
 public class CollisionDetection {
+
     /**
      * @param a an entity
      * @param b a second entity
@@ -32,6 +33,13 @@ public class CollisionDetection {
         return false;
     }
 
+    /**
+     * Method for checking if two square colliders intersect.
+     * 
+     * @param square1
+     * @param square2
+     * @return true if intersecting.
+     */
     private static boolean squaresCollide(SquareCollider square1, SquareCollider square2) {
         return square1.getX() + square1.getWidth()  > square2.getX() &&
                square2.getX() + square2.getWidth()  > square1.getX() &&
@@ -39,6 +47,13 @@ public class CollisionDetection {
                square2.getY() + square2.getHeight() > square1.getY();
     }
 
+    /**
+     * Method for checking if two circle colliders intersect.
+     * 
+     * @param circle1
+     * @param circle2
+     * @return true if intersecting.
+     */
     private static boolean circlesCollide(CircleCollider circle1, CircleCollider circle2) {
 
         double distanceX = circle1.getCenterX() - circle2.getCenterX();
@@ -50,6 +65,13 @@ public class CollisionDetection {
         return distance < (circle1.getRadius() + circle2.getRadius());
     }
 
+    /**
+     * Method for checking if a square collider and a circle collider intersect.
+     * 
+     * @param square
+     * @param circle
+     * @return true if intersecting.
+     */
     private static boolean squareCircleCollide(SquareCollider square, CircleCollider circle) {
 
         double leftX  = square.getX();
@@ -68,6 +90,18 @@ public class CollisionDetection {
         return distance < circle.getRadius();
     }
 
+    /**
+     * Method for finding the closest position in a square collider 
+     * to a circle collider.
+     * If circleCenter is between min and max then circleCenter is 
+     * selected otherwise its either min or max depending on where 
+     * circleCenter is.
+     * 
+     * @param min x or y
+     * @param max x or y
+     * @param circleCenter the circles center x or y
+     * @return closest position to circle position
+     */
     private static double closestCoord(double min, double max, double circleCenter) {
         return Math.max(min, Math.min(max, circleCenter));
     }

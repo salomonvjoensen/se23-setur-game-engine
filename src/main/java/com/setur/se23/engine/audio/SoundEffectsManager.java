@@ -3,11 +3,11 @@ package com.setur.se23.engine.audio;
 import java.util.Map;
 import java.util.HashMap;
 
-import com.setur.se23.dependency.soundEffects.SoundEffectPlayer;
+import com.setur.se23.dependency.audio.FX_SoundEffectPlayer;
 import com.setur.se23.engine.core.Resource;
 
 public class SoundEffectsManager {
-    private static Map<String, SoundEffectPlayer> soundEffectsMap = new HashMap<>();
+    private static Map<String, FX_SoundEffectPlayer> soundEffectsMap = new HashMap<>();
 
     /**
      * Pre-load sound effect into memory for quick playback.
@@ -15,7 +15,7 @@ public class SoundEffectsManager {
      * @param shortPathToSoundEffect
      */
     public static void loadSoundEffect(String shortPathToSoundEffect) {
-        SoundEffectPlayer soundEffect = new SoundEffectPlayer(
+        FX_SoundEffectPlayer soundEffect = new FX_SoundEffectPlayer(
                 Resource.getResourcePath(shortPathToSoundEffect));
         soundEffectsMap.put(shortPathToSoundEffect, soundEffect);
     }
@@ -26,7 +26,7 @@ public class SoundEffectsManager {
      * @param shortPathToSoundEffect
      */
     public static void playLoaded(String shortPathToSoundEffect) {
-        SoundEffectPlayer soundEffect = soundEffectsMap.get(
+        FX_SoundEffectPlayer soundEffect = soundEffectsMap.get(
                 shortPathToSoundEffect);
         soundEffect.play();
     }
@@ -42,7 +42,7 @@ public class SoundEffectsManager {
         String path = Resource.getResourcePath(soundEffectPath);
 
         try {
-            SoundEffectPlayer soundEffect = new SoundEffectPlayer(path);
+            FX_SoundEffectPlayer soundEffect = new FX_SoundEffectPlayer(path);
             soundEffect.play();
         } catch (Exception e) {
             System.out.println("Sound file not found: " + soundEffectPath);

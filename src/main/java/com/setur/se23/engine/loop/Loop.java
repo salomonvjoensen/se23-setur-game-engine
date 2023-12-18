@@ -19,21 +19,32 @@ public class Loop implements FrameInterface {
 
     public static ArrayList<Runnable> gameRunnables = new ArrayList<>();
 
+    /**
+     * Constructor for loop.
+     * 
+     * @param entityList all objects in an arraylist
+     * @param runnableList all runnables in an arraylist
+     */
     public Loop(ArrayList<Entity> entityList, ArrayList<Runnable> runnableList) {
         entities = entityList;
         gameRunnables = runnableList;
 
-        assignPhysics();
-        assignDynamics();
-        assignCollidables();
+        assignlists();
     }
 
+    /**
+     * Method for starting all sorting methods
+     */
     public void assignlists() {
         assignPhysics();
         assignDynamics();
         assignCollidables();
     }
 
+    /**
+     * Method to add all instances of PhysicsEntity to 
+     * physicsEntities ArrayList.
+     */
     private void assignPhysics() {
 
         physicsEntities.clear();
@@ -45,6 +56,10 @@ public class Loop implements FrameInterface {
         }
     }
 
+    /**
+     * Method to add all instances of DynamicEntity to 
+     * dynamicEntities ArrayList.
+     */
     private void assignDynamics() {
 
         dynamicEntities.clear();
@@ -56,6 +71,10 @@ public class Loop implements FrameInterface {
         }
     }
 
+    /**
+     * Method to add all instances of Collidable to 
+     * collidableEntities ArrayList.
+     */
     private void assignCollidables() {
 
         collidableEntities.clear();
@@ -69,6 +88,9 @@ public class Loop implements FrameInterface {
 
     private long previousTime = 0;
 
+    /**
+     * Mehtod to update loop.
+     */
     @Override
     public void update(long currentTime) {
         if (previousTime == 0) {
@@ -85,6 +107,11 @@ public class Loop implements FrameInterface {
         previousTime = currentTime;
     }
 
+    /**
+     * Method to run all logic updates with deltatime.
+     * 
+     * @param deltaTime
+     */
     public void logicLoop(double deltaTime) {
 
         for (PhysicsEntity entity : physicsEntities) {
@@ -111,6 +138,9 @@ public class Loop implements FrameInterface {
         }
     }
 
+    /**
+     * Method to run all render updates.
+     */
     private void renderLoop() {
 
         for (Entity entity : entities) {

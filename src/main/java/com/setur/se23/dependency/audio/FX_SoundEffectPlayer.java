@@ -1,11 +1,11 @@
-package com.setur.se23.dependency.soundEffects;
+package com.setur.se23.dependency.audio;
 
 import javafx.scene.media.AudioClip;
 
-public class SoundEffectPlayer {
+public class FX_SoundEffectPlayer {
     private AudioClip soundEffect;
 
-    public SoundEffectPlayer(String relativePath) {
+    public FX_SoundEffectPlayer(String relativePath) {
         soundEffect = new AudioClip(relativePath);
     }
 
