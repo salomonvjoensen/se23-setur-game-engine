@@ -77,13 +77,13 @@ public class SnakeGame {
         // and 0-49 for the y position on the default grid.
         initializeSnake(HEAD_START_POSITION_X, HEAD_START_POSITION_Y);        
 
-        newScene();
+        newGame();
     }
 
     /**
      * What is sent to the game loop.
      */
-    private void newScene() {
+    private void newGame() {
 
         gameLoop.unsubscribeFromFrame(loop);
 
