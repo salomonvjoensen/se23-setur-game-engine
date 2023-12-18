@@ -35,24 +35,6 @@ public class Score {
         
         Background background = (Background) Loop.entities.get(0);
 
-        // if (score % 30 == 0) {
-        //     background.changeMaterial(1);
-
-        //     // change music
-        // }
-        
-        // else if (score % 20 == 0) {
-        //     background.changeMaterial(0);
-
-        //     // change music
-        // }
-        
-        // else if (score % 10 == 0) { // 10, 20, 30, 40, 50, 60, 70, 80, 90, 100
-        //     background.changeMaterial(1);
-
-        //     // change music
-        // }
-
         if (score % 10 == 0) {
             Pipe.speed += 25;
             Core.debug.info("Pipe speeding up (pipe speed: " + Pipe.speed + ")");

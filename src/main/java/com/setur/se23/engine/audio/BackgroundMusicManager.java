@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.HashMap;
 
 import com.setur.se23.engine.core.Resource;
-import com.setur.se23.dependency.backgroundMusic.AudioPlayer;
 
 public class BackgroundMusicManager {
     private static Map<String, String> backgroundMusicList = new HashMap<>();
