@@ -27,7 +27,7 @@ public class Snake extends Entity implements Collidable{
     private boolean appleEaten = false;
 
     private static final double SCALE = SnakeGlobals.SCALE;  // Default 0.1
-    public Collider collider;
+    private Collider collider;
 
     /**
      * Constructor. Uses the SquareCollider.
