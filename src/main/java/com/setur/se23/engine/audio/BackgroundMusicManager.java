@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Map;
 import java.util.HashMap;
 
-import com.setur.se23.engine.core.Core;
+import com.setur.se23.engine.core.Resource;
 import com.setur.se23.dependency.backgroundMusic.AudioPlayer;
 
 public class BackgroundMusicManager {
@@ -23,7 +23,7 @@ public class BackgroundMusicManager {
      * @param shortPathToBackgroundMusic
      */
     public static void loadBackgroundMusic(String shortPathToBackgroundMusic) {
-        String mediumPath = Core.getResourcePathNonPreappended(shortPathToBackgroundMusic);
+        String mediumPath = Resource.getResourcePathNonPreappended(shortPathToBackgroundMusic);
         File file = new File(mediumPath);
         String fullPath = file.toURI().toString();
 

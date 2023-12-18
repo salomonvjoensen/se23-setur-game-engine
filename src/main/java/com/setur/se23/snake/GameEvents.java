@@ -1,7 +1,7 @@
 package com.setur.se23.snake;
 
 import com.setur.se23.snake.Snake_Objects.SnakeHead;
-import com.setur.se23.engine.core.Core;
+import com.setur.se23.engine.core.RenderConfig;
 import com.setur.se23.engine.input.InputEvents;
 
 /**
@@ -26,10 +26,10 @@ public class GameEvents implements InputEvents {
     public void event(String event) {
         switch (event) {
             case "toggle_FPS_Counter":
-                Core.toggleFPS_Counter();
+                RenderConfig.toggleFPS_Counter();
                 break;
             case "toggle_Gizmos":
-                Core.toggleRenderGizmos();
+                RenderConfig.toggleRenderGizmos();
                 break;
             case "Restart":
                 game.initSnakeAndObjects();

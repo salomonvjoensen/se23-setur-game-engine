@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 import com.setur.se23.dependency.soundEffects.SoundEffectPlayer;
-import com.setur.se23.engine.core.Core;
+import com.setur.se23.engine.core.Resource;
 
 public class SoundEffectsManager {
     private static Map<String, SoundEffectPlayer> soundEffectsMap = new HashMap<>();
@@ -16,7 +16,7 @@ public class SoundEffectsManager {
      */
     public static void loadSoundEffect(String shortPathToSoundEffect) {
         SoundEffectPlayer soundEffect = new SoundEffectPlayer(
-                Core.getResourcePath(shortPathToSoundEffect));
+                Resource.getResourcePath(shortPathToSoundEffect));
         soundEffectsMap.put(shortPathToSoundEffect, soundEffect);
     }
 
@@ -39,7 +39,7 @@ public class SoundEffectsManager {
      */
     public void playNonLoaded(String soundEffectPath) {
 
-        String path = Core.getResourcePath(soundEffectPath);
+        String path = Resource.getResourcePath(soundEffectPath);
 
         try {
             SoundEffectPlayer soundEffect = new SoundEffectPlayer(path);

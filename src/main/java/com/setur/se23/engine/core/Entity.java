@@ -4,50 +4,45 @@ import java.util.ArrayList;
 
 import com.setur.se23.engine.render.BufferItem;
 import com.setur.se23.engine.render.Renderer;
-import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.Texture2D;
 
 public abstract class Entity {
-    protected ArrayList<Material> materialList = new ArrayList<>();
-    protected int currentMaterialIndex;
+    protected ArrayList<Texture2D> textureList = new ArrayList<>();
+    protected int currentTextureIndex;
     protected double xPos;
     protected double yPos;
     protected double angle;
     protected double scaleX;
     protected double scaleY;
     
-    public Entity(Material material, double xPos, double yPos, double angle, double scaleX, double scaleY) {
-        this.materialList.add(material);
-        this.currentMaterialIndex = 0;
+    public Entity(Texture2D texture, double xPos, double yPos, double angle, double scaleX, double scaleY) {
+        this.textureList.add(texture);
+        this.currentTextureIndex = 0;
         this.xPos = xPos;
         this.yPos = yPos;
         this.angle = angle;
         this.scaleX = scaleX;
         this.scaleY = scaleY;
 
-        BufferItem bufferItem = new BufferItem(material, xPos, yPos, angle, scaleX, scaleY);
+        BufferItem bufferItem = new BufferItem(texture, xPos, yPos, angle, scaleX, scaleY);
 
-        Renderer.getInstance().allocateTexture(bufferItem.material().texture());
+        Renderer.getInstance().allocateTexture(bufferItem.texture());
     }
 
-    public Material getMaterial() {
-        return materialList.get(currentMaterialIndex);
-    }
+    public void addTexture(Texture2D texture) {
+        this.textureList.add(texture);
 
-    public void addMaterial(Material material) {
-        this.materialList.add(material);
+        BufferItem bufferItem = new BufferItem(texture, xPos, yPos, angle, scaleX, scaleY);
 
-        BufferItem bufferItem = new BufferItem(material, xPos, yPos, angle, scaleX, scaleY);
-
-        Renderer.getInstance().allocateTexture(bufferItem.material().texture());
+        Renderer.getInstance().allocateTexture(bufferItem.texture());
     }
 
     public void changeMaterial(int index) {
-        currentMaterialIndex = index;
+        currentTextureIndex = index;
     }
 
     public Texture2D getCurrentTexture() {
-        return materialList.get(currentMaterialIndex).texture();
+        return textureList.get(currentTextureIndex);
     }
 
     public double getX() {
@@ -128,7 +123,7 @@ public abstract class Entity {
     }
 
     public void renderEntity() {
-        BufferItem bufferItem = new BufferItem(materialList.get(currentMaterialIndex), xPos, yPos, angle, scaleX, scaleY);
+        BufferItem bufferItem = new BufferItem(textureList.get(currentTextureIndex), xPos, yPos, angle, scaleX, scaleY);
         
         Renderer.getInstance().render(bufferItem);
     }

@@ -1,6 +1,5 @@
 package com.setur.se23.engine.render;
 
-import com.setur.se23.engine.render.common.Material;
 import com.setur.se23.engine.render.common.Texture2D;
 import com.setur.se23.engine.render.common.ViewPort;
 
@@ -17,5 +16,5 @@ public interface RenderPipelineInterface {
 
     void swapBuffers();
 
-    void render(Material material, double x, double y, double angle, double scaleX, double scaleY);
+    void render(Texture2D texture, double x, double y, double angle, double scaleX, double scaleY);
 }
