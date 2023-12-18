@@ -1,6 +1,6 @@
 package com.setur.se23.snake;
 
-import com.setur.se23.snake.Snake_Objects.SnakeHead;
+import com.setur.se23.snake.Snake_Objects.Snake;
 import com.setur.se23.engine.core.RenderConfig;
 import com.setur.se23.engine.input.InputEvents;
 
@@ -9,7 +9,7 @@ import com.setur.se23.engine.input.InputEvents;
  */
 public class GameEvents implements InputEvents {
 
-    private SnakeHead player;
+    private Snake player;
     private SnakeGame game;
 
     /**
@@ -18,7 +18,7 @@ public class GameEvents implements InputEvents {
      * @param player The SnakeHead
      * @param game Reference to the game itself.
      */
-    public GameEvents(SnakeHead player, SnakeGame game) {
+    public GameEvents(Snake player, SnakeGame game) {
         this.player = player;
         this.game = game;
     }
