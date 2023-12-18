@@ -123,6 +123,8 @@ public class FlappyBird {
         BackgroundMusicManager.loadBackgroundMusic(BackgroundMusic.NORMAL.getFilePath());
         BackgroundMusicManager.loadBackgroundMusic(BackgroundMusic.FASTER.getFilePath());
         BackgroundMusicManager.loadBackgroundMusic(BackgroundMusic.FASTEST.getFilePath());
+        SoundEffectsManager.loadSoundEffect(SoundEffects.POINT.getFilePath());
+
     }
 
     private ArrayList<Runnable> getRunnables() {

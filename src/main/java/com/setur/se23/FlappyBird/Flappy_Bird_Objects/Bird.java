@@ -126,6 +126,7 @@ public class Bird extends Entity implements DynamicEntity, Collidable, PhysicsEn
 
             if (collisionEntity.equals(prevScoreCollider) == false) {
                 Score.updateScore(1);
+                SoundEffectsManager.playLoaded(SoundEffects.POINT.getFilePath());
 
                 prevScoreCollider = collisionEntity;
             }
