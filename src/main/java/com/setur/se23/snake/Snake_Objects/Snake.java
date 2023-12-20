@@ -25,6 +25,7 @@ public class Snake extends Entity implements Collidable{
     private boolean isMovingY = false;
     private boolean isAlive = true;
     private boolean appleEaten = false;
+      private boolean isHead = false;
 
     private static final double SCALE = SnakeGlobals.SCALE;  // Default 0.1
     private Collider collider;
@@ -244,6 +245,15 @@ public class Snake extends Entity implements Collidable{
         isMovingY = movingY;
         isMovingX = !movingY;
     }
+
+    /**
+     * Set method, boolean for snake head, used in collision check for apple.
+     * 
+     * @param isHead
+     */
+    public void isHead(boolean isHead) {
+        this.isHead = isHead;
+    }
     
     /**
      * Set method.
@@ -279,7 +289,7 @@ public class Snake extends Entity implements Collidable{
      */
     @Override
     public void collisionEvent(Entity collisionEntity) {
-        if (collisionEntity instanceof Apple && !appleEaten) {
+        if (collisionEntity instanceof Apple && !appleEaten && isHead) {
             SoundEffectsManager.playLoaded(SoundEffects.EAT_APPLE.getFilePath());
             appleEaten = true;
         }

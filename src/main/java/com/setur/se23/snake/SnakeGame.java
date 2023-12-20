@@ -120,7 +120,7 @@ public class SnakeGame {
         snakeBody3 = new Snake(SnakePart.BODY.getTexture() ,bodyStageCoordinates3[0], bodyStageCoordinates3[1], 0);
         snakeTail = new Snake(SnakePart.TAIL.getTexture() ,tailStageCoordinates[0], tailStageCoordinates[1], 0);
 
-
+        snakeHead.isHead(true);
 
         snakeEntities.addLast(snakeHead);
         snakeEntities.addLast(snakeBody1);
