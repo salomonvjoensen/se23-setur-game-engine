@@ -9,6 +9,7 @@ import com.setur.se23.dependency.render.canvas.CanvasRenderer;
 
 import com.setur.se23.engine.audio.BackgroundMusicManager;
 import com.setur.se23.engine.core.Core;
+import com.setur.se23.engine.debug.VS_Debug;
 import com.setur.se23.engine.input.InputManager;
 import com.setur.se23.engine.loop.GameLoop;
 import com.setur.se23.engine.render.Renderer;
@@ -38,6 +39,7 @@ public class Main extends Application {
 
         SceneManager.manage();
 
+        Core.debug = new VS_Debug();
 
         InputManager.Instantiate(new FX_Input());
 

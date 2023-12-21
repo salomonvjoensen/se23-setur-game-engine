@@ -27,7 +27,12 @@ public class Loop implements FrameInterface {
      */
     public Loop(ArrayList<Entity> entityList, ArrayList<Runnable> runnableList) {
         entities = entityList;
-        gameRunnables = runnableList;
+
+        if (runnableList != null) {
+            gameRunnables = runnableList;
+        } else {
+            gameRunnables.clear();
+        }
 
         assignlists();
     }
@@ -112,7 +117,7 @@ public class Loop implements FrameInterface {
      * 
      * @param deltaTime
      */
-    public void logicLoop(double deltaTime) {
+    private void logicLoop(double deltaTime) {
 
         for (PhysicsEntity entity : physicsEntities) {
             entity.updatePhysics(deltaTime);

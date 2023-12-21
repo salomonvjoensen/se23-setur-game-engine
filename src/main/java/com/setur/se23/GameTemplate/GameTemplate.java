@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.setur.se23.engine.core.Entity;
 import com.setur.se23.engine.input.InputEvents;
 import com.setur.se23.engine.input.InputManager;
+import com.setur.se23.engine.input.InputType;
 import com.setur.se23.engine.loop.GameLoop;
 import com.setur.se23.engine.loop.Loop;
 
@@ -49,6 +50,9 @@ public class GameTemplate {
         initializeInputManager(new GameEventsTemplate());
 
         InputManager inputSystem = InputManager.getInstance();
+
+        //example input
+        inputSystem.addInput(InputType.onPress, "SPACE", "Jump");
 
         inputSystem.setInputs();
     }
